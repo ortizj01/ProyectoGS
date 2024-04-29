@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Pedido</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+    <div class="card-header py-3 text-center">
+        <h3 class="m-0 font-weight-bold text-primary">Detalle Cliente</h3>
+    </div>
+
+    <div class="card shadow mb-4">
+        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">IDCliente</th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Fecha pedido</th>
+                    <th scope="col">Total Pedido</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">001</th>
+                    <td>Alexander Ospina</td>
+                    <td>13/11/2023</td>
+                    <td>645.000</td>
+                    <td>PENDIENTE DE PAGO</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+   <div class="container-fluid">
+    <div class="row">
+
+        <!-- Columna de Productos -->
+        <div class="col-md-6">
+            <div class="card-header py-3 text-center">
+                <h3 class="m-0 font-weight-bold text-primary">Productos</h3>
+            </div>
+
+            <div class="bd-example table-responsive">
+                <table  class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">IVA</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">BEST PROTEIN 2.1B LBS</th>
+                            <td>200.000</td>
+                            <td>50.000</td>
+                            <td>4</td>
+                            <td>450.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Columna de Servicios -->
+        <div class="col-md-6">
+            <div class="card-header py-3 text-center">
+                <h3 class="m-0 font-weight-bold text-primary">Servicios</h3>
+            </div>
+
+            <div class="bd-example table-responsive">
+                <table  class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">IVA</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">MEMBRECIA PLUS</th>
+                            <td>150.000</td>
+                            <td>45.000</td>
+                            <td>1</td>
+                            <td>195.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+    </div>
+
+</div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->
+    <br>
+    <div class="position-relative">
+         <a class="nav-link " href="../formproductos"><button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button></a>
+    </div>
+    <br>
+    <div class="container-fluid content-inner">
+        <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-header d-flex justify-content-between">
+               
+               <div class="header-title">
+                  <h4 class="card-title">Productos</h4>
+               </div>
+               
+               
+            </div>
+            <div class="card-body p-0">
+               <div class="table-responsive mt-4">
+                  <table id="basic-table" class="table table-striped mb-0" role="grid">
+                     <thead>
+                        <tr>
+                           <th>Nombre Producto</th>
+                           <th>Precio Producto</th>
+                           <th>Iva Producto</th>
+                           <th>Control De Existencias</th>
+                           <th>Categoria Producto</th>
+                           <th>Acciones</th>
+                           <th>Estado</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                                 <h6>Creatina</h6>
+                           </td>
+                           <td>
+                                 <h6>1.500</h6>                    
+                           </td>
+                           <td><h6>19%</h6></td>
+                           <td>
+                              <h6>6</h6>
+                           </td>
+                           <td>
+                                 <h6>Proteinas</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <a class="nav-link " href="../ProductosEditar"><i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i></a>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle" class="offscreen" />
+                                       <label for="toggle" class="switch"></label>
+                                 </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Creatina Monohidratada</h6>
+                           </td>
+                           <td>
+                                 <h6>50.000</h6>                    
+                           </td>
+                           <td><h6>5%</h6></td>
+                           <td>
+                              <h6>12</h6>
+                           </td>
+                           <td>
+                                 <h6>Creatinas</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle1" class="offscreen" />
+                                       <label for="toggle1" class="switch"></label>
+                                 </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Aminoacidos</h6>
+                           </td>
+                           <td>
+                                 <h6>8.000</h6>                    
+                           </td>
+                           <td><h6>9%</h6></td>
+                           <td>
+                              <h6>33</h6>
+                           </td>
+                           <td>
+                                 <h6>Bebidas Energeticas</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle2" class="offscreen" />
+                                       <label for="toggle2" class="switch"></label>
+                                 </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Tarro one more</h6>
+                           </td>
+                           <td>
+                                 <h6>3.000</h6>                    
+                           </td>
+                           <td><h6>2%</h6></td>
+                           <td>
+                              <h6>50</h6>
+                           </td>
+                           <td>
+                                 <h6>Bebidas</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle3" class="offscreen" />
+                                       <label for="toggle3" class="switch"></label>
+                                 </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Elite</h6>
+                           </td>
+                           <td>
+                                 <h6>33.000</h6>                    
+                           </td>
+                           <td><h6>5%</h6></td>
+                           <td>
+                              <h6>12</h6>
+                           </td>
+                           <td>
+                                 <h6>Bebidas Energeticas</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle4" class="offscreen" />
+                                       <label for="toggle4" class="switch"></label>
+                                 </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Agua</h6>
+                           </td>
+                           <td>
+                                 <h6>2.500</h6>                    
+                           </td>
+                           <td><h6>9%</h6></td>
+                           <td>
+                              <h6>12</h6>
+                           </td>
+                           <td>
+                                 <h6>Bebidas</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle5" class="offscreen" />
+                                       <label for="toggle5" class="switch"></label>
+                                 </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  
+               </div>
+
+               
+            </div>
+            
+         </div>
+
+      </div>
+
+      <div style="padding-left: 80%;">
+         <ul class="pagination" >
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+         </ul>
+      </div>
+   </div>
+    </div>
+
+    <!-- Fin contenido --> 
+
+   <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+   <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

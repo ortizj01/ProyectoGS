@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Roles</title>
+    {{> header}}
+
+    <style>
+        .btn-secondary {
+            background-color: #FF5733;
+            /* Color naranja */
+            color: #fff;
+            /* Texto blanco */
+        }
+    </style>
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between flex-wrap">
+                        <div class="header-title">
+                            <div class="logo-main">
+                                <div class="logo-normal">
+                                    <svg class=" icon-30" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.4 7H4.6C4.26863 7 4 7.26863 4 7.6V16.4C4 16.7314 4.26863 17 4.6 17H7.4C7.73137 17 8 16.7314 8 16.4V7.6C8 7.26863 7.73137 7 7.4 7Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M19.4 7H16.6C16.2686 7 16 7.26863 16 7.6V16.4C16 16.7314 16.2686 17 16.6 17H19.4C19.7314 17 20 16.7314 20 16.4V7.6C20 7.26863 19.7314 7 19.4 7Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M1 14.4V9.6C1 9.26863 1.26863 9 1.6 9H3.4C3.73137 9 4 9.26863 4 9.6V14.4C4 14.7314 3.73137 15 3.4 15H1.6C1.26863 15 1 14.7314 1 14.4Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M23 14.4V9.6C23 9.26863 22.7314 9 22.4 9H20.6C20.2686 9 20 9.26863 20 9.6V14.4C20 14.7314 20.2686 15 20.6 15H22.4C22.7314 15 23 14.7314 23 14.4Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M8 12H16" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <div class="logo-mini">
+                                    <svg class=" icon-30" viewBox="0 0 30 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.4 7H4.6C4.26863 7 4 7.26863 4 7.6V16.4C4 16.7314 4.26863 17 4.6 17H7.4C7.73137 17 8 16.7314 8 16.4V7.6C8 7.26863 7.73137 7 7.4 7Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M19.4 7H16.6C16.2686 7 16 7.26863 16 7.6V16.4C16 16.7314 16.2686 17 16.6 17H19.4C19.7314 17 20 16.7314 20 16.4V7.6C20 7.26863 19.7314 7 19.4 7Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M1 14.4V9.6C1 9.26863 1.26863 9 1.6 9H3.4C3.73137 9 4 9.26863 4 9.6V14.4C4 14.7314 3.73137 15 3.4 15H1.6C1.26863 15 1 14.7314 1 14.4Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M23 14.4V9.6C23 9.26863 22.7314 9 22.4 9H20.6C20.2686 9 20 9.26863 20 9.6V14.4C20 14.7314 20.2686 15 20.6 15H22.4C22.7314 15 23 14.7314 23 14.4Z"
+                                            stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M8 12H16" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h4 class="card-title mb-0">Gestión Roles</h4>
+                        </div>
+                        <div class="crearRol">
+                            <a href="CrearRol" class="btn btn-secondary mr-2"> Crear Rol</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Id Rol</th>
+
+                                        <th class="text-center">Nombre Rol</th>
+
+                                        <th class="text-center">Dashboard</th>
+
+                                        <th class="text-center">Configuración </th>
+
+                                        <th class="text-center">Usuario</th>
+
+                                        <th class="text-center">Compras</th>
+
+                                        <th class="text-center">Ventas</th>
+
+                                        <th class="text-center">Provedores</th>
+
+                                        <th class="text-center">Devoluciones</th>
+
+                                        <th class="text-center">Acciones</th>
+
+                                        <th class="text-center">Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="">
+                                        <td class="text-center"> 01
+                                        </td>
+                                        <td class="text-center">
+                                            Administrador
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
+                                                    data-bs-target="#editarRolModal"></i>
+                                                <div class="wrap-toggle" style="margin-top:10px;">
+                                                    <input type="checkbox" id="toggle" class="offscreen" />
+                                                    <label for="toggle3" class="switch"></label>
+                                                </div>
+                                        </td>
+
+                                        <td class="text-center">
+                                            Activo
+                                        </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-center">02
+
+                                        </td>
+                                        <td class="text-center">
+                                            Cliente
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
+                                                    data-bs-target="#editarRolModal"></i>
+                                                <div class="wrap-toggle" style="margin-top:10px;">
+                                                    <input type="checkbox" id="toggle" class="offscreen" />
+                                                    <label for="toggle3" class="switch"></label>
+                                                </div>
+                                        </td>
+
+
+                                        <td>
+                                            Activo
+                                        </td>
+
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-center"> 03
+                                        </td>
+                                        <td class="text-center">
+                                            Entrenador
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox">
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
+                                                    data-bs-target="#editarRolModal"></i>
+                                                <div class="wrap-toggle" style="margin-top:10px;">
+                                                    <input type="checkbox" id="toggle" class="offscreen" />
+                                                    <label for="toggle3" class="switch"></label>
+                                                </div>
+                                        </td>
+
+
+                                        <td>
+                                            Activo
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <a href="/index.hbs" type="button" class="btn btn-primary">Guardar</a>
+                            </div>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="editarRolModal" tabindex="-1" aria-labelledby="editarRolModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="m-0 font-weight-bold text-primary">Editar Rol</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <!-- Campos del formulario -->
+                                <label for="nombre">Nombre Rol:</label>
+                                <input type="text" id="NombreRol" name="NombreRol" class="form-control">
+                                <label for="estado">Estado</label>
+                                <select id="estado" name="estado">
+                                    <option value="activo">Activo</option>
+                                    <option value="desactivado">Desactivado</option>
+                                </select>
+
+                                <br>
+
+                                <button type="submit" name="Guardar"
+                                    class="btn btn-primary next action-button float-end" value="Next">Guardar</button>
+                                <a href="roles" type="button" name="Cancelar"
+                                    class="btn btn-dark previous action-button-previous float-end me-1"
+                                    value="Previous">Cancelar</a>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+
+</html>

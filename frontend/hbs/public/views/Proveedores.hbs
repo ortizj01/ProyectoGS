@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->
+    <br>
+    <div class="position-relative">
+   <a class="nav-link " href="../formproveedores"><button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button></a>
+    </div>
+    <br>
+    <div class="container-fluid content-inner">
+        <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-header d-flex justify-content-between">
+               <div class="header-title">
+                  <h4 class="card-title">Proveedores</h4>
+               </div>
+            </div>
+            <div class="card-body p-0">
+               <div class="table-responsive mt-4">
+                  <table id="basic-table" class="table table-striped mb-0" role="grid">
+                     <thead>
+                        <tr>
+                           <th>Nombre proveedor</th>
+                           <th>contacto proveedor</th>
+                           <th>Telefono</th>
+                           <th>Direccion</th>
+                           <th>NIT</th>
+                           <th>Acciones</th>
+                           <th>Estado</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>
+                                 <h6>Gluta stack</h6>
+                           </td>
+                           <td>
+                                 <h6>Juan Vanegas</h6>                    
+                           </td>
+                           <td><h6>3056875989</h6></td>
+                           <td>
+                              <h6>Cl.48 No.50-10, Medellín</h6>
+                           </td>
+                           <td>
+                                 <h6>52342343</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <a href="../proveedoresEditar"><i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i></a>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle" class="offscreen" />
+                                       <label for="toggle" class="switch"></label>
+                                 </div>
+                              </div>
+                           </td>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Smart Gainer</h6>
+                           </td>
+                           <td>
+                                 <h6>Stiven Granada</h6>                    
+                           </td>
+                           <td><h6>3148528206</h6></td>
+                           <td>
+                              <h6>Cra. 48 #10-45, Medellín </h6>
+                           </td>
+                           <td>
+                                 <h6>21412412</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle1" class="offscreen" />
+                                       <label for="toggle1" class="switch"></label>
+                                 </div>
+                              </div>
+                           </td>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Protigh</h6>
+                           </td>
+                           <td>
+                                 <h6>Weimar Castro</h6>                    
+                           </td>
+                           <td><h6>3216668523</h6></td>
+                           <td>
+                              <h6>Cra. 88 #18a8, Medellín</h6>
+                           </td>
+                           <td>
+                                 <h6>24312412</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle2" class="offscreen" />
+                                       <label for="toggle2" class="switch"></label>
+                                 </div>
+                              </div>
+                           </td>
+                           <td>
+                           Inactivo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Nutra lageno</h6>
+                           </td>
+                           <td>
+                                 <h6>David restrepo </h6>                    
+                           </td>
+                           <td><h6>3216668523</h6></td>
+                           <td>
+                              <h6>Cl. 44 #52-165, Medellín</h6>
+                           </td>
+                           <td>
+                                 <h6>14123535</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle3" class="offscreen" />
+                                       <label for="toggle3" class="switch"></label>
+                                 </td>
+                                 </div>
+                              <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Gluta</h6>
+                           </td>
+                           <td>
+                                 <h6>Camilo Correa</h6>                    
+                           </td>
+                           <td><h6>3056875989</h6></td>
+                           <td>
+                              <h6>Cl.48 #50-10, Medellín</h6>
+                           </td>
+                           <td>
+                                 <h6>35789592</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle4" class="offscreen" />
+                                       <label for="toggle4" class="switch"></label>
+                                 </div>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                                 <h6>Stack</h6>
+                           </td>
+                           <td>
+                                 <h6>Luis Monsalve</h6>                    
+                           </td>
+                           <td><h6>3056875989</h6></td>
+                           <td>
+                              <h6>Cra.28 #40-90, Medellín</h6>
+                           </td>
+                           <td>
+                                 <h6>21485796</h6>
+                           </td>
+                           <td style="text-align: center;">
+                              <div class="centered-container">
+                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
+                                 <div class="wrap-toggle">
+                                       <input type="checkbox" id="toggle5" class="offscreen" />
+                                       <label for="toggle5" class="switch"></label>
+                                 </div>
+                           <td>
+                              Activo
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  
+               </div>
+
+               
+            </div>
+            
+         </div>
+
+      </div>
+
+      <div style="padding-left: 80%;">
+         <ul class="pagination" >
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+         </ul>
+      </div>
+   </div>
+    </div>
+
+    <!-- Fin contenido --> 
+
+   <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+   <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

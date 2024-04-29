@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+    <br>
+    <div class="position-relative">
+        <button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button>
+    </div>
+    <br>
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Servicios</h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive mt-4">
+                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>ID Servicio</th>
+                                        <th>Nombre Servicio</th>
+                                        <th>Estado</th>
+                                        <th>Precio</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Registro 1 -->
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Clases de Spinning</td>
+                                        <td>
+                                            <div class="iq-media-group iq-media-group-1">
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">SP</div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>$15</td>
+                                        <td>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6>40%</h6>
+                                            </div>
+                                            <div class="progress bg-soft-info shadow-none w-100" style="height: 6px">
+                                                <div class="progress-bar bg-info" data-toggle="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Registro 2 -->
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Entrenamiento Personalizado</td>
+                                        <td>
+                                            <div class="iq-media-group iq-media-group-1">
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">SP</div>
+                                                </a>
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">PP</div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>$50</td>
+                                        <td>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6>20%</h6>
+                                            </div>
+                                            <div class="progress bg-soft-danger shadow-none w-100" style="height: 6px">
+                                                <div class="progress-bar bg-danger" data-toggle="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Registro 3 -->
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Yoga Matutino</td>
+                                        <td>
+                                            <div class="iq-media-group iq-media-group-1">
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">SP</div>
+                                                </a>
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">PP</div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>$20</td>
+                                        <td>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6>100%</h6>
+                                            </div>
+                                            <div class="progress bg-soft-success shadow-none w-100" style="height: 6px">
+                                                <div class="progress-bar bg-success" data-toggle="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Registro 4 -->
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Cardio Kickboxing</td>
+                                        <td>
+                                            <div class="iq-media-group iq-media-group-1">
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">SP</div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>$25</td>
+                                        <td>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6>60%</h6>
+                                            </div>
+                                            <div class="progress bg-soft-warning shadow-none w-100" style="height: 6px">
+                                                <div class="progress-bar bg-warning" data-toggle="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Registro 5 -->
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Zumba Fitness</td>
+                                        <td>
+                                            <div class="iq-media-group iq-media-group-1">
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">SP</div>
+                                                </a>
+                                                <a href="#" class="iq-media-1">
+                                                    <div class="icon iq-icon-box-3 rounded-pill">PP</div>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>$18</td>
+                                        <td>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <h6>30%</h6>
+                                            </div>
+                                            <div class="progress bg-soft-info shadow-none w-100" style="height: 6px">
+                                                <div class="progress-bar bg-info" data-toggle="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>
