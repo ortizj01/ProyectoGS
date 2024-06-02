@@ -119,3 +119,14 @@ export const getRutinaDetallada = async (req, res) => {
     }
 };
 
+
+// Nueva función para obtener los usuarios
+export const getUsuarios = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT IdUsuario, Nombres FROM Usuarios');
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener los usuarios:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+};

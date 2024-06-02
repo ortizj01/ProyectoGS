@@ -18,13 +18,11 @@ export const agregarEjercicioARutina = async (req, res) => {
     });
 };
 
-
 export const eliminarEjercicioDeRutina = async (req, res) => {
     const { IdRutinaEjercicio } = req.params;
     await pool.query('DELETE FROM RutinasEjercicios WHERE IdRutinaEjercicio = ?', [IdRutinaEjercicio]);
     res.sendStatus(204);
 };
-
 
 export const getDetallesDeRutinaPorDiaSemana = async (req, res) => {
     const { IdRutina } = req.params;
@@ -32,7 +30,6 @@ export const getDetallesDeRutinaPorDiaSemana = async (req, res) => {
     const [rows] = await pool.query('SELECT re.* FROM RutinasEjerciciosDiaSemana reds JOIN RutinasEjercicios re ON reds.IdRutinaEjercicio = re.IdRutinaEjercicio WHERE re.IdRutina = ? AND reds.DiaSemana = ?', [IdRutina, DiaSemana]);
     res.json(rows);
 };
-
 
 export const agregarEjercicioARutinaPorDiaSemana = async (req, res) => {
     const { IdRutinaEjercicio } = req.params;
