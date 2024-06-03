@@ -85,7 +85,7 @@
                                           <p class="formularioRegistro__input-error">Los apellidos no puede contener numeros o caracteres especiales</p>
                                     </div>
 
-                                    {{!-- <div class="col-lg-6 formularioRegistro__grupo" id="grupo__tipoDocumento">
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__tipoDocumento">
                                        <label for="tipoDocumento">Tipo de documento:</label>
                                        <select id="tipoDocumento" name="tipoDocumento">
                                        <option value="CedulaCiudadania">Seleccione...</option>
@@ -94,7 +94,7 @@
                                        <option value="TarjetaIdentidad">Tarjeta de Identidad</option>
                                        </select>
                                        <p class="formularioRegistro__input-error">Seleccione el tipo de documento</p>
-                                    </div> --}}
+                                    </div> 
 
                                     {{!-- Campo #Doc --}}
                                     <div class="col-lg-6 formularioRegistro__grupo" id="grupo__documento">
@@ -128,12 +128,12 @@
 
                                     {{!-- Campo edad --}}
                                     <div class="col-lg-6 formularioRegistro__grupo" id="grupo__edad">
-                                       <label for="edad" class="formularioRegistro__label">Edad *</label>
+                                       <label for="edad" class="formularioRegistro__label">Fecha Nacimiento *</label>
                                           <div class="formularioRegistro__grupo-input" >
-                                             <input type="text" class="form-control" name="edad" id="edad">                             
+                                             <input type="date" class="form-control" name="edad" id="edad">                             
                                              <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
                                           </div>
-                                          <p class="formularioRegistro__input-error">Ingrese una edad valida, entre 18 y 65 anios</p>
+                                          <p class="formularioRegistro__input-error">Ingrese una fecha valida</p>
                                     </div>
 
                                     {{!-- Campo direccion --}}

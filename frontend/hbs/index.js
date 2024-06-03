@@ -156,6 +156,22 @@ app.get('/agenda-servicios', (req, res) => {
     res.render('calendario')
 });
 
+//Ejercicios
+
+app.get('/ejercicios', (req, res)=>{
+    res.render('ejercicios_views/tablaEjercicios');
+});
+
+app.get('/nuevo-ejercicio', (req, res)=>{
+    res.render('ejercicios_views/formEjercicio');
+});
+
+//eventos
+app.get('/eventos', (req, res)=>{
+    res.render('eventos/calendario');
+});
+
+
 //
 
 

@@ -78,8 +78,98 @@
                                                     style="width: 93.0156px;">Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr class="odd">
+                                        <tbody id="contenidoRutina">                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-30 col-md-40 p-2 float-end">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Previous</a>
+                                            </li>
+                                            <li class="paginate_button page-item active">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+                                                    class="page-link">1</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
+                                                    class="page-link">2</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
+                                                    class="page-link">3</a>
+                                            </li>
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
+                                                    class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>  
+    </div>          
+    <!-- Fin contenido --> 
+
+   <!-- Footer Section Start -->
+    
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+
+    
+
+    <script>
+        
+    document.getElementById('deleteIcon').addEventListener('click', function() {
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminarlo"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "¡Eliminado!",
+                text: "Tu archivo ha sido eliminado.",
+                icon: "success"
+            });
+            // Aquí puedes agregar la lógica para eliminar el elemento
+        }
+    });
+});
+
+
+    </script>
+  
+   <script src="../assets/js/rutinas/tablaRutinas.js"></script>
+   <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            listarRutinas();
+        });
+    </script>
+    {{> footer}}
+    
+
+    
+</body>
+</html>
+
+
+
+{{!-- <tr class="odd">
                                                 <td>Endomorfo</td>
                                                 <td>25</td>
                                                 <td>ACTIVO</td>
@@ -148,79 +238,4 @@
                                                         </div>
                                                 </td>
                                                 
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-30 col-md-40 p-2 float-end">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled"
-                                                id="dataTable_previous">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                    class="page-link">Previous</a>
-                                            </li>
-                                            <li class="paginate_button page-item active">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
-                                                    class="page-link">1</a>
-                                            </li>
-                                            <li class="paginate_button page-item ">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-                                                    class="page-link">2</a>
-                                            </li>
-                                            <li class="paginate_button page-item ">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
-                                                    class="page-link">3</a>
-                                            </li>
-                                            <li class="paginate_button page-item next" id="dataTable_next">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
-                                                    class="page-link">Next</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-       </div>  
-    </div>          
-    <!-- Fin contenido --> 
-
-   <!-- Footer Section Start -->
-    <footer class="footer">
-        {{> copyright}}
-    </footer>
-
-    <script>
-        
-    document.getElementById('deleteIcon').addEventListener('click', function() {
-    Swal.fire({
-        title: "¿Estás seguro?",
-        text: "¡No podrás revertir esto!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminarlo"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: "¡Eliminado!",
-                text: "Tu archivo ha sido eliminado.",
-                icon: "success"
-            });
-            // Aquí puedes agregar la lógica para eliminar el elemento
-        }
-    });
-});
-
-
-    </script>
-  
-    {{> footer}}
-</body>
-</html>
+                                            </tr> --}}

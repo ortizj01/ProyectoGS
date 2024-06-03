@@ -3,17 +3,27 @@ const inputs = document.querySelectorAll('#formularioRegistro input')
 
 
 const expresiones = {
-	nombreRutina: /^[a-zA-Z0-9\s-_]{3,}$/
+	nombreEjercicio: /^[a-zA-Z0-9]{3,}$/,
+    descripcionEjercicio: /^[a-zA-Z0-9]{3,}$/,
+    repeticiones: /^(?:[1-9]|10)$/
 }
 
 const campos = {
-    nombreRutina: false,
+    nombreEjercicio: false,
+    descripcionEjercicio: false,
+    repeticiones: false
 }
 
 const validarFormulario = (e) => {
     switch (e.target.name) {
-        case "nombreRutina":
-            validarCampo(expresiones.nombreRutina, e.target, 'nombreRutina')
+        case "nombreEjercicio":
+            validarCampo(expresiones.nombreEjercicio, e.target, 'nombreEjercicio')
+        break
+        case "descripcionEjercicio":
+            validarCampo(expresiones.descripcionEjercicio, e.target, 'descripcionEjercicio')
+        break
+        case "repeticiones":
+            validarCampo(expresiones.repeticiones, e.target, 'repeticiones')
         break
         // case "correo":
         //     validarCampo(expresiones.correo, e.target, 'correo')
@@ -64,7 +74,7 @@ inputs.forEach((input) => {
 formularioRegistro.addEventListener('submit', (e) =>{
     e.preventDefault();
 
-    if (campos.nombreRutina && campos.tipoEjercicio && campos.repeticiones) {
+    if (campos.nombreEjercicio && campos.descripcionEjercicio && campos.repeticiones) {
         formularioRegistro.reset()
 
         Swal.fire({
