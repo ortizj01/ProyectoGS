@@ -6,7 +6,7 @@
     <title>Editar Producto</title>
     {{> header}}
 </head>
-<body class="  ">
+<body onload="precargarDatosProductosEnFormulario()">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -44,35 +44,50 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Nombre Producto</label>
-                                            <input type="text" class="form-control" name="Nombre Proveedor" placeholder="Nombre Producto" />
+                                            <input type="text" class="form-control" name="Nombre Proveedor" placeholder="Nombre Producto" id="Nombreproducto" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <form id="Productos">
                                         <div class="form-group">
                                             <label class="form-label">Precio Producto</label>
-                                            <input type="text" class="form-control" name="contacto proveedor" placeholder="Precio Producto" />
+                                            <input type="text" class="form-control" name="contacto proveedor" placeholder="Precio Producto" id="Precioproducto" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Productos a ingresar</label>
-                                            <input type="text" class="form-control" name="Telefono" placeholder="Productos a ingresar" />
+                                            <label class="form-label">Iva producto</label>
+                                            <input type="text" class="form-control" name="Telefono" placeholder="iva producto" id="ivaproducto" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleFormControlSelect1">Categoria del producto*</label>
-                                            <select class="form-select" id="exampleFormControlSelect1" name="dia">
+                                            <select class="form-select" id="categoria" name="dia">
                                             <option selected="" disabled="">Selecciona La Categoria del producto</option>
-                                            <option>bebidas</option>
-                                            <option>Monohidratantes</option>
+                                            <option value="1">bebidas</option>
+                                            <option value="2">Monohidratantes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Imagen</label>
+                                            <input type="text" class="form-control" name="Telefono" placeholder="Imagen" id="Imagen"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Estado</label>
+                                            <select id="Estadoedit" class="form-control" name="estadoProveedor">
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
-                                <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
+                                <button type="button" onclick="editarProductos()" name="next" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
                                 <a href="../productos"><button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
                         </form>
                         </div>
@@ -88,7 +103,7 @@
         {{> copyright}}
     </footer>
     <!-- Footer Section End -->
-    <script src="../assets/js/form.js"></script>
+    <script src="../assets/js/productos.js"></script>
     {{> footer}}
 </body>
 </html>

@@ -6,7 +6,7 @@
     <title>Proveedores</title>
     {{> header}}
 </head>
-<body class="  ">
+<body onload="listarProveedores()">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -28,216 +28,108 @@
 
               
     <!-- Inicio contenido -->
-    <br>
-    <div class="position-relative">
-   <a class="nav-link " href="../formproveedores"><button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button></a>
-    </div>
-    <br>
     <div class="container-fluid content-inner">
-        <div class="row">
-      <div class="col-sm-12">
-         <div class="card">
-            <div class="card-header d-flex justify-content-between">
-               <div class="header-title">
-                  <h4 class="card-title">Proveedores</h4>
-               </div>
+            <div class="card-header py-2">
+                    <h2 class="m-2 font-weight-bold text-primary">Proveedores</h2>
             </div>
-            <div class="card-body p-0">
-               <div class="table-responsive mt-4">
-                  <table id="basic-table" class="table table-striped mb-0" role="grid">
-                     <thead>
-                        <tr>
-                           <th>Nombre proveedor</th>
-                           <th>contacto proveedor</th>
-                           <th>Telefono</th>
-                           <th>Direccion</th>
-                           <th>NIT</th>
-                           <th>Acciones</th>
-                           <th>Estado</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>
-                                 <h6>Gluta stack</h6>
-                           </td>
-                           <td>
-                                 <h6>Juan Vanegas</h6>                    
-                           </td>
-                           <td><h6>3056875989</h6></td>
-                           <td>
-                              <h6>Cl.48 No.50-10, Medellín</h6>
-                           </td>
-                           <td>
-                                 <h6>52342343</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <a href="../proveedoresEditar"><i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i></a>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle" class="offscreen" />
-                                       <label for="toggle" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Smart Gainer</h6>
-                           </td>
-                           <td>
-                                 <h6>Stiven Granada</h6>                    
-                           </td>
-                           <td><h6>3148528206</h6></td>
-                           <td>
-                              <h6>Cra. 48 #10-45, Medellín </h6>
-                           </td>
-                           <td>
-                                 <h6>21412412</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle1" class="offscreen" />
-                                       <label for="toggle1" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Protigh</h6>
-                           </td>
-                           <td>
-                                 <h6>Weimar Castro</h6>                    
-                           </td>
-                           <td><h6>3216668523</h6></td>
-                           <td>
-                              <h6>Cra. 88 #18a8, Medellín</h6>
-                           </td>
-                           <td>
-                                 <h6>24312412</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle2" class="offscreen" />
-                                       <label for="toggle2" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                           Inactivo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Nutra lageno</h6>
-                           </td>
-                           <td>
-                                 <h6>David restrepo </h6>                    
-                           </td>
-                           <td><h6>3216668523</h6></td>
-                           <td>
-                              <h6>Cl. 44 #52-165, Medellín</h6>
-                           </td>
-                           <td>
-                                 <h6>14123535</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle3" class="offscreen" />
-                                       <label for="toggle3" class="switch"></label>
-                                 </td>
-                                 </div>
-                              <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Gluta</h6>
-                           </td>
-                           <td>
-                                 <h6>Camilo Correa</h6>                    
-                           </td>
-                           <td><h6>3056875989</h6></td>
-                           <td>
-                              <h6>Cl.48 #50-10, Medellín</h6>
-                           </td>
-                           <td>
-                                 <h6>35789592</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle4" class="offscreen" />
-                                       <label for="toggle4" class="switch"></label>
-                                 </div>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Stack</h6>
-                           </td>
-                           <td>
-                                 <h6>Luis Monsalve</h6>                    
-                           </td>
-                           <td><h6>3056875989</h6></td>
-                           <td>
-                              <h6>Cra.28 #40-90, Medellín</h6>
-                           </td>
-                           <td>
-                                 <h6>21485796</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle5" class="offscreen" />
-                                       <label for="toggle5" class="switch"></label>
-                                 </div>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  
-               </div>
-
-               
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                
+                <div class="card-body">
+                    
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+                                <div id="dataTable_filter" class="dataTables_filter">
+                                    <label>Buscar:<input type="search" class="form-control form-control-sm"
+                                            placeholder="" aria-controls="dataTable"></label>
+                                </div>
+                            </div>
+                                                    </div>
+                            <div class="footer-buttons mt-1">
+                            <a href="../Formproveedores" type="button" name="Cancelar"
+                                class="btn btn-danger  previous action-button-previous float-end me-2"
+                                value="Previous">
+                                Crear Proveedor +
+                            </a>
+                        </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 156.25px;">Nombre Proveedor</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Start date: activate to sort column ascending"
+                                                    style="width: 104.297px;">Nombre contacto proveedor</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Telefono</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Direccion</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">NIT</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenidoProveedores">                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-30 col-md-40 p-2 float-end">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Previous</a>
+                                            </li>
+                                            <li class="paginate_button page-item active">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+                                                    class="page-link">1</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
+                                                    class="page-link">2</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
+                                                    class="page-link">3</a>
+                                            </li>
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
+                                                    class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-         </div>
+       </div>  
+    </div>  
 
-      </div>
-
-      <div style="padding-left: 80%;">
-         <ul class="pagination" >
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>
-      </div>
-   </div>
-    </div>
 
     <!-- Fin contenido --> 
 
@@ -246,7 +138,7 @@
         {{> copyright}}
     </footer>
    <!-- Footer Section End -->
-
+   <script src="../assets/js/proveedores.js"></script>
     {{> footer}}
 </body>
 </html>

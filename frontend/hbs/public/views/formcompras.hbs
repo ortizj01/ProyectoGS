@@ -44,21 +44,35 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Fecha compra*</label>
-                                            <input type="date" class="form-control" name="Nombre Proveedor" placeholder="Fecha compra" />
+                                            <input type="date" class="form-control" name="fechaCompra" placeholder="Fecha compra" id="fechaCompra"/>
                                             <div id="errorFechaCompra" class="error-message"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label" for="exampleFormControlSelect1">Proveedor *</label>
-                                            <select class="form-select" id="exampleFormControlSelect1" name="dia">
+                                            <label class="form-label">Valor compra*</label>
+                                            <input type="number" class="form-control" name="valorCompra" placeholder="Valor compra" id="valorCompra"/>
+                                            <div id="errorValorCompra" class="error-message"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">numero Recibo Compra*</label>
+                                            <input type="number" class="form-control" name="numeroReciboCompra" placeholder="Valor compra" id="numeroReciboCompra"/>
+                                            <div id="errornumeroReciboCompra" class="error-message"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="idProveedores">Proveedor *</label>
+                                            <select class="form-select" id="idProveedores" name="dia">
                                             <option selected="" disabled="">Selecciona el Proveedor</option>
-                                            <option>Gluta stack</option>
-                                            <option>Smart Gainer</option>
-                                            <option>Protigh</option>
-                                            <option>Nutra lageno</option>
-                                            <option>Gluta</option>
-                                            <option>Stack</option>
+                                            <option value="1">Gluta stack</option>
+                                            <option value="2">Smart Gainer</option>
+                                            <option value="3">Protigh</option>
+                                            <option value="4">Nutra lageno</option>
+                                            <option value="5">Gluta</option>
+                                            <option value="6">Stack</option>
                                             </select>
                                         </div>
                                     </div>
@@ -70,10 +84,10 @@
                                         <div class="productoContainer">
                                         <select id="selectProducto" name="productos[]" style="width:300px">
                                             <option selected="" disabled="">Agregar producto a la compra</option>
-                                            <option value="producto1">Creatina</option>
-                                            <option value="producto2">Aminoacidos</option>
-                                            <option value="producto3">Elite</option>
-                                            <option value="producto3">Agua</option>
+                                            <option value="1">Creatina</option>
+                                            <option value="2">Aminoacidos</option>
+                                            <option value="3">Elite</option>
+                                            <option value="4">Agua</option>
                                             <!-- Agrega más opciones según tus necesidades -->
                                         </select>
 
@@ -105,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
+                                <button type="button" name="next" onclick="enviarCompra()" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
                                 <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button>
                         </form>
                         </div>
