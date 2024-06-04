@@ -37,8 +37,7 @@ const listarRutinas = async () => {
                         <td style="text-align: center;">
                             <div class="centered-container">
                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editarClienteModal"></i>
+                                    onclick="window.location.href='/nueva-rutina?rutinaId=${rutina.IdRutina}'"></i>
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
                             <div class="wrap-toggle" style="margin-top:10px;">
                                 <input type="checkbox" id="toggle3" class="offscreen" />

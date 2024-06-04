@@ -6,10 +6,30 @@ export const getEjerciciosDeRutina = async (req, res) => {
     res.json(rows);
 };
 
-
 export const agregarEjercicioARutina = async (req, res) => {
     const { IdRutina } = req.params;
     const { IdEjercicio } = req.body;
+    const [rows] = await pool.query('INSERT INTO RutinasEjercicios (IdRutina, IdEjercicio) VALUES (?, ?)', [IdRutina, IdEjercicio]);
+    res.send({
+        id: rows.insertId,
+        IdRutina,
+        IdEjercicio
+    });
+};
+
+export const actualizarEjercicioDeRutina = async (req, res) => {
+    const { IdRutina } = req.params;
+    const { IdEjercicio } = req.body;
+
+    // Verificar si el ejercicio ya está asociado a la rutina
+    const [existingRows] = await pool.query('SELECT * FROM RutinasEjercicios WHERE IdRutina = ? AND IdEjercicio = ?', [IdRutina, IdEjercicio]);
+
+    if (existingRows.length > 0) {
+        // Si el ejercicio ya está asociado, simplemente respondemos con éxito
+        return res.status(200).json({ message: 'El ejercicio ya está asociado a esta rutina' });
+    }
+
+    // Si el ejercicio no está asociado, lo agregamos
     const [rows] = await pool.query('INSERT INTO RutinasEjercicios (IdRutina, IdEjercicio) VALUES (?, ?)', [IdRutina, IdEjercicio]);
     res.send({
         id: rows.insertId,
@@ -42,6 +62,26 @@ export const agregarEjercicioARutinaPorDiaSemana = async (req, res) => {
     });
 };
 
+export const actualizarEjercicioDeRutinaPorDiaSemana = async (req, res) => {
+    const { IdRutinaEjercicio } = req.params;
+    const { DiaSemana } = req.body;
+
+    // Verificar si ya existe un registro para este ejercicio y día de la semana
+    const [existingRows] = await pool.query('SELECT * FROM RutinasEjerciciosDiaSemana WHERE IdRutinaEjercicio = ? AND DiaSemana = ?', [IdRutinaEjercicio, DiaSemana]);
+
+    if (existingRows.length > 0) {
+        // Si existe, simplemente respondemos con éxito
+        return res.status(200).json({ message: 'El ejercicio ya está asociado a esta rutina para este día de la semana' });
+    }
+
+    // Si no existe, lo agregamos
+    const [rows] = await pool.query('INSERT INTO RutinasEjerciciosDiaSemana (IdRutinaEjercicio, DiaSemana) VALUES (?, ?)', [IdRutinaEjercicio, DiaSemana]);
+    res.send({
+        id: rows.insertId,
+        IdRutinaEjercicio,
+        DiaSemana
+    });
+};
 
 export const eliminarEjercicioDeRutinaPorDiaSemana = async (req, res) => {
     const { IdRutinaEjercicioDiaSemana } = req.params;

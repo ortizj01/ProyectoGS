@@ -58,11 +58,48 @@ export const getRutinas = async (req, res) => {
 
 
 //Traer todas una Rutina
+// Traer los detalles de una Rutina con sus ejercicios asociados
 export const getRutina = async (req, res) => {
-    const [rows] = await pool.query('SELECT * FROM Rutinas WHERE IdRutina = ?', [req.params.IdRutina]);
-    if(rows.length <= 0) return res.status(400).json({ message: 'Rutina no encontrada' });
-    res.json(rows[0]);
+    try {
+        // Consulta para obtener los detalles de la rutina y los ejercicios asociados
+        const query = `
+            SELECT r.*, re.*, reds.DiaSemana, e.NombreEjercicio
+            FROM Rutinas r
+            LEFT JOIN RutinasEjercicios re ON r.IdRutina = re.IdRutina
+            LEFT JOIN RutinasEjerciciosDiaSemana reds ON re.IdRutinaEjercicio = reds.IdRutinaEjercicio
+            LEFT JOIN Ejercicios e ON re.IdEjercicio = e.IdEjercicio
+            WHERE r.IdRutina = ?
+        `;
+        
+        // Ejecutar la consulta
+        const [rows] = await pool.query(query, [req.params.IdRutina]);
+
+        // Verificar si se encontraron resultados
+        if (rows.length <= 0) {
+            return res.status(400).json({ message: 'Rutina no encontrada' });
+        }
+
+        // Construir el objeto de respuesta que incluye los detalles de la rutina y los ejercicios asociados
+        const rutina = {
+            IdRutina: rows[0].IdRutina,
+            NombreRutina: rows[0].NombreRutina,
+            EstadoRutina: rows[0].EstadoRutina,
+            IdUsuario: rows[0].IdUsuario,
+            Ejercicios: rows.map(row => ({
+                IdEjercicio: row.IdEjercicio,
+                NombreEjercicio: row.NombreEjercicio,
+                DiaSemana: row.DiaSemana
+            }))
+        };
+
+        // Enviar la respuesta
+        res.json(rutina);
+    } catch (error) {
+        console.error('Error al obtener la rutina con los detalles de los ejercicios:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
 };
+
 
 
 export const createRutinas = async (req, res) =>{

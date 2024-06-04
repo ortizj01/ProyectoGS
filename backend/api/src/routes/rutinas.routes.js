@@ -6,7 +6,7 @@ const router = Router();
 router.get('/rutinas', getRutinas);
 router.get('/rutinas/:IdRutina', getRutina); 
 router.post('/rutinas', createRutinas);
-router.patch('/rutinas/:IdRutina', updateRutina); 
+router.put('/rutinas/:IdRutina', updateRutina); 
 router.delete('/rutinas/:IdRutina', deleteRutina);
 router.get('/rutinas/:IdRutina/detallada', getRutinaDetallada);
 

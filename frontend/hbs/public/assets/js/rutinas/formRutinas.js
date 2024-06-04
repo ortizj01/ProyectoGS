@@ -1,27 +1,29 @@
 $(document).ready(function() {
-    // Obtener y poblar los ejercicios en el select
-    function fetchEjercicios() {
-        // Realiza una solicitud GET a la API para obtener la lista de ejercicios
-        return fetch('http://localhost:3000/api/ejercicios')
+    const urlParams = new URLSearchParams(window.location.search);
+    const rutinaId = urlParams.get('rutinaId');
+
+    // Función para obtener ejercicios
+    function fetchEjercicios(rutinaId, getAll = true) {
+        let url = 'http://localhost:3000/api/ejercicios';
+        if (rutinaId && !getAll) {
+            url = `http://localhost:3000/api/rutinas/${rutinaId}/detallada`;
+        }
+        return fetch(url)
             .then(response => response.json())
-            .then(data => data)
             .catch(error => console.error('Error al obtener ejercicios:', error));
     }
 
-    // Obtener y poblar los usuarios en el select
+    // Función para obtener usuarios
     function fetchUsuarios() {
-        // Realiza una solicitud GET a la API para obtener la lista de usuarios
         return fetch('http://localhost:3000/api/usuarios')
             .then(response => response.json())
-            .then(data => data)
             .catch(error => console.error('Error al obtener usuarios:', error));
     }
 
     // Poblar el select de usuarios
     function populateUsuarios() {
-        // Llama a fetchUsuarios y llena el select de usuarios con los datos obtenidos
         fetchUsuarios().then(usuarios => {
-            var usuarioSelect = $('#idUsuario');
+            const usuarioSelect = $('#idUsuario');
             usuarios.forEach(usuario => {
                 usuarioSelect.append(`<option value="${usuario.IdUsuario}">${usuario.Nombres}</option>`);
             });
@@ -33,11 +35,10 @@ $(document).ready(function() {
 
     // Manejo del evento de clic en los botones de día
     $('.day-button').on('click', function() {
-        var day = $(this).data('day');
+        const day = $(this).data('day');
         renderExerciseForm(day);
     });
 
-    // Mapeo de los días de la semana a sus respectivos números
     const diasSemana = {
         lunes: 1,
         martes: 2,
@@ -50,14 +51,11 @@ $(document).ready(function() {
 
     // Función para renderizar el formulario de ejercicios
     function renderExerciseForm(day) {
-        // Oculta todos los formularios de días
         $('.day-form').hide();
 
-        // Verifica si el formulario para el día especificado ya existe
-        var form = $('#form-' + day);
+        let form = $(`#form-${day}`);
         if (form.length === 0) {
-            // Si no existe, crea el formulario para el día especificado
-            var exerciseFormHTML = `
+            const exerciseFormHTML = `
                 <form id="form-${day}" class="day-form">
                     <h3 class="text-center">Rutina del ${day.charAt(0).toUpperCase() + day.slice(1)}</h3>
                     <div class="exercise-list"></div>
@@ -67,21 +65,18 @@ $(document).ready(function() {
             $('.form-container').append(exerciseFormHTML);
         }
 
-        // Muestra el formulario para el día especificado
-        $('#form-' + day).show();
+        $(`#form-${day}`).show();
     }
 
     // Manejo del evento de clic en el botón "Agregar Ejercicio"
     $(document).on('click', '.add-exercise', async function() {
-        var day = $(this).data('day');
-        var exerciseList = $('#form-' + day + ' .exercise-list');
-        var exerciseCount = exerciseList.children('.exercise-form').length;
+        const day = $(this).data('day');
+        const exerciseList = $(`#form-${day} .exercise-list`);
+        const exerciseCount = exerciseList.children('.exercise-form').length;
 
-        // Obtiene la lista de ejercicios
-        var ejercicios = await fetchEjercicios();
+        const ejercicios = await fetchEjercicios();
 
-        // Crea un nuevo formulario de ejercicio con los ejercicios disponibles
-        var newExerciseForm = `
+        const newExerciseForm = `
             <div class="exercise-form">
                 <div class="form-group row">
                     <div class="col">
@@ -99,104 +94,169 @@ $(document).ready(function() {
             </div>
         `;
 
-        // Añade el nuevo formulario de ejercicio a la lista de ejercicios del día
         exerciseList.append(newExerciseForm);
     });
 
     // Manejo del evento de clic en el botón "+" para agregar más campos de ejercicio
     $(document).on('click', '.add-field', function() {
-        var day = $(this).data('day');
-        var exerciseList = $('#form-' + day + ' .exercise-list');
-        var exerciseCount = exerciseList.children('.exercise-form').length;
+        const day = $(this).data('day');
+        const exerciseList = $(`#form-${day} .exercise-list`);
+        const exerciseCount = exerciseList.children('.exercise-form').length;
 
-        // Clona el último formulario de ejercicio y lo añade a la lista
-        var lastExerciseForm = exerciseList.children('.exercise-form').last();
-        var newExerciseForm = lastExerciseForm.clone();
-        var newExerciseFormId = 'exercise-' + day + '-' + exerciseCount;
-        newExerciseForm.find('select').attr('id', newExerciseFormId);
-        newExerciseForm.find('select').val('');
+        const lastExerciseForm = exerciseList.children('.exercise-form').last();
+        const newExerciseForm = lastExerciseForm.clone();
+        const newExerciseFormId = `exercise-${day}-${exerciseCount}`;
+        newExerciseForm.find('select').attr('id', newExerciseFormId).val('');
 
-        // Añade el nuevo formulario clonado a la lista de ejercicios del día
         exerciseList.append(newExerciseForm);
     });
 
     // Manejo del evento de clic en el botón "-" para quitar campos de ejercicio
     $(document).on('click', '.remove-field', function() {
-        var exerciseForm = $(this).closest('.exercise-form');
-        exerciseForm.remove();
+        $(this).closest('.exercise-form').remove();
     });
+
+    // Cargar datos de la rutina para editar
+    function loadRoutineData(rutinaId) {
+        fetch(`http://localhost:3000/api/rutinas/${rutinaId}`)
+            .then(response => response.json())
+            .then(async data => {
+                console.log('Datos de la rutina recibidos:', data);
+
+                $('input[name="nombreRutina"]').val(data.NombreRutina);
+                $('select[name="idUsuario"]').val(data.IdUsuario);
+
+                const ejercicios = await fetchEjercicios();
+
+                if (data.Ejercicios !== undefined) {
+                    data.Ejercicios.forEach(ejercicio => {
+                        const day = Object.keys(diasSemana).find(key => diasSemana[key] === ejercicio.DiaSemana);
+                        renderExerciseForm(day);
+
+                        const exerciseList = $(`#form-${day} .exercise-list`);
+                        const exerciseCount = exerciseList.children('.exercise-form').length;
+
+                        const optionsHTML = ejercicios.map(e => `<option value="${e.IdEjercicio}" ${e.IdEjercicio === ejercicio.IdEjercicio ? 'selected' : ''}>${e.NombreEjercicio}</option>`).join('');
+
+                        const newExerciseForm = `
+                            <div class="exercise-form">
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="exercise-${day}-${exerciseCount}">Ejercicio</label>
+                                        <select class="form-control" id="exercise-${day}-${exerciseCount}">
+                                            <option value="">Seleccione un ejercicio</option>
+                                            ${optionsHTML}
+                                        </select>
+                                    </div>
+                                    <div class="col-auto mt-4">
+                                        <button type="button" class="btn btn-success btn-sm add-field" data-day="${day}">+</button>
+                                        <button type="button" class="btn btn-danger btn-sm remove-field">-</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        exerciseList.append(newExerciseForm);
+                    });
+                }
+            })
+            .catch(error => console.error('Error al obtener la rutina:', error));
+    }
+
+    if (rutinaId) {
+        loadRoutineData(rutinaId);
+    }
 
     // Manejo del envío del formulario
     $('#formularioRegistro').on('submit', function(e) {
         e.preventDefault();
-
-        // Obtiene los datos del formulario principal
-        var nombreRutina = $('input[name="nombreRutina"]').val();
-        var idUsuario = $('select[name="idUsuario"]').val();
-
-        var rutinaData = {
+    
+        const nombreRutina = $('input[name="nombreRutina"]').val();
+        const idUsuario = $('select[name="idUsuario"]').val();
+    
+        const rutinaData = {
             NombreRutina: nombreRutina,
             EstadoRutina: 1,
             IdUsuario: idUsuario
         };
+    
+        const method = rutinaId ? 'PUT' : 'POST';
+        const endpoint = rutinaId ? `http://localhost:3000/api/rutinas/${rutinaId}` : 'http://localhost:3000/api/rutinas';
 
-        // Envía una solicitud POST para crear una nueva rutina
-        fetch('http://localhost:3000/api/rutinas', {
-            method: 'POST',
+
+        fetch(endpoint, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(rutinaData)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            var newRutinaId = data.id;
-
-            var promises = [];
-            // Recorre cada formulario de día para agregar los ejercicios
+            const newRutinaId = data.id || rutinaId;
+    
+            const promises = [];
+            const addedExercises = {};
+    
             $('.day-form').each(function() {
-                var day = $(this).attr('id').split('-')[1];
-                var dayNumber = diasSemana[day];
-                var exerciseForms = $(this).find('.exercise-form');
-
-                // Recorre cada formulario de ejercicio y lo añade a la rutina
+                const day = $(this).attr('id').split('-')[1];
+                const dayNumber = diasSemana[day];
+                const exerciseForms = $(this).find('.exercise-form');
+    
                 exerciseForms.each(function() {
-                    var ejercicioId = $(this).find('select').val();
+                    const ejercicioId = $(this).find('select').val();
                     if (ejercicioId) {
-                        var promise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ IdEjercicio: ejercicioId })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            // Añade el ejercicio a un día específico de la semana
-                            return fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${data.id}/detalles`, {
+                        if (!addedExercises[dayNumber]) {
+                            addedExercises[dayNumber] = new Set();
+                        }
+    
+                        if (!addedExercises[dayNumber].has(ejercicioId)) {
+                            const promise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({ DiaSemana: dayNumber })
+                                body: JSON.stringify({ IdEjercicio: ejercicioId })
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                const detallePromise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${data.id}/detalles`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ DiaSemana: dayNumber })
+                                });
+    
+                                promises.push(detallePromise);
+                                addedExercises[dayNumber].add(ejercicioId);
                             });
-                        });
-                        promises.push(promise);
+    
+                            promises.push(promise);
+                        }
                     }
                 });
             });
-
-            // Espera a que todas las promesas se resuelvan
+    
             return Promise.all(promises);
         })
         .then(() => {
-            alert('Rutina creada exitosamente');
-            $('#formularioRegistro')[0].reset();
-            $('.day-form').remove();
-
-            window.location.href = '/rutinas';
-
+            alert('Rutina guardada exitosamente.');
+            window.location.href = '/rutinas'; // Redirigir a la página de rutinas
         })
-        .catch(error => console.error('Error:', error));
-    });
+        .catch(error => {
+            console.error('Error al guardar la rutina:', error);
+            alert('Ocurrió un error al guardar la rutina.');
+        });
+    });    
 });
