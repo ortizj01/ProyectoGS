@@ -7,7 +7,7 @@
     {{> header}}
     <link rel="stylesheet" href="../assets/css/Productos.css" />
 </head>
-<body class="  ">
+<body onload="listarCategoria()">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -26,12 +26,11 @@
     <!-- Inicio Barra superior -->
         {{> topbar}}
     <!-- Fin Barra superior -->
-
+    
               
     <!-- Inicio contenido -->
-    <br>
-    <div class="position-relative">
-        <button type="button" class="btn btn-primary position-absolute top-0 end-0 me-5" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Agregar +</button>
+
+
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <br>
          <br>
@@ -45,12 +44,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-                            <form action="" class="formularioCategoria" id="formularioCategoria" >
-                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Nombrecategoria" >
+                                <form action="" class="formularioCategoria" id="formularioCategoria" >
+                                    <div class="col-md-6">
                                         <div class="form-group" id="grupo__Nombrecategoria">
                                             <label class="form-label" >Nombre Cateogoria Producto*</label>
                                             <div class="formulario__grupo-input">
-                                            <input type="text" class="form-control " name="Nombrecategoria" placeholder="Nombre Producto" id="Nombrecategoria" />
+                                            <input type="text" class="form-control " name="Nombrecategoria" placeholder="Nombre Producto" id="NombreCategoriaProductos" />
                                             <i  class="formulario__validacion-estado fas fa-times-circle"></i>
                                             </div>
                                             <p class="formulario__input-error">ojo</p>
@@ -61,20 +60,17 @@
                                     </div>
                                         <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
                                     </div>
-
-      
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" >Cancelar</button>
-        <button type="submit"  class="btn btn-primary next action-button float-end" >Agregar Categoria</button>
-      </div>
+        <button type="submit" class="btn btn-primary next action-button float-end" onclick="agregarCategoria()" >Agregar Categoria</button>
       </form>
     </div>
   </div>
 </div>
     </div>
-    <br>
-      <!-- modal editar -->
 
+
+    <!-- modal editar -->
+    
         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
          <br>
          <br>
@@ -92,174 +88,122 @@
           <div class="mb-3" class="form-group" id="grupo__Categoria">
             <label for="recipient-name" class="col-form-label" class="form-label">Nombre categoria:</label>
             <div class="formulario__grupo-input">
-            <input type="text" class="form-control" id="categoria" placeholder="Nombre categoria" id="categoria">
+            <input type="text" class="form-control" id="categoria" placeholder="Nombre categoria">
             <i  class="formulario__validacion-estado fas fa-times-circle"></i>
             </div>
             <p class="formulario__input-error">ojo</p>
           </div>
+          <div class="form-group">
+                <label class="form-label">Estado</label>
+                    <select id="Estado" class="form-control" name="estadoCategoria">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+        </div>
+        <input type="hidden" id="id" name="campoOculto">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" value="submith" id="btn-enviar1" class="btn btn-primary">Modificar categoria</button>
+        <button type="button" value="submith" id="btn-enviar1" onclick="editarCategoria(document.getElementById('id').value)" class="btn btn-primary">Modificar categoria</button>
       </div>
       </form>
     </div>
   </div>
 </div>
     </div>
-    <br>
-
-
 
 
 
       <!-- modal editar fin -->
-
+    <br>
     <div class="container-fluid content-inner">
-        <div class="row">
-      <div class="col-sm-12">
-         <div class="card">
-            <div class="card-header d-flex justify-content-between">
-               <div class="header-title">
-                  <h4 class="card-title">Categoria productos</h4>
-               </div>
+            <div class="card-header py-2">
+                    <h2 class="m-2 font-weight-bold text-primary">Categoria</h2>
             </div>
-            <div class="card-body p-0">
-               <div class="table-responsive mt-4">
-                  <table id="basic-table" class="table table-striped mb-0" role="grid">
-                     <thead>
-                        <tr>
-                           <th>Nombre categoria producto </th>
-                           <th>Acciones</th>
-                           <th>Estado</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>
-                                 <h6>Proteina</h6>
-                           </td>
-                           <td >
-                              <div class="centered-container-catprod">
-                                 <a data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo"><i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;" ></i></a>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle" class="offscreen" />
-                                       <label for="toggle" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Gluta stack</h6>
-                           </td>
-                           <td>
-                              <div class="centered-container-catprod">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle1" class="offscreen" />
-                                       <label for="toggle1" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Gluta stack</h6>
-                           </td>
-                           <td>
-                              <div class="centered-container-catprod">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle2" class="offscreen" />
-                                       <label for="toggle2" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Gluta stack</h6>
-                           </td>
-                           <td>
-                              <div class="centered-container-catprod">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle3" class="offscreen" />
-                                       <label for="toggle3" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Gluta stack</h6>
-                           </td>
-                           <td>
-                              <div class="centered-container-catprod">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle4" class="offscreen" />
-                                       <label for="toggle4" class="switch"></label>
-                                 </div>
-                              </div>
-                           </td>
-                           <td>
-                              Activo      
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>Gluta stack</h6>
-                           </td>
-                           <td>
-                              <div class="centered-container-catprod">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" style="margin-bottom: 8px;"></i>
-                                 <div class="wrap-toggle">
-                                       <input type="checkbox" id="toggle5" class="offscreen" />
-                                       <label for="toggle5" class="switch"></label>
-                                 </div>
-                                 </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  
-               </div>
-
-               
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                
+                <div class="card-body">
+                    
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+                                <div id="dataTable_filter" class="dataTables_filter">
+                                    <label>Buscar:<input type="search" class="form-control form-control-sm"
+                                            placeholder="" aria-controls="dataTable"></label>
+                                </div>
+                            </div>
+                                                    </div>
+                            <div class="footer-buttons mt-1">
+                            <a type="button" name="Cancelar"
+                                class="btn btn-danger  previous action-button-previous float-end me-2"
+                                value="Previous" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                Crear Categoria +
+                            </a>
+                        </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 156.25px;">Nombre Categoria productos</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenidoCategoria">                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-30 col-md-40 p-2 float-end">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Previous</a>
+                                            </li>
+                                            <li class="paginate_button page-item active">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+                                                    class="page-link">1</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
+                                                    class="page-link">2</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
+                                                    class="page-link">3</a>
+                                            </li>
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
+                                                    class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-         </div>
+       </div>  
+    </div> 
 
-      </div>
-
-      <div style="padding-left: 80%;">
-         <ul class="pagination" >
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>
-      </div>
-   </div>
-    </div>
 
     <!-- Fin contenido --> 
 
@@ -268,7 +212,9 @@
         {{> copyright}}
     </footer>
    <!-- Footer Section End -->
+   <script src="../assets/js/validacioncat.js"></script>
    <script src="../assets/js/cateogriaproductos.js"></script>
+   
     {{> footer}}
 </body>
 </html>

@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <form action="" class="formularioProductos" id="formularioProductos" >
                                     <div class="row"  >
-                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Nombreproducto" >
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Nombreproducto">
                                         <div class="form-group" id="grupo__Nombreproducto">
                                             <label class="form-label" >Nombre Producto*</label>
                                             <div class="formulario__grupo-input">
@@ -61,11 +61,11 @@
                                             <p class="formulario__input-error">ojo</p>
                                         </div>
                                     </div>  
-                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Productosingresar" >
-                                        <div class="form-group" id="grupo__Productosingresar">
-                                            <label class="form-label" >Productos a ingresar*</label>
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Imagen" >
+                                        <div class="form-group" id="grupo__Imagen">
+                                            <label class="form-label" >Imagen*</label>
                                             <div class="formulario__grupo-input">
-                                            <input type="text" class="form-control " name="Productosingresar" placeholder="Productos a ingresar" id="Productosingresar" />
+                                            <input type="text" class="form-control " name="Imagen" placeholder="Productos a ingresar" id="Imagen" />
                                             <i  class="formulario__validacion-estado fas fa-times-circle"></i>
                                             </div>
                                             <p class="formulario__input-error">ojo</p>
@@ -86,8 +86,8 @@
                                             <label class="form-label" for="exampleFormControlSelect1">Categoria del producto*</label>
                                             <select class="form-select" id="SelectorCategoria">
                                             <option selected="" disabled="">Selecciona La Categoria del producto</option>
-                                            <option>bebidas</option>
-                                            <option>Monohidratantes</option>
+                                            <option value="1">bebidas</option>
+                                            <option value="2">Monohidratantes</option>
                                             </select>
                                         </div>
                                         </div>
@@ -97,7 +97,7 @@
                                         <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
                                     </div>
                                 
-                                <button type="submit"  class="btn btn-primary next action-button float-end" >Guardar</button>
+                                <button type="submit" onclick="agregarProducto()" class="btn btn-primary next action-button float-end" >Guardar</button>
                                 <a href="../Productos"><button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
                             </form>
                         </div>
