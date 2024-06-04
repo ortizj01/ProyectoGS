@@ -3,9 +3,11 @@ import { getPermisosDeRol, agregarPermisoARol, eliminarPermisoDeRol } from '../c
 
 const router = Router();
 
-// Rutas para operaciones CRUD relacionadas con los permisos de roles
-router.get('/permisosRoles/:IdRol/IdPermiso', getPermisosDeRol);
-router.post('/permisosRoles/:IdRol/IdPermiso', agregarPermisoARol);
-router.delete('/permisosRoles/:IdRol/:IdPermiso', eliminarPermisoDeRol);
+
+router.get('/permisosRoles/:IdRol', getPermisosDeRol);
+
+router.post('/permisosRoles/:IdRol', agregarPermisoARol);
+
+router.delete('/permisosRoles/:IdPermisoRol', eliminarPermisoDeRol);
 
 export default router;

@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { getRolesDeUsuario, agregarRolAUsuario, eliminarRolDeUsuario } from '../controllers/usuarioRol.controller.js';
+import { getRolesDeUsuario, getUsuarioRolById, agregarRolAUsuario, eliminarRolDeUsuario } from '../controllers/usuarioRol.controller.js';
 
 const router = Router();
 
 // Rutas para operaciones CRUD relacionadas con los roles de usuarios
-router.get('/usuarios/:IdUsuario/roles', getRolesDeUsuario);
-router.post('/usuarios/:IdUsuario/roles', agregarRolAUsuario);
-router.delete('/usuarios/roles/:IdRolUsuario', eliminarRolDeUsuario);
+//router.get('/usuariosRol/:IdUsuario/roles', getRolesDeUsuario);
+router.get('/usuariosRol/:IdUsuario/roles', getUsuarioRolById);
+router.post('/usuariosRol/:IdUsuario/roles', agregarRolAUsuario);
+router.delete('/usuariosRol/roles/:IdRolUsuario', eliminarRolDeUsuario);
 
 export default router;
