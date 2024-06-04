@@ -3,71 +3,117 @@ const url2 = 'http://localhost:3000/api/comprasproducto'
 
 function agregarProducto() {
     var nuevoProductoContainer = document.createElement("div");
-    nuevoProductoContainer.className ="productoContainer"
+    nuevoProductoContainer.className = "productoContainer";
 
     var nuevoSelect = document.createElement("select");
     nuevoSelect.name = "productos[]";
 
     var opciones = document.getElementById("selectProducto").innerHTML;
     nuevoSelect.innerHTML = opciones;
-    nuevoSelect.style.width = "300px"   
+    nuevoSelect.style.width = "300px";
+    nuevoSelect.onchange = function() {
+        actualizarValorProducto(nuevoSelect, labelValorP);
+    }
 
     var labelCantidad = document.createElement("label");
     labelCantidad.innerHTML = "Cantidad: ";
-    labelCantidad.style.marginLeft = "50px"
+    labelCantidad.style.marginLeft = "50px";
 
     var labelValor = document.createElement("label");
     labelValor.innerHTML = "Valor: ";
-    labelValor.style.marginLeft = "50px"
+    labelValor.style.marginLeft = "50px";
 
     var labelValorP = document.createElement("label");
-    labelValorP.innerHTML = "$ 23.000 ";
-
-
+    labelValorP.innerHTML = "$ 0";
 
     var nuevaCantidad = document.createElement("input");
     nuevaCantidad.type = "number";
-    nuevaCantidad.style.width = "90px "
-    nuevaCantidad.value = "1";  
+    nuevaCantidad.style.width = "90px";
+    nuevaCantidad.value = "1";
     nuevaCantidad.min = "1";
-    
 
     var btnEliminar = document.createElement("button");
     btnEliminar.type = "button";
-    btnEliminar.className = "btn btn-soft-danger mt-2"; // Agrega la clase deseada
+    btnEliminar.className = "btn btn-soft-danger mt-2";
     btnEliminar.innerHTML = '<i class="fa-solid fa-minus fa-lg"></i>';
-    btnEliminar.style.marginLeft = "50px"
+    btnEliminar.style.marginLeft = "50px";
     btnEliminar.onclick = function () {
         document.getElementById("productosAgregados").removeChild(nuevoProductoContainer);
-        document.getElementById("productosAgregados").removeChild(btnEliminar);
-        document.getElementById("productosAgregados").removeChild(brElement);
-
-        
     };
-
-    var brElement = document.createElement("div");
-    brElement.innerHTML = '&nbsp;'; // Espacio en blanco
-    
-    
 
     nuevoProductoContainer.appendChild(nuevoSelect);
     nuevoProductoContainer.appendChild(labelCantidad);
     nuevoProductoContainer.appendChild(nuevaCantidad);
     nuevoProductoContainer.appendChild(labelValor);
     nuevoProductoContainer.appendChild(labelValorP);
-    nuevoProductoContainer.appendChild(btnEliminar);  // Mover el botón eliminar aquí
-
+    nuevoProductoContainer.appendChild(btnEliminar);
 
     document.getElementById("productosAgregados").appendChild(nuevoProductoContainer);
 
+    // Llamar a la función de actualización de valor inmediatamente
+    actualizarValorProducto(nuevoSelect, labelValorP);
 }
+
+function actualizarValorProducto1(select) {
+    var idProducto = select.value;
+    if (idProducto) {
+        fetch(`http://localhost:3000/api/productos/${idProducto}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("valorProducto").innerHTML = `$ ${data.PrecioProducto}`;
+            })
+            .catch(error => console.error('Error al obtener el valor del producto:', error));
+    }
+}
+
+function actualizarValorProducto(select, labelValor) {
+    var idProducto = select.value;
+    if(idProducto==="Agregar producto a la compra"){
+        labelValor.innerHTML = `$ 0`;
+    }else {
+        fetch(`http://localhost:3000/api/productos/${idProducto}`)
+            .then(response => response.json())
+            .then(data => {
+                labelValor.innerHTML = `$ ${data.PrecioProducto}`;
+            })
+            .catch(error => console.error('Error al obtener el valor del producto:', error));
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const selectProveedores = document.getElementById('idProveedores');
+    fetch('http://localhost:3000/api/proveedores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(proveedor => {
+                const option = document.createElement('option');
+                option.value = proveedor.IdProveedor;
+                option.textContent = proveedor.NombreProveedor;
+                selectProveedores.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los proveedores:', error));
+
+    const selectProducto = document.getElementById('selectProducto');
+    fetch('http://localhost:3000/api/productos')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(producto => {
+                const option = document.createElement('option');
+                option.value = producto.IdProducto;
+                option.textContent = producto.NombreProducto;
+                selectProducto.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
+});
 
 const listarCompras = async () => {
     let ObjectId = document.getElementById('contenidoCompras'); // obj donde se mostrara la info
     let contenido = ''; // contiene las filas y celdas que se mostraran en el tbody
 
     try {
-        const response = await fetch(url, {
+        const response = await fetch(url1, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -200,5 +246,35 @@ async function enviarCompra() {
 }
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.getElementById('idProveedores');
+
+    fetch('http://localhost:3000/api/proveedores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(producto => {
+                const option = document.createElement('option');
+                option.value = producto.IdProducto;
+                option.textContent = producto.NombreProducto;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
+});
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.getElementById('selectProducto');
+
+    fetch('http://localhost:3000/api/productos')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(producto => {
+                const option = document.createElement('option');
+                option.value = producto.IdProducto;
+                option.textContent = producto.NombreProducto;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
+});

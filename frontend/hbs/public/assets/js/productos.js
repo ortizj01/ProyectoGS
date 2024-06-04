@@ -34,7 +34,7 @@ const listarProductos= async () => {
                         <td>${producto.PrecioProducto}</td>
                         <td>${producto.IvaProducto}</td>
                         <td>${producto.Stock}</td>
-                        <td>${producto.Imagen}</td>
+                        <td>${producto.Imagen}</td> 
                         <td>${producto.EstadoProducto}</td>
                         <td>${producto.IdCategoriaProductos}</td>
                         <td style="text-align: center;">
@@ -42,7 +42,6 @@ const listarProductos= async () => {
                             <a href="../ProductosEditar?id=${producto.IdProducto}">
                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
                             </a>
-                                <i class="fa-regular fa-eye fa-xl me-2"></i>
                         </td>
                     </tr>
                 `;
@@ -204,6 +203,46 @@ const agregarProducto = async () => {
         });
     }
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.getElementById('SelectorCategoria');
+
+    fetch('http://localhost:3000/api/categorias')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(categorias => {
+                const option = document.createElement('option');
+                option.value = categorias.IdCategoriaProductos;
+                option.textContent = producto.NombreCategoriaProductos;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const selectElement = document.getElementById('categoria');
+
+    fetch('http://localhost:3000/api/categorias')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(categorias => {
+                const option = document.createElement('option');
+                option.value = categorias.IdCategoriaProductos;
+                option.textContent = categorias.NombreCategoriaProductos;
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error al cargar los productos:', error));
+});
+
+
+
+
+
+
+
+
 
 
 const formularioproductos = document.getElementById('formularioProductos');
