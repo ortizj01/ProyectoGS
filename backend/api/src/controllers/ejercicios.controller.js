@@ -17,6 +17,19 @@ export const createEjercicios = async (req, res) => {
     })
 }
 
-export const updateEjercicios = (req, res) => res.send('Actualizando ejercicios')
+export const updateEjercicios = async (req, res) => {
+    const { IdEjercicio } = req.params;
+    const { NombreEjercicio, DescripcionEjercicio, RepeticionesEjercicio, EstadoEjercicio } = req.body;
 
-export const deleteEjercicios = (req, res) => res.send('Eliminando ejercicios')
+    const [result] = await pool.query('UPDATE Ejercicios SET NombreEjercicio = IFNULL(?, NombreEjercicio), DescripcionEjercicio = IFNULL(?, DescripcionEjercicio), RepeticionesEjercicio = IFNULL(?, RepeticionesEjercicio), EstadoEjercicio = IFNULL(?, EstadoEjercicio) WHERE IdEjercicio = ?',
+        [NombreEjercicio, DescripcionEjercicio, RepeticionesEjercicio, EstadoEjercicio, IdEjercicio]
+    );
+
+    if (result.affectedRows === 0) return res.status(404).json({
+        message: 'Ejercicio no encontrado'
+    });
+
+    const [rows] = await pool.query('SELECT * FROM Ejercicios WHERE IdEjercicio = ?', [IdEjercicio]);
+
+    res.json(rows[0]);
+};

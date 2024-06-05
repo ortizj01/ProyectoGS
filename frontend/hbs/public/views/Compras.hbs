@@ -6,7 +6,7 @@
     <title>Compras</title>
     {{> header}}
 </head>
-<body class="  ">
+<body onload="listarCompras()">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -28,195 +28,106 @@
 
               
     <!-- Inicio contenido -->
-    <br>
-    <div class="position-relative">
-      <a class="nav-link " href="../formcompras"><button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button></a>
-    </div>
-    <br>
     <div class="container-fluid content-inner">
-        <div class="row">
-      <div class="col-sm-12">
-         <div class="card">
-            <div class="card-header d-flex justify-content-between">
-               <div class="header-title">
-                  <h4 class="card-title">Compras</h4>
-               </div>
+            <div class="card-header py-2">
+                    <h2 class="m-2 font-weight-bold text-primary">Compras</h2>
             </div>
-            <div class="card-body p-0">
-               <div class="table-responsive mt-4">
-                  <table id="basic-table" class="table table-striped mb-0" role="grid">
-                     <thead>
-                        <tr>
-                           <th>Id de la compra</th>
-                           <th>Fecha de compra</th>
-                           <th>Nombre(proveedor)</th>
-                           <th>valor de la compra</th>
-                           <th>Fecha Registro</th>
-                           <th>Estado</th>
-                           <th>Acciones</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>
-                                 <h6>60405</h6>
-                           </td>
-                           <td>
-                                 <h6>01/11/2023</h6>                    
-                           </td>
-                           <td><h6>Gluta stack</h6></td>
-                           <td>
-                              <h6>$20.500</h6>
-                           </td>
-                           <td>
-                                 <h6>13/11/2023</h6>
-                           </td>
-                           <td>
-                                 <h6>Anulado</h6>  
-                           </td>
-                           <td>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"/>     
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/80/80942.png"/>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/709/709612.png"/>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>65646</h6>
-                           </td>
-                           <td>
-                                 <h6>02/01/2023</h6>                    
-                           </td>
-                           <td><h6>nutra lageno</h6></td>
-                           <td>
-                              <h6>$30.000</h6>
-                           </td>
-                           <td>
-                                 <h6>04/05/2023</h6>
-                           </td>
-                           <td>
-                                 <h6>Registrado</h6>
-                           </td>
-                           <td>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"/>     
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/80/80942.png"/>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/709/709612.png"/>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>54732</h6>
-                           </td>
-                           <td>
-                                 <h6>21/09/2023</h6>                    
-                           </td>
-                           <td><h6>Gluta</h6></td>
-                           <td>
-                              <h6>$12.600</h6>
-                           </td>
-                           <td>
-                                 <h6>02/10/2023</h6>
-                           </td>
-                           <td>
-                                 <h6>Anulado</h6>
-                           </td>
-                           <td>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"/>     
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/80/80942.png"/>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/709/709612.png"/>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>26587</h6>
-                           </td>
-                           <td>
-                                 <h6>01/01/2023</h6>                    
-                           </td>
-                           <td><h6>nutra lageno</h6></td>
-                           <td>
-                              <h6>$42.000</h6>
-                           </td>
-                           <td>
-                                 <h6>05/02/2023</h6>
-                           </td>
-                           <td>
-                                 <h6>Registrado</h6>
-                           </td>
-                           <td>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"/>     
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/80/80942.png"/>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/709/709612.png"/>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>13753</h6>
-                           </td>
-                           <td>
-                                 <h6>07/09/2023</h6>                    
-                           </td>
-                           <td><h6>Smart Gainer</h6></td>
-                           <td>
-                              <h6>$48.000</h6>
-                           </td>
-                           <td>
-                                 <h6>08/09/2023</h6>
-                           </td>
-                           <td>
-                                 <h6>Registrado</h6>
-                           </td>
-                           <td>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"/>     
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/80/80942.png"/>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/709/709612.png"/>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                                 <h6>33933</h6>
-                           </td>
-                           <td>
-                                 <h6>10/10/2023</h6>                    
-                           </td>
-                           <td><h6>Smart Gainer</h6></td>
-                           <td>
-                              <h6>$19.000</h6>
-                           </td>
-                           <td>
-                                 <h6>11/11/2023</h6>
-                           </td>
-                           <td>
-                                 <h6>Registrado</h6>
-                           </td>
-                           <td>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png"/>     
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/80/80942.png"/>
-                                 <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/709/709612.png"/>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  
-               </div>
-
-               
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                
+                <div class="card-body">
+                    
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+                                <div id="dataTable_filter" class="dataTables_filter">
+                                    <label>Buscar:<input type="search" class="form-control form-control-sm"
+                                            placeholder="" aria-controls="dataTable"></label>
+                                </div>
+                            </div>
+                                                    </div>
+                            <div class="footer-buttons mt-1">
+                            <a href="../Formcompras" type="button" name="Cancelar"
+                                class="btn btn-danger  previous action-button-previous float-end me-2"
+                                value="Previous">
+                                Crear Compra +
+                            </a>
+                        </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">NumeroReciboCompra</th>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 156.25px;">FechaCompra</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Start date: activate to sort column ascending"
+                                                    style="width: 104.297px;">ValorCompra</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">FechaRegistroCompra</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Proveedor</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenidoCompras">                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-30 col-md-40 p-2 float-end">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Previous</a>
+                                            </li>
+                                            <li class="paginate_button page-item active">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+                                                    class="page-link">1</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
+                                                    class="page-link">2</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
+                                                    class="page-link">3</a>
+                                            </li>
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
+                                                    class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-         </div>
-
-      </div>
-
-      <div style="padding-left: 80%;">
-         <ul class="pagination" >
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>
-      </div>
-   </div>
+       </div>  
     </div>
 
     <!-- Fin contenido --> 
@@ -225,6 +136,7 @@
     <footer class="footer">
         {{> copyright}}
     </footer>
+    <script src="../assets/js/Compras.js"></script>
    <!-- Footer Section End -->
 
     {{> footer}}

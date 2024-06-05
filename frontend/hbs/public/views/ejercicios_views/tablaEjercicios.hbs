@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proveedores</title>
+    <title>Ejercicios</title>
     {{> header}}
 </head>
-<body onload="listarProveedores()">
+<body class="  ">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -27,10 +27,10 @@
     <!-- Fin Barra superior -->
 
               
-    <!-- Inicio contenido -->
+    <!-- Inicio contenido -->      
     <div class="container-fluid content-inner">
             <div class="card-header py-2">
-                    <h2 class="m-2 font-weight-bold text-primary">Proveedores</h2>
+                    <h2 class="m-2 font-weight-bold text-primary">Ejercicios</h2>
             </div>
         <div class="container-fluid">
             <!-- DataTales Example -->
@@ -50,10 +50,10 @@
                             </div>
                                                     </div>
                             <div class="footer-buttons mt-1">
-                            <a href="../Formproveedores" type="button" name="Cancelar"
+                            <a href="nuevo-ejercicio" type="button" name="Cancelar"
                                 class="btn btn-danger  previous action-button-previous float-end me-2"
                                 value="Previous">
-                                Crear Proveedor +
+                                Crear Ejercicio +
                             </a>
                         </div>
                         </div>
@@ -67,29 +67,20 @@
                                                 <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
-                                                    style="width: 156.25px;">Nombre Proveedor</th>
+                                                    style="width: 156.25px;">Nombre Ejercicio</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                     colspan="1"
                                                     aria-label="Start date: activate to sort column ascending"
-                                                    style="width: 104.297px;">Nombre contacto proveedor</th>
+                                                    style="width: 104.297px;">Descripcion</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                     colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 93.0156px;">Telefono</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 93.0156px;">Direccion</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 93.0156px;">NIT</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 93.0156px;">Estado</th>
+                                                    style="width: 93.0156px;">Repeticiones</th>
                                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
                                                     colspan="1" aria-label="Salary: activate to sort column ascending"
                                                     style="width: 93.0156px;">Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="contenidoProveedores">                        
+                                        <tbody id="contenidoEjercicios">                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -128,17 +119,23 @@
                 </div>
             </div>
        </div>  
-    </div>  
-
-
+    </div>
     <!-- Fin contenido --> 
 
-   <!-- Footer Section Start -->
+    <!-- Footer Section Start -->
     <footer class="footer">
         {{> copyright}}
     </footer>
-   <!-- Footer Section End -->
-   <script src="../assets/js/proveedores.js"></script>
+    <!-- Footer Section End -->
+
+
+    <script src="../../assets/js/ejercicios/tablaEjercicios.js"></script>
+    <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                listarEjercicios();
+            });
+    </script>
+
     {{> footer}}
 </body>
 </html>

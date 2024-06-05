@@ -1,172 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plantilla</title>
+    <!-- Agregar enlaces a las bibliotecas de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     {{> header}}
 </head>
 <body class="  ">
-        <!-- Inicio del cargar -->
+    <!-- Inicio del cargar -->
     <div id="loading">
-      <div class="loader simple-loader">
-          <div class="loader-body">
-          </div>
-      </div>    </div>
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
     <!-- Fin cargar -->
 
     <!-- Inicio Barra lateral -->
-
-        {{> sidebar}}    
- 
+    {{> sidebar}}    
     <!-- Fin Barra lateral -->
 
-
     <!-- Inicio Barra superior -->
-        {{> topbar}}
+    {{> topbar}}
     <!-- Fin Barra superior -->
 
-              
-<!-- Inicio contenido -->
-<div class="container-fluid content-inner">
-    <br>
-    <div class="position-relative">
-        <button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button>
-    </div>
-    <br>
+    <!-- Inicio contenido -->
     <div class="container-fluid content-inner">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Usuarios</h4>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive mt-4">
-                            <table id="basic-table" class="table table-striped mb-0" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>id usuarios</th>
-                                        <th>id rol</th>
-                                        <th># Documento</th>
-                                        <th>nombre</th>
-                                        <th>correo</th>
-                                        <th>telefono</th>
-                                        <th>estado</th>
-                                        <th>contraseña</th>
-                                        <th>acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>123456789</td>
-                                        <td>weimar lopez</td>
-                                        <td>weimar@gmail.com</td>
-                                        <td>1234567890</td>
-                                        <td> <i class="fa-solid fa-toggle-on fa-xl" ></i></td>
-                                        <td>*********</td>
-                                        <td>
-                              <div class="d-flex align-items-center mb-4">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" ></i>
-                                
-                                 <i class="fa-regular fa-eye fa-xl me-2" ></i>
-                                
-                              </div>
-                           </td>
-                                    </tr>
-                                    <tr>
-    <td>2</td>
-    <td>2</td>
-    <td>987654321</td>
-    <td>alejandro builes</td>
-    <td>alejandro@example.com</td>
-    <td>9876543210</td>
-    <td> <i class="fa-solid fa-toggle-on fa-xl" ></i></td></td>
-    <td>*********</td>
-    <td><div class="d-flex align-items-center mb-4">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" ></i>
-                                 
-                                 <i class="fa-regular fa-eye fa-xl me-2" ></i>
-                                
-</tr>
-<tr>
-    <td>3</td>
-    <td>1</td>
-    <td>555555555</td>
-    <td>juan esteban ortiz</td>
-    <td>esteban@example.com</td>
-    <td>5555555555</td>
-    <td><i class="fa-solid fa-toggle-on fa-xl" ></i></td></td>
-    <td>*********</td>
-    <td><div class="d-flex align-items-center mb-4">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" ></i>
-                                 
-                                 <i class="fa-regular fa-eye fa-xl me-2" ></i>
-                                 
-</tr>
-<tr>
-    <td>4</td>
-    <td>2</td>
-    <td>333333333</td>
-    <td>johany ocampo</td>
-    <td>johany2@example.com</td>
-    <td>3333333333</td>
-    <td><i class="fa-solid fa-toggle-on fa-xl" ></i></td>
-    <td>*********</td>
-    <td><div class="d-flex align-items-center mb-4">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" ></i>
-                                 
-                                 <i class="fa-regular fa-eye fa-xl me-2" ></i>
-                                 
-</tr>
-<tr>
-    <td>5</td>
-    <td>1</td>
-    <td>777777777</td>
-    <td>alexander ospina</td>
-    <td>alexander4@example.com</td>
-    <td>7777777777</td>
-    <td> <i class="fa-solid fa-toggle-on fa-xl" ></i></td></td>
-    <td>*********</td>
-    <td><div class="d-flex align-items-center mb-4">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" ></i>
-                                 
-                                 <i class="fa-regular fa-eye fa-xl me-2" ></i>
-                                
-</tr>
-<tr>
-    <td>6</td>
-    <td>2</td>
-    <td>111111111</td>
-    <td>sebastian giraldo</td>
-    <td>sebastian3@example.com</td>
-    <td>1111111111</td>
-    <td><i class="fa-solid fa-toggle-on fa-xl" ></i></td></td>
-    <td>*********</td>
-    <td><div class="d-flex align-items-center mb-4">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2" ></i>
-                                
-                                 <i class="fa-regular fa-eye fa-xl me-2" ></i>
-                                 
-</tr>
+        <div class="container-fluid">
+            <!-- Botón Agregar Usuario -->
+            <div class="mb-3">
+                <a href="formUsuarios.hbs" class="btn btn-danger">Agregar usuario +</a>
+            </div>
 
-                                    
-                                </tbody>
-                            </table>
-                        </div>
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h3 class="m-0 font-weight-bold text-primary">Gestión de usuarios</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="userTable">
+                            <thead>
+                                <tr>
+                                    <th># Documento</th>
+                                    <th>Nombre</th>
+                                    <th>E-mail</th>
+                                    <th>Teléfono</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <!-- Aquí se insertarán los datos de los usuarios -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-
-    <!-- Fin contenido --> 
+    <!-- Fin contenido -->
 
     <!-- Footer Section Start -->
     <footer class="footer">
@@ -175,5 +71,67 @@
     <!-- Footer Section End -->
 
     {{> footer}}
+
+    <script>
+        // Esperar a que el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('http://localhost:3000/api/Usuarioss');
+                const users = await response.json();
+                
+                // Obtener la tabla
+                const userTableBody = document.getElementById('userTableBody');
+
+                // Limpiar la tabla antes de agregar los nuevos datos
+                userTableBody.innerHTML = '';
+
+                // Iterar sobre los usuarios y agregarlos a la tabla
+                users.forEach(user => {
+                    // Cambiar valores de estado
+                    const estado = user.Estado === 1 ? 'Activo' : 'Inactivo';
+
+                    const row = `
+                        <tr>
+                            <td>${user.Documento}</td>
+                            <td>${user.Nombres}</td>
+                            <td>${user.Correo}</td>
+                            <td>${user.Telefono}</td>
+                            <td>${estado}</td>
+                            <td>
+                                <a href="detalleUsuario"><i class="fa-regular fa-eye fa-xl me-2" aria-hidden="true"></i></a>
+                                <a href="formUsuariosModal"> <i class="fa-regular fa-pen-to-square fa-xl me-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target=""></i></a>
+                            </td>
+                        </tr>
+                    `;
+                    userTableBody.insertAdjacentHTML('beforeend', row);
+                });
+
+                // Inicializar DataTable
+              $('#userTable').DataTable({
+    "paging": true, // Habilita la paginación
+    "pagingType": "simple", // Usa el tipo de paginación simple
+    "pageLength": 10, // Define el número de filas por página
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]], // Define las opciones para "Mostrar entradas"
+    "language": {
+        "search": "Buscar:",
+        "lengthMenu": "Mostrar _MENU_ registros", // Cambia el texto "Show [n] entries" por "Mostrar [n] registros"
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+        "infoFiltered": "(filtrado de _MAX_ registros en total)",
+        "emptyTable": "No hay datos disponibles en la tabla",
+        "zeroRecords": "No se encontraron registros coincidentes",
+        "paginate": {
+            "previous": "Anterior",
+            "next": "Siguiente"
+        }
+    }
+});
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </body>
 </html>

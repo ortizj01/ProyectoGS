@@ -127,35 +127,45 @@
                                                      </div>
                                                 </form>
                                             </div>
-                                    <!-- ... resto de los formularios para los días ... -->
-
-                                    <div class="form-dia shadow p-3 mb-5 bg-body rounded" data-dia="Martes" style="display: none;">
-                                                <form>
-                                                    <div class="row mb-3">
-                                                        <div class="col-md-4">
-                                                            <label for="routine" class="col-form-label">Ejercicio</label>
-                                                            <select class="form-select" id="routine">
-                                                                <option value="pecho">Seleccione el ejercicio</option>
-                                                                <option value="pecho">Pecho</option>
-                                                                <option value="espalda">Espalda</option>
-                                                                <option value="piernas">Piernas</option>
-                                                                <!-- Agrega más opciones según sea necesario -->
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label for="exercise" class="col-form-label">Tipo Ejercicio</label>
-                                                            <input type="text" class="form-control" id="exercise">
-                                                        </div>
-                                                        <div class="col-md-4 d-flex align-items-center">
-                                                            <label for="reps" class="col-form-label">Repeticiones</label>
-                                                            <input type="number" class="form-control" id="reps" style="width: 100px;"/>
-
-                                                                <button type="button" class="btn btn-soft-info ms-2 add-field">
-                                                                    <i class="fa-solid fa-plus fa-lg"></i>
-                                                                </button>
-                                                        </div>
-                                                     </div>
-                                                </form>
+                                            <p class="formularioRegistro__input-error">Ingrese el nombre de la rutina correctamente</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group formularioRegistro__grupo" id="grupo__idUsuario">
+                                            <div class="formularioRegistro__grupo-input">
+                                                <label class="formularioRegistro__label">Usuario*</label>
+                                                <select class="form-control" name="idUsuario" id="idUsuario">
+                                                    <option value="">Seleccione un usuario</option>
+                                                </select>
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formularioRegistro__input-error">Seleccione un usuario</p>
+                                        </div>
+                                    </div>
+                                    <div class="row"> 
+                                        <div class="col-md-4" id="estadoRutinaContainer" style="display:none;">
+                                            <div class="form-group formularioRegistro__grupo">
+                                                <div class="formularioRegistro__grupo-input">
+                                                    <label class="formularioRegistro__label">Estado Rutina</label>
+                                                    <select class="form-control" name="estadoRutina">
+                                                        <option value="1">Activa</option>
+                                                        <option value="0">Inactiva</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                </div>
+                                <div class="container mt-5">
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <!-- Botones para seleccionar los días -->
+                                        <button type="button" class="mx-2 day-button" data-day="lunes">Lunes</button>
+                                        <button type="button" class="mx-2 day-button" data-day="martes">Martes</button>
+                                        <button type="button" class="mx-2 day-button" data-day="miercoles">Miércoles</button>
+                                        <button type="button" class="mx-2 day-button" data-day="jueves">Jueves</button>
+                                        <button type="button" class="mx-2 day-button" data-day="viernes">Viernes</button>
+                                        <button type="button" class="mx-2 day-button" data-day="sabado">Sábado</button>
+                                        <button type="button" class="mx-2 day-button" data-day="domingo">Domingo</button>
                                     </div>
 
                                             {{!-- FIN MARTES --}}

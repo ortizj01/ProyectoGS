@@ -5,7 +5,7 @@ const router = Router()
 
 router.get('/ejercicios', getEjercicios)
 router.post('/ejercicios', createEjercicios)
-router.put('/ejercicios', updateEjercicios)
-router.delete('/ejercicios', deleteEjercicios)
+router.put('/ejercicios/:IdEjercicio', updateEjercicios)
+router.delete('/ejercicios/:IdEjercicio', deleteEjercicio)
 
 export default router

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Usuario</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+   <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Actualizar usuario</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="formularioUsuarios">
+                            <!-- IdUsuario (deshabilitado) -->
+                            <input type="hidden" name="IdUsuario" value="id_del_usuario">
+
+                            <!-- Los campos para actualizar los datos del usuario -->
+                            <div class="row">
+                                <!-- Primera columna -->
+                                <div class="col-md-6">
+                                    <!-- Nombre -->
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre*</label>
+                                        <input type="text" class="form-control" name="Nombres" placeholder="Nombre" value="nombre_del_usuario" required />
+                                        <span class="error-message" id="nombre-error"></span>
+                                    </div>
+
+                                    <!-- Apellidos -->
+                                    <div class="form-group">
+                                        <label class="form-label">Apellidos*</label>
+                                        <input type="text" class="form-control" name="Apellidos" placeholder="Apellidos" value="apellidos_del_usuario" required />
+                                        <span class="error-message" id="apellidos-error"></span>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail*</label>
+                                        <input type="email" class="form-control" name="Correo" placeholder="E-mail" value="email_del_usuario" required />
+                                        <span class="error-message" id="email-error"></span>
+                                    </div>
+
+                                    <!-- Teléfono -->
+                                    <div class="form-group">
+                                        <label class="form-label">Teléfono*</label>
+                                        <input type="text" class="form-control" name="Telefono" placeholder="Teléfono" value="telefono_del_usuario" required />
+                                        <span class="error-message" id="telefono-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Segunda columna -->
+                                <div class="col-md-6">
+                                    <!-- Tipo de Documento -->
+                                    <!-- Dirección -->
+                                    <div class="form-group">
+                                        <label class="form-label">Dirección*</label>
+                                        <input type="text" class="form-control" name="Direccion" placeholder="Dirección" value="direccion_del_usuario" required />
+                                        <span class="error-message" id="direccion-error"></span>
+                                    </div>
+
+                                    <!-- Género -->
+                                    <div class="form-group">
+                                        <label class="form-label">Género*</label>
+                                        <select class="form-select" name="Genero" required>
+                                            <option value="" disabled selected hidden>Seleccionar Género</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                        <span class="error-message" id="genero-error"></span>
+                                    </div>
+
+                                    <!-- Rol -->
+                                    <div class="form-group">
+                                        <label class="form-label">Rol*</label>
+                                        <select class="form-select" name="Rol" required>
+                                            <option value="" disabled selected hidden>Seleccionar Rol</option>
+                                            <option value="Administrador">Administrador</option>
+                                            <option value="Entrenador">Entrenador</option>
+                                            <option value="Cliente">Cliente</option>
+                                        </select>
+                                        <span class="error-message" id="rol-error"></span>
+                                    </div>
+
+                                    <!-- Estado -->
+                                    <div class="form-group">
+                                        <label class="form-label">Estado*</label>
+                                        <select class="form-select" name="Estado" required>
+                                            <option value="" disabled selected hidden>Seleccionar Estado</option>
+                                            <option value="1">Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
+                                        <span class="error-message" id="estado-error"></span>
+                                    </div>
+
+                                    <!-- Beneficiario -->
+                                    <div class="form-group">
+                                        <label class="form-label">Beneficiario*</label>
+                                        <input type="text" class="form-control" name="Beneficiario" placeholder="Beneficiario" value="beneficiario_del_usuario" required />
+                                        <span class="error-message" id="beneficiario-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="form-group">
+                                <label class="form-label">Contraseña*</label>
+                                <input type="password" class="form-control" name="Contrasena" placeholder="Contraseña" required />
+                                <span class="error-message" id="contrasena-error"></span>
+                            </div>
+
+                            <!-- Confirmar Contraseña -->
+                            <div class="form-group">
+                                <label class="form-label">Confirmar Contraseña*</label>
+                                <input type="password" class="form-control" name="confirmarContrasena" placeholder="Confirmar Contraseña" required />
+                                <span class="error-message" id="confirmarContrasena-error"></span>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-end">
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    <a href="usuariosAdmin" class="btn btn-dark ms-2">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="../assets/js/postUsuarios.js"></script>
+    <script src="../assets/js/UsuarosValidaciones.js"></script>
+
+    <script>
+        // Función para cargar los datos del usuario desde tu API
+        function cargarDatosUsuario() {
+            // URL de tu API para obtener los datos del usuario
+            const apiUrl = 'http://localhost:3000/api/Usuarioss';
+
+            // Realizar una solicitud HTTP GET a tu API
+            fetch(apiUrl)
+                .then(response => response.json()) // Convertir la respuesta a JSON
+                .then(data => {
+                    // Llenar los campos del formulario con los datos del usuario obtenidos de la respuesta
+                    document.querySelector('input[name="Nombres"]').value = data.nombre;
+                    document.querySelector('input[name="Apellidos"]').value = data.apellidos;
+                    document.querySelector('input[name="Correo"]').value = data.email;
+                    document.querySelector('input[name="Telefono"]').value = data.telefono;
+                    document.querySelector('select[name="TipoDocumento"]').value = data.tipoDocumento;
+                    document.querySelector('input[name="Documento"]').value = data.documento;
+                    document.querySelector('input[name="FechaDeNacimiento"]').value = data.fechaNacimiento;
+                    document.querySelector('input[name="Direccion"]').value = data.direccion;
+                    document.querySelector('select[name="Genero"]').value = data.genero;
+                    document.querySelector('select[name="Rol"]').value = data.rol;
+                    document.querySelector('select[name="Estado"]').value = data.estado;
+                    document.querySelector('input[name="Beneficiario"]').value = data.beneficiario;
+                })
+                .catch(error => console.error('Error al obtener datos del usuario:', error));
+        }
+
+        // Función para enviar los datos actualizados del usuario a tu API mediante una solicitud PUT
+        function actualizarUsuario(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario de manera tradicional
+
+            // Datos del formulario
+            const formData = new FormData(document.getElementById('formularioUsuarios'));
+
+            // URL de tu API para actualizar los datos del usuario
+            const apiUrl = 'http://localhost:3000/api/Usuarioss';
+
+            // Realizar una solicitud HTTP PUT a tu API
+            fetch(apiUrl, {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => response.json()) // Convertir la respuesta a JSON
+            .then(data => {
+                // Mostrar mensaje de éxito en un modal
+                document.getElementById('successModal').style.display = 'block';
+            })
+            .catch(error => console.error('Error al actualizar datos del usuario:', error));
+        }
+
+        // Llamar a la función para cargar los datos del usuario cuando se cargue la página
+        window.addEventListener('DOMContentLoaded', cargarDatosUsuario);
+
+        // Asignar el evento submit al formulario para enviar los datos actualizados del usuario
+        document.getElementById('formularioUsuarios').addEventListener('submit', actualizarUsuario);
+    </script>
+
+    {{> footer}}
+</body>
+</html>
