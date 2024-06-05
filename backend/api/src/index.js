@@ -13,6 +13,9 @@ import productosRoutes from './routes/productos.routes.js'
 import comprasproductoRoutes from './routes/comprasproducto.routes.js'
 import devolucioncomprasproductoRoutes from './routes/devolucionescomprasproducto.routes.js'
 import indexRoutes from './routes/index.routes.js';
+//Weiki
+import UsuariosRoutes from "./routes/Usuarios.routes.js";
+
 
 const app = express();
 
@@ -25,6 +28,7 @@ app.use('/api', ejerciciosRoutes);
 app.use('/api', rutinasRoutes);
 app.use('/api', eventosRoutes);
 app.use('/api', detalleRutinasRouter);
+app.use('/api',UsuariosRoutes)
 app.use(indexRoutes);
 
 //Alejo

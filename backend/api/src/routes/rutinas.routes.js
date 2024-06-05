@@ -12,6 +12,6 @@ router.get('/rutinas/:IdRutina/detallada', getRutinaDetallada);
 router.delete('/rutinas/:IdRutina/ejercicios', deleteEjerciciosDeRutina); 
 
 // Nueva ruta para obtener los usuarios
-router.get('/usuarios', getUsuarios);
+router.get('/usuarios',getUsuarios)
 
 export default router;

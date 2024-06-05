@@ -39,10 +39,6 @@ const listarRutinas = async () => {
                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"
                                     onclick="window.location.href='/nueva-rutina?rutinaId=${rutina.IdRutina}'"></i>
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                            <div class="wrap-toggle" style="margin-top:10px;">
-                                <input type="checkbox" id="toggle3" class="offscreen" />
-                                    <label for="toggle3" class="switch"></label>
-                            </div>
                         </td>
                     </tr>
                 `;

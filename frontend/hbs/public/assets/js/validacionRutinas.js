@@ -13,6 +13,7 @@ const campos = {
 const validarFormulario = (e) => {
     switch (e.target.name) {
         case "nombreRutina":
+            
             validarCampo(expresiones.nombreRutina, e.target, 'nombreRutina');
             break;
         case "idUsuario":
@@ -70,10 +71,10 @@ formularioRegistro.addEventListener('submit', (e) => {
         });
 
     } else {
-        Swal.fire({
-            icon: "error",
-            title: "¡Oops...",
-            text: "¡Por favor, selecciona un usuario y asegúrate de ingresar los datos correctos!",
-        });
+        // Swal.fire({
+        //     icon: "error",
+        //     title: "¡Oops...",
+        //     text: "¡Por favor, selecciona un usuario y asegúrate de ingresar los datos correctos!",
+        // });
     }
 });

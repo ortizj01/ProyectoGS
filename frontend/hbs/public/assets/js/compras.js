@@ -159,7 +159,8 @@ const listarCompras = async () => {
             }
         });
 
-        ObjectId.innerHTML = contenido;
+        ObjectId.innerHTML = contenido; 
+        $('#dataTable').DataTable();
 
     } catch (error) {
         console.error('Error:', error);
