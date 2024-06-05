@@ -4,7 +4,9 @@ import ejerciciosRoutes from './routes/ejercicios.routes.js';
 import rutinasRoutes from './routes/rutinas.routes.js';
 import eventosRoutes from './routes/eventos.routes.js';
 import detalleRutinasRouter from './routes/detalleRutinas.routes.js';
+import UsuariosRoutes from "./routes/Usuarios.routes.js";
 import indexRoutes from './routes/index.routes.js';
+
 
 const app = express();
 
@@ -17,6 +19,7 @@ app.use('/api', ejerciciosRoutes);
 app.use('/api', rutinasRoutes);
 app.use('/api', eventosRoutes);
 app.use('/api', detalleRutinasRouter);
+app.use('/api',UsuariosRoutes)
 app.use(indexRoutes);
 
 app.listen(3000, () => {
