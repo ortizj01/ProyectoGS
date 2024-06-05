@@ -113,8 +113,15 @@ app.get('/ProveedoresEditar', (req, res)=>{
 app.get('/usuariosAdmin', (req, res)=>{
     res.render('usuariosAdmin')
 })
-
-
+app.get('/formUsuarios.hbs', (req, res)=>{
+    res.render('formUsuarios.hbs')
+})
+app.get('/formUsuariosModal', (req, res)=>{
+    res.render('formUsuariosModal')
+})
+app.get('/detalleUSuario', (req, res)=>{
+    res.render('detalleUsuario')
+})
 app.get('/usuariosEntrenador', (req, res)=>{
     res.render('usuariosEntrenador')
 })
