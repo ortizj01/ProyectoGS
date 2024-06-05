@@ -1,88 +1,81 @@
 const url = 'http://localhost:3000/api/roles';
 
-// Función para listar roles
-const listarRoles = async () => {
+document.addEventListener('DOMContentLoaded', () => {
+    cargarRoles();
+
+    const formularioRol = document.getElementById('FormularioRol');
+    if (formularioRol) {
+        formularioRol.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const nombreRol = document.getElementById('nombreRol').value;
+            const estadoRol = document.getElementById('estado').value;
+
+            const rol = {
+                NombreRol: nombreRol,
+                EstadoRol: parseInt(estadoRol)
+            };
+
+            await crearRol(rol);
+            cargarRoles();
+        });
+    }
+
+    const editRolForm = document.getElementById('editRolForm');
+    if (editRolForm) {
+        editRolForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const nombreRol = document.getElementById('editNombreRol').value;
+            const estadoRol = document.getElementById('editEstado').value;
+            const rolId = document.getElementById('editIdRol').value;
+
+            const rol = {
+                NombreRol: nombreRol,
+                EstadoRol: parseInt(estadoRol)
+            };
+
+            await editarRol(rolId, rol);
+            $('#editarRolModal').modal('hide');
+            cargarRoles();
+        });
+    }
+});
+
+async function cargarRoles() {
     try {
         const response = await fetch(url);
+        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
+
         const roles = await response.json();
-
         const contenidoRoles = document.getElementById('contenidoRoles');
-        contenidoRoles.innerHTML = '';
-
-        roles.forEach(rol => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${rol.IdRol}</td>
-                <td>${rol.NombreRol}</td>
-                <td>${rol.EstadoRol ? 'Activo' : 'Inactivo'}</td>
-                <td>
-                    <div class="centered-container">
-                        <i class="fa-regular fa-pen-to-square fa-xl me-2" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#editarRolModal" 
-                            onclick="cargarDatosEditar(${rol.IdRol})">
-                        </i>
-                    <i class="fa-solid fa-trash fa-xl me-2 trash-icon"
-                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
-                </td>
-            `;
-            contenidoRoles.appendChild(row);
-        });
-        
-
-        // Agregar eventos para los modales
-        const editarModalEl = document.getElementById('editarRolModal');
-        const eliminarModalEl = document.getElementById('eliminarRolModal');
-
-        editarModalEl.addEventListener('show.bs.modal', async (event) => {
-            const idRol = event.relatedTarget.getAttribute('data-bs-id');
-            await cargarDatosEditar(idRol);
-        });
-
-        eliminarModalEl.addEventListener('show.bs.modal', async (event) => {
-            const idRol = event.relatedTarget.getAttribute('data-bs-id');
-            await cargarDatosEliminar(idRol);
-        });
+        if (contenidoRoles) {
+            contenidoRoles.innerHTML = '';
+            roles.forEach(rol => {
+                contenidoRoles.innerHTML += `
+                    <tr>
+                        <td>${rol.IdRol}</td>
+                        <td>${rol.NombreRol}</td>
+                        <td>${rol.EstadoRol === 1 ? 'Activo' : 'Inactivo'}</td>
+                        <td>
+                            <div class="centered-container">
+                                <i class="fa-regular fa-pen-to-square fa-xl me-2" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editarRolModal" 
+                                    onclick="cargarDatosEditar(${rol.IdRol})">
+                                </i>
+                                <i class="fa-solid fa-trash fa-xl me-2 trash-icon"
+                                    onclick="eliminarRol(${rol.IdRol})"></i>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
     } catch (error) {
         console.error('Error:', error);
     }
-};
+}
 
-// Función para cargar datos en el modal de edición
-const cargarDatosEditar = async (idRol) => {
-    try {
-        const response = await fetch(`${url}/${idRol}`);
-        const rol = await response.json();
-
-        document.getElementById('idRol').value = rol.IdRol;
-        document.getElementById('nombreRol').value = rol.NombreRol;
-        document.getElementById('estadoRol').value = rol.EstadoRol;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-// Función para cargar datos en el modal de eliminación
-const cargarDatosEliminar = async (idRol) => {
-    try {
-        const response = await fetch(`${url}/${idRol}`);
-        const rol = await response.json();
-
-        document.getElementById('idRolEliminar').value = rol.IdRol;
-        document.getElementById('nombreRolEliminar').value = rol.NombreRol;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-// Función para registrar un rol
-const registrarRol = async (event) => {
-    event.preventDefault();
-    const rol = {
-        NombreRol: document.getElementById('nombreRol').value,
-        EstadoRol: document.getElementById('estadoRol').value
-    };
-
+async function crearRol(rol) {
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -91,72 +84,53 @@ const registrarRol = async (event) => {
             },
             body: JSON.stringify(rol)
         });
-
-        if (!response.ok) {
-            throw new Error('Error al registrar el rol');
-        }
-
-        listarRoles();
-        $('#editarRolModal').modal('hide');
+        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
     } catch (error) {
         console.error('Error:', error);
     }
-};
+}
 
-// Función para actualizar un rol
-const actualizarRol = async (event) => {
-    event.preventDefault();
-    const rol = {
-        IdRol: document.getElementById('idRol').value,
-        NombreRol: document.getElementById('nombreRol').value,
-        EstadoRol: document.getElementById('estadoRol').value
-    };
-
+async function cargarDatosEditar(id) {
     try {
-        const response = await fetch(`${url}/${rol.IdRol}`, {
+        const response = await fetch(`${url}/${id}`);
+        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
+
+        const rol = await response.json();
+        document.getElementById('editIdRol').value = rol.IdRol;
+        document.getElementById('editNombreRol').value = rol.NombreRol;
+        document.getElementById('editEstado').value = rol.EstadoRol;
+        $('#editarRolModal').modal('show');
+        document.getElementById('editarRolModalLabel').innerText = 'Editar Rol';
+    } catch (error) {
+        console.error('Error fetching or parsing data:', error);
+    }
+}
+
+async function editarRol(id, rol) {
+    try {
+        const response = await fetch(`${url}/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(rol)
         });
-
-        if (!response.ok) {
-            throw new Error('Error al actualizar el rol');
-        }
-
-        listarRoles();
-        $('#editarRolModal').modal('hide');
+        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
     } catch (error) {
         console.error('Error:', error);
     }
-};
+}
 
-// Función para eliminar un rol
-const eliminarRol = async (event) => {
-    event.preventDefault();
-    const idRol = document.getElementById('idRolEliminar').value;
-
-    try {
-        const response = await fetch(`${url}/${idRol}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al eliminar el rol');
+async function eliminarRol(id) {
+    if (confirm('¿Estás seguro de que quieres eliminar este rol?')) {
+        try {
+            const response = await fetch(`${url}/${id}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
+            cargarRoles();
+        } catch (error) {
+            console.error('Error:', error);
         }
-
-        listarRoles();
-        $('#eliminarRolModal').modal('hide');
-    } catch (error) {
-        console.error('Error:', error);
     }
-};
-
-// Eventos
-document.addEventListener('DOMContentLoaded', listarRoles);
-document.getElementById('btnActualizarRol').addEventListener('click', actualizarRol);
-document.getElementById('btnEliminarRol').addEventListener('click', eliminarRol);
+}

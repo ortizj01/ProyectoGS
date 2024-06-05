@@ -1,4 +1,3 @@
-const formulario = document.getElementById('Formulariobeneficiario');
 
 if (formulario) {
     formulario.addEventListener("submit", function (event) {

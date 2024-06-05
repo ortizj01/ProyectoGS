@@ -8,10 +8,10 @@ import permisosRolesRoutes from './routes/permisosRoles.routes.js';
 import usuarioRolRoutes from './routes/usuarioRol.routes.js';
 import usuariosRoutes from './routes/usuario.routes.js';
 
-
-const app = express()
+const app = express();
 
 app.use(cors());
+app.use(express.json())
 
 app.use('/api', rolesRoutes)
 app.use('/api', permisosRoutes)
