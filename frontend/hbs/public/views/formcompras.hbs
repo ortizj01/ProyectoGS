@@ -67,12 +67,6 @@
                                             <label class="form-label" for="idProveedores">Proveedor *</label>
                                             <select class="form-select" id="idProveedores" name="dia">
                                             <option selected="" disabled="">Selecciona el Proveedor</option>
-                                            <option value="1">Gluta stack</option>
-                                            <option value="2">Smart Gainer</option>
-                                            <option value="3">Protigh</option>
-                                            <option value="4">Nutra lageno</option>
-                                            <option value="5">Gluta</option>
-                                            <option value="6">Stack</option>
                                             </select>
                                         </div>
                                     </div>
@@ -82,21 +76,18 @@
                                         
                                         <label for="selectProducto">Selecciona un producto:</label>
                                         <div class="productoContainer">
-                                        <select id="selectProducto" name="productos[]" style="width:300px">
-                                            <option selected="" disabled="">Agregar producto a la compra</option>
-                                            <option value="1">Creatina</option>
-                                            <option value="2">Aminoacidos</option>
-                                            <option value="3">Elite</option>
-                                            <option value="4">Agua</option>
+                                        <select id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
+                                            <option selected="" disabled="" >Agregar producto a la compra</option>
                                             <!-- Agrega más opciones según tus necesidades -->
                                         </select>
 
-                                        <label  for="cantidad" style="margin-left:50px" >Cantidad:</label>
+                                        <label for="cantidad" style="margin-left:50px" >Cantidad:</label>
                                         <input style="width:90px" type="number"  name="cantidades[]" value="1" min="1" required>
 
 
                                         <label  for="Valor" style="margin-left:50px" >Valor:</label>
-                                        <label  for="Valor" > $ 25.000</label>
+                                        <label id="valorProducto" for="Valor" > $0</label>
+
                                         <div class="productoContainer">
                                         <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()"style="margin-left:50px"><i class="fa-solid fa-plus fa-lg"></i></button>
                                         </div>
@@ -112,12 +103,6 @@
                                     <!-- fin -->
                                     
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Valor de la compra</label>
-                                            <label class="form-label">$ 58.000</label>
-                                        </div>
-                                    </div>
                                 </div>
                                 <button type="button" name="next" onclick="enviarCompra()" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
                                 <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button>

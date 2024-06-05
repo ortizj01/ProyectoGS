@@ -43,7 +43,6 @@ const listarProveedores = async () => {
                             <a href="../ProveedoresEditar?id=${proveedor.IdProveedores}">
                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
                             </a>
-                                <i class="fa-regular fa-eye fa-xl me-2"></i>
                         </td>
                     </tr>
                 `;
@@ -218,10 +217,10 @@ const inputs = document.querySelectorAll('#formularioProveedores input');
 
 
 const expresiones = {
-	Nombreproveedor: /^[a-zA-Z]+$/, 
-    Contactoproveedor: /^(?:\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)$/,
+	Nombreproveedor: /^[a-zA-Z\s]+$/, 
+    Contactoproveedor: /^[a-zA-Z\s]+$/,
     Telefono: /^[0-9]+$/,
-	Direccion:  /^([1-9]|[1-9][0-9]|100)%?$/,
+	Direccion:  /^[a-zA-Z0-9\s,.\-#]+$/,
     Nit:/^[0-9]+$/
 }
 
