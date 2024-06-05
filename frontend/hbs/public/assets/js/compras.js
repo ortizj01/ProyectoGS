@@ -67,7 +67,7 @@ const listarCompras = async () => {
     let contenido = ''; // contiene las filas y celdas que se mostraran en el tbody
 
     try {
-        const response = await fetch(url, {
+        const response = await fetch(url1, {
             method: 'GET',
             mode: 'cors',
             headers: {

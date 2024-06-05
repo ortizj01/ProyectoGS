@@ -167,3 +167,21 @@ export const getUsuarios = async (req, res) => {
         res.status(500).json({ message: 'Error interno del servidor' });
     }
 };
+
+// Función para eliminar los ejercicios de una rutina
+export const deleteEjerciciosDeRutina = async (req, res) => {
+    const { IdRutina } = req.params;
+
+    try {
+        const [result] = await pool.query('DELETE FROM RutinasEjercicios WHERE IdRutina = ?', [IdRutina]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'No se encontraron ejercicios para esta rutina' });
+        }
+
+        res.sendStatus(204);
+    } catch (error) {
+        console.error('Error al eliminar los ejercicios de la rutina:', error);
+        res.status(500).json({ message: 'Error al eliminar los ejercicios de la rutina', error });
+    }
+}

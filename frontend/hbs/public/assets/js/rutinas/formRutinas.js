@@ -126,6 +126,10 @@ $(document).ready(function() {
                 $('input[name="nombreRutina"]').val(data.NombreRutina);
                 $('select[name="idUsuario"]').val(data.IdUsuario);
 
+                // Mostrar el campo de estado solo en la edición
+                $('#estadoRutinaContainer').show();
+                $('select[name="estadoRutina"]').val(data.EstadoRutina);
+
                 const ejercicios = await fetchEjercicios();
 
                 if (data.Ejercicios !== undefined) {
@@ -168,95 +172,100 @@ $(document).ready(function() {
     }
 
     // Manejo del envío del formulario
-    $('#formularioRegistro').on('submit', function(e) {
-        e.preventDefault();
-    
-        const nombreRutina = $('input[name="nombreRutina"]').val();
-        const idUsuario = $('select[name="idUsuario"]').val();
-    
-        const rutinaData = {
-            NombreRutina: nombreRutina,
-            EstadoRutina: 1,
-            IdUsuario: idUsuario
-        };
-    
-        const method = rutinaId ? 'PUT' : 'POST';
-        const endpoint = rutinaId ? `http://localhost:3000/api/rutinas/${rutinaId}` : 'http://localhost:3000/api/rutinas';
+$('#formularioRegistro').on('submit', function(e) {
+    e.preventDefault();
 
+    const nombreRutina = $('input[name="nombreRutina"]').val();
+    const idUsuario = $('select[name="idUsuario"]').val();
 
-        fetch(endpoint, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(rutinaData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const newRutinaId = data.id || rutinaId;
-    
-            const promises = [];
-            const addedExercises = {};
-    
-            $('.day-form').each(function() {
-                const day = $(this).attr('id').split('-')[1];
-                const dayNumber = diasSemana[day];
-                const exerciseForms = $(this).find('.exercise-form');
-    
-                exerciseForms.each(function() {
-                    const ejercicioId = $(this).find('select').val();
-                    if (ejercicioId) {
-                        if (!addedExercises[dayNumber]) {
-                            addedExercises[dayNumber] = new Set();
-                        }
-    
-                        if (!addedExercises[dayNumber].has(ejercicioId)) {
-                            const promise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios`, {
+    const rutinaData = {
+        NombreRutina: nombreRutina,
+        EstadoRutina: 1,
+        IdUsuario: idUsuario
+    };
+
+    const method = rutinaId ? 'PUT' : 'POST';
+    const endpoint = rutinaId ? `http://localhost:3000/api/rutinas/${rutinaId}` : 'http://localhost:3000/api/rutinas';
+
+     // Solo agregar el estado de la rutina si se está editando
+     if (rutinaId) {
+        const estadoRutina = $('select[name="estadoRutina"]').val();
+        rutinaData['EstadoRutina'] = estadoRutina;
+    }
+
+    fetch(endpoint, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(rutinaData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        const newRutinaId = data.id || rutinaId;
+        const promises = [];
+
+        const addedExercises = {};
+
+        Object.keys(diasSemana).forEach(day => {
+            const dayNumber = diasSemana[day];
+            const exerciseList = $(`#form-${day} .exercise-form`);
+
+            exerciseList.each(function() {
+                const ejercicioId = $(this).find('select').val();
+                if (ejercicioId) {
+                    if (!addedExercises[dayNumber]) {
+                        addedExercises[dayNumber] = new Set();
+                    }
+                    if (!addedExercises[dayNumber].has(ejercicioId)) {
+                        const promise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ IdEjercicio: ejercicioId })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const detallePromise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${data.id}/detalles`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({ IdEjercicio: ejercicioId })
-                            })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                const detallePromise = fetch(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${data.id}/detalles`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({ DiaSemana: dayNumber })
-                                });
-    
-                                promises.push(detallePromise);
-                                addedExercises[dayNumber].add(ejercicioId);
+                                body: JSON.stringify({ DiaSemana: dayNumber })
                             });
-    
-                            promises.push(promise);
-                        }
+
+                            promises.push(detallePromise);
+                            addedExercises[dayNumber].add(ejercicioId);
+                        });
+
+                        promises.push(promise);
                     }
-                });
+                }
             });
-    
-            return Promise.all(promises);
-        })
-        .then(() => {
-            alert('Rutina guardada exitosamente.');
-            window.location.href = '/rutinas'; // Redirigir a la página de rutinas
-        })
-        .catch(error => {
-            console.error('Error al guardar la rutina:', error);
-            alert('Ocurrió un error al guardar la rutina.');
         });
-    });    
+
+        return Promise.all(promises);
+    })
+    .then(() => {
+        alert('Rutina guardada exitosamente.');
+        window.location.href = '/rutinas'; // Redirigir a la página de rutinas
+    })
+    .catch(error => {
+        console.error('Error al guardar la rutina:', error);
+        alert('Ocurrió un error al guardar la rutina.');
+    });
+});
+
+    
 });

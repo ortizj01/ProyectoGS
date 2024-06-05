@@ -165,6 +165,9 @@ app.get('/ejercicios', (req, res)=>{
 app.get('/nuevo-ejercicio', (req, res)=>{
     res.render('ejercicios_views/formEjercicio');
 });
+app.get('/editarEjercicio', (req, res)=>{
+    res.render('ejercicios_views/editarEjercicio');
+});
 
 //eventos
 app.get('/eventos', (req, res)=>{

@@ -27,13 +27,9 @@ const listarEjercicios = async () => {
                         <td>${ejercicio.RepeticionesEjercicio}</td>
                         <td style="text-align: center;">
                             <div class="centered-container">
-                                <i class="fa-regular fa-pen-to-square fa-xl me-2"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editarClienteModal"></i>
-                                <i class="fa-regular fa-eye fa-xl me-2"></i>
-                            <div class="wrap-toggle" style="margin-top:10px;">
-                                <input type="checkbox" id="toggle3" class="offscreen" />
-                                    <label for="toggle3" class="switch"></label>
+                            <div onclick="window.location.href='editarEjercicio?id=${ejercicio.IdEjercicio}'">
+                                <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
+                            </div>
                             </div>
                         </td>
                     </tr>
@@ -50,10 +46,8 @@ const listarEjercicios = async () => {
     }
 };
 
-// Asegúrate de llamar a listarEjercicios cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', listarEjercicios);
 
-// Función para manejar el envío del formulario
 const enviarFormulario = async (event) => {
     event.preventDefault();
 
@@ -85,7 +79,6 @@ const enviarFormulario = async (event) => {
         const result = await response.text();
         console.log('Resultado:', result);
 
-        // Recargar la lista de ejercicios después de agregar uno nuevo
         listarEjercicios();
 
     } catch (error) {
@@ -93,6 +86,5 @@ const enviarFormulario = async (event) => {
     }
 };
 
-// Añadir el evento al formulario
 const formulario = document.getElementById('formularioRegistro');
 formulario.addEventListener('submit', enviarFormulario);
