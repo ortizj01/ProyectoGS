@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Pedido</title>
+    <link rel="stylesheet" href="../assets/css/acordeon.css">
+     <link rel="stylesheet" href="../assets/css/styleEditar.css" />
+       <link rel="stylesheet" href="../assets/css/validacionesForms.css" />
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+    
+    <div class="container-fluid content-inner">
+    <div class="card-header py-3 text-center">
+        <h3 class="m-0 font-weight-bold text-primary">Editar pedido</h3>
+    </div>
+
+
+   <section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="checkout-steps-form-style-1">
+                    <ul id="accordionExample">
+                        <li>
+                            <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                aria-expanded="true" aria-controls="collapseThree">Datos Cliente</h6>
+                            <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Documento</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="1007510458" id="documentoCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Nombre</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="Yonier Alexander Ospina Hincapie" id="nombreCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Correo electrónico</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="ospinahincapie10@gmail.com" id="emailCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Telefono</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="3135497455" id="TelefonoCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Dirección</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="Calle 47 # 34 - 58" id="direccionCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label>Estado</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="ACTIVO" id="estadoCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="checkout-steps-form-style-1">
+                    <ul id="accordionExample1">
+                        <li>
+                            <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                aria-expanded="true" aria-controls="collapseFour">Datos Beneficiario</h6>
+                            <section class="checkout-steps-form-content collapse show" id="collapseFour"
+                                aria-labelledby="headingFour" data-bs-parent="#accordionExample1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Documento</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="1007510458" id="documentoBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label >Nombre</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="Yonier Alexander Ospina Hincapie" id="nombreBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Correo electrónico</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="ospinahincapie10@gmail.com" id="emailBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label >Telefono</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="3135497455" id="TelefonoBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Dirección</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="Calle 47 # 34 - 58" id="direccionBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label>Estado</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="ACTIVO" id="estadoBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+
+   <div class="container-fluid">
+
+    <div class="row">
+         <form id="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha pedido*</label>
+                                        <input type="date" class="form-control" name="Nombre Proveedor"
+                                            placeholder="Fecha compra" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="exampleFormControlSelect1">Estado pedido*</label>
+                                        <select class="form-select" id="exampleFormControlSelect1" name="dia">
+                                            <option selected="" disabled="">Ingrese el estado del pedido</option>
+                                            <option>ENTREGADO</option>
+                                            <option>PAGADO</option>
+                                            <option>PENDIENTE DE PAGO</option>
+                                            <option>ANULADO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+            </form>
+
+            
+<!-- Servicios Container -->
+<div class="card-header py-3 text-center">
+    <h3 class="m-0 font-weight-bold text-primary">Servicios</h3>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Agregar Servicio</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="formularioRegistro" id="formularioRegistro">
+                    <div class="row">
+
+                        <!-- Inicio de bloque de servicios -->
+                        <div class="col-md-12">
+                            <div class="servicioContainer">
+
+                                <select id="selectBeneficiario" name="Beneficiario[]" class="form-control" style="width: 300px;" required>
+                                    <option selected disabled>Seleccionar beneficiario</option>
+                                    <option>Yonier Alexander Ospina Hincapie</option>
+                                    <option>Pedro Juan Ospina Hincapie</option>
+                                    <option>Alberto Sebas Ospina Hincapie</option>
+                                    
+                                </select>
+                                <div>
+                                    <a href="formularioBeneficiario"><button type="button" class="btn btn-soft-info btn mt-2"><i
+                                                class="fa-solid fa-plus fa-lg"></i> Beneficiario</button></a>
+                                </div>
+
+                                <select id="selectServicio" name="servicios[]" class="form-control" style="width: 300px;" required>
+                                    <option selected disabled>Seleccinar membresia</option>
+                                    <option value="servicio1">Membresía Premium</option>
+                                    <option value="servicio2">Membresía Básica</option>
+                                </select>
+
+                                <div class="form-group formularioRegistro__grupo" id="grupo__cantidad">
+                                    <label for="cantidadServicio" class="cantidad formularioRegistro__label">Cantidad:</label>
+                                    <input type="number" class="form-control" id="cantidadServicio" name="cantidades[]" value="1" min="1" style="width: 90px;">
+                                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                </div>
+
+                                <div class="form-group formularioRegistro__grupo" id="grupo__valor">
+                                    <label for="valor" class="cantidad formularioRegistro__label">Valor:</label>
+                                    <label class="ms-2">$50.000</label>
+                                </div>
+
+                                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio(document.getElementById('serviciosAgregadosContainer'))">
+                                    <i class="fa-solid fa-plus fa-lg"></i>
+                                </button>
+                            </div>
+                            <div id="serviciosAgregadosContainer" class="mt-2">
+                                <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+                            </div>
+                        </div>
+                        <!-- Fin de bloque de servicios -->
+
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group">
+                                    <br>
+                                    <label class="form-label">Valor total servicios</label>
+                                    <input type="text" placeholder="$250.000" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" name="next" class="btn btn-primary next action-button float-end" value="Next">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Productos Container -->
+<div class="card-header py-3 text-center">
+    <h3 class="m-0 font-weight-bold text-primary">Productos</h3>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <div class="header-title">
+                    <h4 class="card-title">Agregar Productos</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="formularioRegistro2" id="formularioRegistro2">
+                    <div class="row">
+                        <!-- Inicio de bloque de productos -->
+                        <div class="col-md-12">
+                            <div class="productoContainer">
+                                <select id="selectProducto" name="productos[]" class="form-select">
+                                    <option selected disabled>Agregar producto al pedido</option>
+                                    <option value="producto1">Creatina Monohidratada</option>
+                                    <!-- Resto de las opciones de productos -->
+                                </select>
+
+                                <div class="form-group formularioRegistro2__grupo" id="grupo__cantidadProducto">
+                                    <label for="cantidadProducto" class="cantidad formularioRegistro2__label">Cantidad:</label>
+                                    <input type="number" id="cantidadProducto" class="form-control" name="cantidades[]" value="1" min="1" style="width: 90px;">
+                                    <i class="formularioRegistro2__validacion-estado fas fa-times-circle"></i>
+                                </div>
+
+                                <div class="form-group formularioRegistro2__grupo" id="grupo__valorProducto">
+                                    <label for="valorProducto" class="cantidad formularioRegistro2__label">Valor:</label>
+                                    <input type="text" class="form-control" placeholder="250.000" style="width: 90px;" readonly>
+                                </div>
+
+                                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto(document.getElementById('productosAgregadosContainer'))">
+                                    <i class="fa-solid fa-plus fa-lg"></i>
+                                </button>
+                            </div>
+                            <div id="productosAgregadosContainer" class="mt-2">
+                                <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+                            </div>
+                        </div>
+                        <!-- Fin de bloque de productos -->
+                    </div>
+                    <button type="submit" name="next" class="btn btn-primary next action-button float-end" value="Next">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+         <div class="bd-example table-responsive">
+                <table  class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">TOTAL PEDIDO</th>
+                            <th scope="col">1.195.000</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+    </div>
+    
+</div>
+
+
+<div class="d-flex justify-content-center">
+    <a href="pedidos" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+    <button type="button" onclick="mostrarMensajeExito()" class="btn btn-primary">Guardar</button>
+</div>
+
+
+    </div>
+    </div>
+            </div>
+            </div>
+                </div>
+
+            </div>
+                </div>
+                </div>
+                </div>
+    
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+ <script src="../assets/js/pedidos.js"></script>
+ <script src="../assets/js/formEditarPedido.js"></script>
+ <script src="../assets/js/formServicios.js"></script>
+ <script src="../assets/js/formProductos.js"></script>
+
+    {{> footer}}
+</body>
+</html>

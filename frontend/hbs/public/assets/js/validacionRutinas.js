@@ -3,7 +3,9 @@ const inputs = document.querySelectorAll('#formularioRegistro input')
 
 
 const expresiones = {
-	nombreRutina: /^[a-zA-Z0-9\s-_]{3,}$/
+	nombreRutina: /^[a-zA-Z0-9]{3,}$/,
+    tipoEjercicio: /^[a-zA-Z0-9]{3,}$/,
+    repeticiones: /^(?:[1-9]|10)$/
 }
 
 const campos = {
@@ -14,6 +16,12 @@ const validarFormulario = (e) => {
     switch (e.target.name) {
         case "nombreRutina":
             validarCampo(expresiones.nombreRutina, e.target, 'nombreRutina')
+        break
+        case "tipoEjercicio":
+            validarCampo(expresiones.tipoEjercicio, e.target, 'tipoEjercicio')
+        break
+        case "repeticiones":
+            validarCampo(expresiones.repeticiones, e.target, 'repeticiones')
         break
         // case "correo":
         //     validarCampo(expresiones.correo, e.target, 'correo')

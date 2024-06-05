@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion CLientes</title>
+    {{> header}}
+    <!-- Estilos modal -->
+    <link rel="stylesheet" href="../assets/css/modal.css" />
+    <link rel="stylesheet" href="../assets/css/validacionesFormsEditar.css" />
+    <link rel="stylesheet" href="../assets/css/validacionesFormsCliente.css" />
+    <link rel="stylesheet" href="../assets/css/validacionesFormsEliminar.css" />
+    
+</head>
+
+<body class="" onload="listarClientes()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                
+                <div class="card-body">
+                    <div class="card-header py-3">
+                    <h2 class="m-0 font-weight-bold text-primary">Gestión Clientes</h2>
+                    </div>
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+                                <div id="dataTable_filter" class="dataTables_filter">
+                                    <label>Buscar:<input type="search" class="form-control form-control-sm"
+                                            placeholder="" aria-controls="dataTable"></label>
+                                </div>
+                            </div>
+                                                    </div>
+                            <div class="footer-buttons mt-1">
+                            <a href="formularioCliente" type="button" name="Cancelar"
+                                class="btn btn-danger  previous action-button-previous float-end me-2"
+                                value="Previous">
+                                Crear Cliente +
+                            </a>
+                        </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Start date: activate to sort column ascending"
+                                                    style="width: 104.297px;">Documento</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Position: activate to sort column ascending"
+                                                    style="width: 257.578px;">Nombre</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Age: activate to sort column ascending"
+                                                    style="width: 48.1719px;">Teléfono</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Age: activate to sort column ascending"
+                                                    style="width: 48.1719px;">Correo Electronico</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenido">
+                            
+                                
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-30 col-md-40">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled"
+                                                id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+                                                    class="page-link">Previous</a>
+                                            </li>
+                                            <li class="paginate_button page-item active">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
+                                                    class="page-link">1</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
+                                                    class="page-link">2</a>
+                                            </li>
+                                            <li class="paginate_button page-item ">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
+                                                    class="page-link">3</a>
+                                            </li>
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
+                                                    class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+                                                <!-- MODAL -->
+
+                                                                <!-- Modal editar -->
+   <div class="modal fade" id="editarClienteModal" tabindex="-1" aria-labelledby="editarClienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="m-0 font-weight-bold text-primary">Editar cliente</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+                <form class="formularioActualizacion" id="formularioActualizacion">
+                    <!-- Campos del formulario -->
+                    <div class="row">
+                                                                    {{!-- Campo documento --}}
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group formularioActualizacion__grupo" id="grupo__documentoCliente">
+                                                    <div class="formularioActualizacion__grupo-input" >
+                                                        <label for="documentoCliente" class="formularioActualizacion__label"># documento*</label>
+                                                        <input type="text" class="form-control" name="documentoCliente" id="documentoCliente" aria-describedby="documentoClienteHelp" placeholder="Ingrese Documento" readonly/>
+                                                        <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
+                                                    </div>
+                                                    <p class="formularioActualizacion__input-error">Ingresa un documento valido</p>
+                                                    <div><small id="documentoClienteHelp" class="form-text text-muted"><br></small> </div> 
+                                                    
+                                                </div>
+                                            </div>
+
+                                            {{!-- Campo Nombres --}}
+
+                                            <div class="col-lg-6">
+                                            <div class="form-group formularioActualizacion__grupo" id="grupo__nombreCliente">
+                                                    <div class="formularioActualizacion__grupo-input" >
+                                                    <label for="nombreCliente" class="formularioActualizacion__label">Nombre *</label>
+                                                    <input type="text" class="form-control" name="nombreCliente" id="nombreCliente" aria-describedby="nombreClienteHelp" placeholder="Ingrese Nombre"/>               
+                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
+                                                    </div>
+                                                    <p class="formularioActualizacion__input-error">Los nombres no puede contener numeros o caracteres especiales</p>
+                                                    <div><small id="nombreClienteHelp" class="form-text text-muted"><br></small> </div>  
+                                                </div>
+                                            </div>
+
+
+                                            {{!-- Campo correo --}}
+
+                                            <div class="col-lg-6">
+                                            <div class="form-group formularioActualizacion__grupo" id="grupo__correoCliente">
+                                                    <div class="formularioActualizacion__grupo-input" >
+                                                    <label for="correoCliente" class="formularioActualizacion__label">Correo Electronico *</label>
+                                                    <input type="text" class="form-control" name="correoCliente" id="correoCliente" aria-describedby="correoClienteHelp" placeholder="Ingrese Correo Electronico"/>               
+                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
+                                                    </div>
+                                                    <p class="formularioActualizacion__input-error">El correo no es valido</p>
+                                                    <div><small id="correoClienteHelp" class="form-text text-muted"><br></small> </div>  
+                                                </div>
+                                            </div>
+
+
+                                            {{!-- Campo Numero Cel --}}
+
+                                            <div class="col-lg-6">
+                                            <div class="form-group formularioActualizacion__grupo" id="grupo__telefonoCliente">
+                                                    <div class="formularioActualizacion__grupo-input" >
+                                                    <label for="telefonoCliente" class="formularioActualizacion__label">Telefono *</label>
+                                                    <input type="text" class="form-control" name="telefonoCliente" id="telefonoCliente" aria-describedby="telefonoClienteHelp" placeholder="Ingrese Telefono"/>               
+                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
+                                                    </div>
+                                                    <p class="formularioActualizacion__input-error">El numero no es valido.</p>
+                                                    <div><small id="telefonoClienteHelp" class="form-text text-muted"><br></small> </div>  
+                                                </div>
+                                            </div>
+
+
+
+                                            {{!-- Campo direccion --}}
+
+                                            <div class="col-lg-6">
+                                            <div class="form-group formularioActualizacion__grupo" id="grupo__direccionCliente">
+                                                    <div class="formularioActualizacion__grupo-input" >
+                                                    <label for="direccionCliente" class="formularioActualizacion__label">Dirección *</label>
+                                                    <input type="text" class="form-control" name="direccionCliente" id="direccionCliente" aria-describedby="direccionClienteHelp" placeholder="Ej: Cra 19 # 52-102"/>               
+                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
+                                                    </div>
+                                                    <p class="formularioActualizacion__input-error">Ingrese una direccion valida.</p>
+                                                    <div><small id="direccionClienteHelp" class="form-text text-muted"><br></small> </div>  
+                                                </div>
+                                            </div>
+
+                                            {{!-- Campo Estado --}}
+
+                                            <div class="col-md-6">
+                                            <div class="form-group formularioActualizacion__grupo formularioActualizacion__grupo-estadoCliente" id="grupo__estadoCliente">
+                                                <label for="estadoCliente">Seleccionar Estado*</label>
+                                                <select name="estadoCliente" id="estadoCliente" class="form-control" required>
+                                                    <option value="">Seleccione el Estado</option>
+                                                    <option value="true">Activo</option>
+                                                    <option value="false">Inactivo</option>
+                                                </select>
+                                                <small id="estadoClienteHelp" class="form-text text-muted"><br></small>
+                                            </div>
+                                            </div>
+
+                        </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark  previous action-button-previous float-end me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary next action-button float-end" id="btnActualizar">Actualizar</button>
+                    </div>
+                </form>
+
+        </div>
+    </div>
+    </div>
+    </div>
+
+                                                                <!-- Modal Eliminar -->
+
+    <div class="modal fade" id="eliminarClienteModal" tabindex="-1" aria-labelledby="eliminarClienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="m-0 font-weight-bold text-primary">¿Deseas eliminar este cliente?</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               
+                <form class="formularioEliminar" id="formularioEliminar">
+                    <!-- Campos del formulario -->
+                    <div class="row">
+                                            {{!-- Campo Documento --}}
+                <div class="col-lg-6">
+                <div class="form-group formularioEliminar__grupo" id="grupo__documentoCliente">
+                    <div class="formularioEliminar__grupo-input" >
+                        <label for="documentoCliente" class="formularioEliminar__label"># documento*</label>
+                        <input type="text" class="form-control" name="documentoCliente" id="documentoClienteEliminar" aria-describedby="documentoClienteHelp" placeholder="Ingrese Documento" readonly/>
+                        <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
+                    </div>
+                    <p class="formularioEliminar__input-error">Ingresa un documento valido</p>
+                    <div><small id="documentoClienteHelp" class="form-text text-muted"><br></small> </div> 
+                    
+                </div>
+                </div>
+
+                {{!-- Campo Nombres --}}
+
+                <div class="col-lg-6">
+                <div class="form-group formularioEliminar__grupo" id="grupo__nombreCliente">
+                    <div class="formularioEliminar__grupo-input" >
+                    <label for="nombreCliente" class="formularioEliminar__label">Nombre *</label>
+                    <input type="text" class="form-control" name="nombreCliente" id="nombreClienteEliminar" aria-describedby="nombreClienteHelp" placeholder="Ingrese Nombre"readonly/>               
+                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
+                    </div>
+                    <p class="formularioEliminar__input-error">Los nombres no puede contener numeros o caracteres especiales</p>
+                    <div><small id="nombreClienteHelp" class="form-text text-muted"><br></small> </div>  
+                </div>
+                </div>
+
+
+                {{!-- Campo correo --}}
+
+                <div class="col-lg-6">
+                <div class="form-group formularioEliminar__grupo" id="grupo__correoCliente">
+                    <div class="formularioEliminar__grupo-input" >
+                    <label for="correoCliente" class="formularioEliminar__label">Correo Electronico *</label>
+                    <input type="text" class="form-control" name="correoCliente" id="correoClienteEliminar" aria-describedby="correoClienteHelp" placeholder="Ingrese Correo Electronico"readonly/>               
+                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
+                    </div>
+                    <p class="formularioEliminar__input-error">El correo no es valido</p>
+                    <div><small id="correoClienteHelp" class="form-text text-muted"><br></small> </div>  
+                </div>
+                </div>
+
+
+                {{!-- Campo Numero Cel --}}
+
+                <div class="col-lg-6">
+                <div class="form-group formularioEliminar__grupo" id="grupo__telefonoCliente">
+                    <div class="formularioEliminar__grupo-input" >
+                    <label for="telefonoCliente" class="formularioEliminar__label">Telefono *</label>
+                    <input type="text" class="form-control" name="telefonoCliente" id="telefonoClienteEliminar" aria-describedby="telefonoClienteHelp" placeholder="Ingrese Telefono"readonly/>               
+                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
+                    </div>
+                    <p class="formularioEliminar__input-error">El numero no es valido.</p>
+                    <div><small id="telefonoClienteHelp" class="form-text text-muted"><br></small> </div>  
+                </div>
+                </div>
+
+
+
+                {{!-- Campo direccion --}}
+
+                <div class="col-lg-6">
+                <div class="form-group formularioEliminar__grupo" id="grupo__direccionCliente">
+                    <div class="formularioEliminar__grupo-input" >
+                    <label for="direccionCliente" class="formularioEliminar__label">Dirección *</label>
+                    <input type="text" class="form-control" name="direccionCliente" id="direccionClienteEliminar" aria-describedby="direccionClienteHelp" placeholder="Ej: Cra 19 # 52-102"readonly/>               
+                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
+                    </div>
+                    <p class="formularioEliminar__input-error">Ingrese una direccion valida.</p>
+                    <div><small id="direccionClienteHelp" class="form-text text-muted"><br></small> </div>  
+                </div>
+                </div>
+
+                {{!-- Campo Estado --}}
+
+                <div class="col-md-6">
+                <div class="form-group formularioEliminar__grupo formularioEliminar__grupo-estadoCliente" id="grupo__estadoCliente">
+                <label for="estadoCliente">Seleccionar Estado*</label>
+                <select name="estadoCliente" id="estadoClienteEliminar" class="form-control" disabled>
+                    <option value="">Seleccione el Estado</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+                <small id="estadoClienteHelp" class="form-text text-muted"><br></small>
+                </div>
+                </div>
+
+                        
+
+                                 </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark  previous action-button-previous float-end me-2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary next action-button float-end" id="btnEliminar">Eliminar</button>
+                    </div>
+                </form>
+
+        </div>
+    </div>
+    </div>
+    </div>
+     </div>
+    </div>
+    <!-- FIN DEL CONTENIDO -->
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/funcionesCliente.js"></script>
+    <script src="../assets/js/formEditarCliente.js"></script>
+    <script src="../assets/js/formEliminarCliente.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    {{> footer}}
+</body>
+
+</html>

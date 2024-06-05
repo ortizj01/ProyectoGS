@@ -1,74 +1,97 @@
-const formulario = document.getElementById('Formulariobeneficiario');
+const formularioRegistro = document.getElementById('formularioRegistro')
+const inputs = document.querySelectorAll('#formularioRegistro input')
 
-if (formulario) {
-    formulario.addEventListener("submit", function (event) {
-        event.preventDefault();
-        validateForm();
-    });
+const expresiones = {
+	nombreBeneficiario: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+    documentoBeneficiario: /^[0-9]{7,10}$/,
+	correoBeneficiario: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    direccionBeneficiario: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
+	telefonoBeneficiario: /^[0-9]{7,10}$/,
+
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    function validateNombre(input) {
-        const regex = /^[a-zA-Z\s]*$/;
-        return regex.test(input.value);
+const campos = {
+    nombreBeneficiario: false, 
+    documentoBeneficiario: false, 
+    correoBeneficiario: false, 
+    telefonoBeneficiario: false, 
+    direccionBeneficiario: false,
+    estadoBeneficiario: true,
+  
+}
+
+const validarFormulario = (e) => {
+    switch (e.target.name) {
+        case "nombreBeneficiario":
+            validarCampo(expresiones.nombreBeneficiario, e.target, 'nombreBeneficiario')
+        break
+        case "documentoBeneficiario":
+            validarCampo(expresiones.documentoBeneficiario, e.target, 'documentoBeneficiario')
+        break
+        case "correoBeneficiario":
+            validarCampo(expresiones.correoBeneficiario, e.target, 'correoBeneficiario')
+        break
+        case "telefonoBeneficiario":
+            validarCampo(expresiones.telefonoBeneficiario, e.target, 'telefonoBeneficiario')
+        break
+        case "direccionBeneficiario":
+            validarCampo(expresiones.direccionBeneficiario, e.target, 'direccionBeneficiario')
+        break
     }
+}
 
-    function validateDocumento(input) {
-        const regex = /^\d{10}$/;
-        return regex.test(input.value);
+const validarCampo = (expresion, input, campo) => {
+    if (expresion.test(input.value)) {
+        document.getElementById(`grupo__${campo}`).classList.remove('formularioRegistro__grupo-incorrecto')
+        document.getElementById(`grupo__${campo}`).classList.add('formularioRegistro__grupo-correcto')
+        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle')
+        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle')
+        document.querySelector(`#grupo__${campo} .formularioRegistro__input-error`).classList.remove('formularioRegistro__input-error-activo')
+        campos[campo] = true
+    }else {
+        document.getElementById(`grupo__${campo}`).classList.add('formularioRegistro__grupo-incorrecto')
+        document.getElementById(`grupo__${campo}`).classList.remove('formularioRegistro__grupo-correcto')
+        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle')
+        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle')
+        document.querySelector(`#grupo__${campo} .formularioRegistro__input-error`).classList.add('formularioRegistro__input-error-activo')
+        campo[false]
     }
+}
 
-    function validateCorreo(input) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(input.value);
-    }
 
-    function validateDireccion(input) {
-        const regex = /^[a-zA-Z0-9\s]*$/;
-        return regex.test(input.value);
-    }
+inputs.forEach((input) => {
+    input.addEventListener('keyup', validarFormulario)
+    input.addEventListener('blur', validarFormulario)
+})
 
-    function validateContacto(input) {
-        const regex = /^[a-zA-Z\s]*$/;
-        return regex.test(input.value);
-    }
+formularioRegistro.addEventListener('submit', (e) =>{
+    e.preventDefault();
 
-    function updateErrorMessage(id, isValid, message) {
-        const errorSpan = document.getElementById(id);
-        errorSpan.textContent = isValid ? '' : message;
-    }
+    if (campos.documentoBeneficiario && campos.nombreBeneficiario && campos.correoBeneficiario && campos.telefonoBeneficiario && 
+        campos.direccionBeneficiario ) {
+        formularioRegistro.reset()
 
-    function validateForm() {
-        const nombreInput = document.querySelector('input[name="Nombrebeneficiario"]');
-        const tipoDocumentoInput = document.querySelector('select[name="tipoDocumento"]');
-        const documentoInput = document.querySelector('input[name="Documentobeneficiario"]');
-        const correoInput = document.querySelector('input[name="correobeneficiario"]');
-        const direccionInput = document.querySelector('input[name="direccionbeneficiario"]');
-        const contactoInput = document.querySelector('input[name="contactobeneficiario"]');
+        Swal.fire({
+            title: "Excelente!",
+            text: "Beneficiario Registrado Correctamente!",
+            icon: "success"
+          })
+          .then(() => {
 
-        const isValidNombre = validateNombre(nombreInput);
-        const isValidTipoDocumento = tipoDocumentoInput.value !== "";
-        const isValidDocumento = validateDocumento(documentoInput);
-        const isValidCorreo = validateCorreo(correoInput);
-        const isValidDireccion = validateDireccion(direccionInput);
-        const isValidContacto = validateContacto(contactoInput);
+            location.reload()
+    
+          })
 
-        updateErrorMessage('nombre-error', isValidNombre, 'Solo se permiten letras y espacios en el nombre');
-        updateErrorMessage('tipoDocumento-error', isValidTipoDocumento, 'Seleccione un tipo de documento');
-        updateErrorMessage('Documentobeneficiario-error', isValidDocumento, 'Ingrese un número de documento válido (10 dígitos)');
-        updateErrorMessage('correo-error', isValidCorreo, 'Ingrese una dirección de correo electrónico válida');
-        updateErrorMessage('direccion-error', isValidDireccion, 'Solo se permiten letras, números y espacios en la dirección');
-        updateErrorMessage('contacto-error', isValidContacto, 'Solo se permiten letras y espacios en el contacto');
+          document.querySelectorAll('.formularioRegistro__grupo-correcto').forEach((icono) => {
+            icono.classList.remove('formularioRegistro__grupo-correcto')
+        })
 
-        if (isValidNombre && isValidTipoDocumento && isValidDocumento && isValidCorreo && isValidDireccion && isValidContacto) {
-            alert('Formulario válido. Guardar información.');
-        } else {
-            alert('El formulario no es válido. Por favor, revisa los campos.');
-        }
-    }
-
-    const guardarButton = document.querySelector('button[name="Guardar"]');
-    if (guardarButton) {
-        guardarButton.addEventListener("click", validateForm);
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Ingresa los datos correctos",
+          });
     }
 });
+

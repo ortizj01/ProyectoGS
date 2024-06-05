@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Beneficiario</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/validacionesForms.css" />
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+  <div class="container-fluid content-inner">
+         <div class="row">                
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                          <div class="card-header py-6">
+                    <h3 class="m-0 font-weight-bold text-primary">Agregar Beneficiario</h3>
+                </div>
+                    </div>
+                    <div class="card-body">
+                        <form class="formularioRegistro" id="formularioRegistro">
+                                 <div class="row">
+
+                                     {{!-- Campo documento --}}
+
+                                     <div class="col-lg-6">
+                                          <div class="form-group formularioRegistro__grupo" id="grupo__documentoBeneficiario">
+                                                <div class="formularioRegistro__grupo-input" >
+                                                   <label for="documentoBeneficiario" class="formularioRegistro__label"># documento*</label>
+                                                   <input type="text" class="form-control" name="documentoBeneficiario" id="documentoBeneficiario" aria-describedby="documentoBeneficiarioHelp" placeholder="Ingrese Documento"/>
+                                                   <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                                </div>
+                                                <p class="formularioRegistro__input-error">Ingresa un documento valido</p>
+                                                <div><small id="documentoBeneficiarioHelp" class="form-text text-muted"><br></small> </div> 
+                                                
+                                          </div>
+                                    </div>
+                                    
+                                    {{!-- Campo Nombres --}}
+
+                                      <div class="col-lg-6">
+                                       <div class="form-group formularioRegistro__grupo" id="grupo__nombreBeneficiario">
+                                             <div class="formularioRegistro__grupo-input" >
+                                                <label for="nombreBeneficiario" class="formularioRegistro__label">Nombre *</label>
+                                                <input type="text" class="form-control" name="nombreBeneficiario" id="nombreBeneficiario" aria-describedby="nombreBeneficiarioHelp" placeholder="Ingrese Nombre"/>               
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                             </div>
+                                              <p class="formularioRegistro__input-error">Los nombres no puede contener numeros o caracteres especiales</p>
+                                             <div><small id="nombreBeneficiarioHelp" class="form-text text-muted"><br></small> </div>  
+                                          </div>
+                                      </div>
+                                    
+
+                                    {{!-- Campo correo --}}
+
+                                        <div class="col-lg-6">
+                                       <div class="form-group formularioRegistro__grupo" id="grupo__correoBeneficiario">
+                                             <div class="formularioRegistro__grupo-input" >
+                                                <label for="correoBeneficiario" class="formularioRegistro__label">Correo Electronico *</label>
+                                                <input type="text" class="form-control" name="correoBeneficiario" id="correoBeneficiario" aria-describedby="correoBeneficiarioHelp" placeholder="Ingrese Correo Electronico"/>               
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                             </div>
+                                              <p class="formularioRegistro__input-error">El correo no es valido</p>
+                                             <div><small id="correoBeneficiarioHelp" class="form-text text-muted"><br></small> </div>  
+                                          </div>
+                                      </div>
+                                    
+                                    
+                                    {{!-- Campo Numero Cel --}}
+
+                                       <div class="col-lg-6">
+                                       <div class="form-group formularioRegistro__grupo" id="grupo__telefonoBeneficiario">
+                                             <div class="formularioRegistro__grupo-input" >
+                                                <label for="telefonoBeneficiario" class="formularioRegistro__label">Telefono *</label>
+                                                <input type="text" class="form-control" name="telefonoBeneficiario" id="telefonoBeneficiario" aria-describedby="telefonoBeneficiarioHelp" placeholder="Ingrese Telefono"/>               
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                             </div>
+                                              <p class="formularioRegistro__input-error">El numero no es valido.</p>
+                                             <div><small id="telefonoBeneficiarioHelp" class="form-text text-muted"><br></small> </div>  
+                                          </div>
+                                      </div>
+                                    
+
+
+                                    {{!-- Campo direccion --}}
+
+                                        <div class="col-lg-6">
+                                       <div class="form-group formularioRegistro__grupo" id="grupo__direccionBeneficiario">
+                                             <div class="formularioRegistro__grupo-input" >
+                                                <label for="direccionBeneficiario" class="formularioRegistro__label">Dirección *</label>
+                                                <input type="text" class="form-control" name="direccionBeneficiario" id="direccionBeneficiario" aria-describedby="direccionBeneficiarioHelp" placeholder="Ej: Cra 19 # 52-102"/>               
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                             </div>
+                                              <p class="formularioRegistro__input-error">Ingrese una direccion valida.</p>
+                                             <div><small id="direccionBeneficiarioHelp" class="form-text text-muted"><br></small> </div>  
+                                          </div>
+                                      </div>
+
+                                     {{!-- Campo Estado --}}
+                                    
+                                    <div class="col-md-6">
+                                       <div class="form-group formularioRegistro__grupo formularioRegistro__grupo-estadoBeneficiario" id="grupo__estadoBeneficiario">
+                                          <label for="estadoBeneficiario">Seleccionar Estado*</label>
+                                          <select name="estadoBeneficiario" id="estadoBeneficiario" class="form-control" required>
+                                                <option value="">Seleccione el Estado</option>
+                                                <option value="true">Activo</option>
+                                                <option value="false">Inactivo</option>
+                                          </select>
+                                          <small id="estadoBeneficiarioHelp" class="form-text text-muted"><br></small>
+                                       </div>
+                                    </div>
+
+                                    <div>
+                                       <button type="submit" class="btn btn-primary next action-button float-end" id="btnRegistrar">Registrar</button>
+                                       <a href="../beneficiarios"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+                                    </div>
+                           </div>
+                     </div>
+               </div>
+                              
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+     <script src="../assets/js/FormBeneficiario.js"></script>
+     <script src="../assets/js/funcionesBeneficiario.js"></script>
+
+    {{> footer}}
+</body>
+</html>

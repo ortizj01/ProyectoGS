@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beneficiarios</title>
+    <title>Pedidos</title>
     {{> header}}
 </head>
 <body class="  ">
@@ -28,13 +28,13 @@
 
               
     <!-- Inicio contenido -->      
-         <div class="container-fluid content-inner">
+    <div class="container-fluid content-inner">
 
         <div class="container-fluid">
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h3 class="m-0 font-weight-bold text-primary">Gestión Beneficiarios</h3>
+                            <h3 class="m-0 font-weight-bold text-primary">Gestión pedidos</h3>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -42,9 +42,6 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="dataTables_length" id="dataTable_length">
-                                                    </div>
-                                                      <div>
-                                                        <a href="formularioBeneficiario"><button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar beneficiario +</button></a>
                                                     </div>
                                                     </div>
                                                     <div class="col-sm-16 col-md-8"><div id="dataTable_filter" class="dataTables_filter">
@@ -54,76 +51,66 @@
                                                         </div>
                                                         <div class="row"><div class="col-sm-12"><table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                         <thead>
-                                        <tr role="row"><th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 156.25px;">IDbeneficiario</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 104.297px;">Documento</th>
+                                        <tr role="row"><th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 156.25px;">IDPedido</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 257.578px;">Nombre</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 48.1719px;">Teléfono</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 48.1719px;">Correo Electronico</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 110.688px;">Fecha Pedido</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 48.1719px;">Total</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 104.297px;">Estado Pedido</th>
                                         <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 93.0156px;">Acciones</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 93.0156px;">Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <tr class="odd">
                                             <td class="sorting_1">001</td>
-                                            <td>1007510458</td>
                                             <td>Alexander Ospina</td>
-                                            <td>3135497455</td>
-                                            <td>alexander@gmail.com</td>
+                                            <td>13/11/2023</td>
+                                            <td>400.000</td>
+                                            <td>PENDIENTE DE PAGO</td>
                                             <td style="text-align: center;">
                                             <div class="centered-container">
-                                            <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarbeneficiarioModal"></i>
-
-                                            <div class="wrap-toggle" style="margin-top:10px;">
-                                            <input type="checkbox" id="toggle" class="offscreen" />
-                                            <label for="toggle3" class="switch"></label>
-                                            </div></td>
-                                            <td>ACTIVO</td>
+                                            <a href="editarPedido"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                                            <a href="detallePedido"><i class="fa-regular fa-eye fa-xl me-2"></i></a>     
+                                           <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png" class="fa-solid fa-trash fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarpedidoModal"/>
+                                           </td>
+                                           
                                         </tr><tr class="even">
                                             <td class="sorting_1">002</td>
-                                            <td>1007632589</td>
-                                            <td>Johany Prado</td>
-                                            <td>3135465245</td>
-                                            <td>johany@gmail.com</td>
+                                            <td>Johany Ocampo</td>
+                                            <td>05/08/2023</td>
+                                            <td>800.000</td>
+                                            <td>PENDIENTE DE PAGO</td>
                                             <td style="text-align: center;">
                                             <div class="centered-container">
-                                           <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarbeneficiarioModal"></i>
+                                            <a href="editarPedido"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                                            <a href="detallePedido"><i class="fa-regular fa-eye fa-xl me-2"></i></a>  
+                                            <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png" class="fa-solid fa-trash fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarpedidoModal"/>
+                                           </td>
                                            
-                                            <div class="wrap-toggle" style="margin-top:10px;">
-                                            <input type="checkbox" id="toggle3" class="offscreen" />
-                                            <label for="toggle3" class="switch"></label>
-                                            </div></td>
-                                            <td>ACTIVO</td>
                                         </tr><tr class="odd">
                                             <td class="sorting_1">003</td>
-                                            <td>1010652356</td>
-                                            <td>Pedro Restrepo</td>
-                                            <td>3128659475</td>
-                                            <td>pedro@gmail.com</td>
+                                            <td>Manolo Murillo</td>
+                                            <td>10/07/2023</td>
+                                            <td>100.000</td>
+                                            <td>PENDIENTE DE PAGO</td>
                                             <td style="text-align: center;">
                                             <div class="centered-container">
-                                            <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarbeneficiarioModal"></i>
-                                            
-                                            <div class="wrap-toggle" style="margin-top:10px;">
-                                            <input type="checkbox" id="toggle3" class="offscreen" />
-                                            <label for="toggle3" class="switch"></label>
-                                            </div></td>
-                                            <td>ACTIVO</td>
+                                            <a href="editarPedido"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                                            <a href="detallePedido"><i class="fa-regular fa-eye fa-xl me-2"></i></a>   
+                                            <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png" class="fa-solid fa-trash fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarpedidoModal"/>
+                                           </td>
+                                           
                                         </tr><tr class="even">
                                             <td class="sorting_1">004</td>
-                                            <td>1032659845</td>
-                                            <td>Alejandro Mazor</td>
-                                            <td>3145689523</td>
-                                            <td>alejandro@gmail.com</td>
-                                            <td style="text-align: center;">
+                                            <td>Hector el father</td>
+                                            <td>24/06/2023</td>
+                                            <td>600.000</td>
+                                            <td>PENDIENTE DE PAGO</td>
+                                           <td style="text-align: center;">
                                             <div class="centered-container">
-                                            <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarbeneficiarioModal"></i>
-                                         
-                                            <div class="wrap-toggle" style="margin-top:10px;">
-                                            <input type="checkbox" id="toggle3" class="offscreen" />
-                                            <label for="toggle3" class="switch"></label>
-                                            </div></td>
-                                            <td>ACTIVO</td>
+                                                <a href="editarPedido"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                                               <a href="detallePedido"><i class="fa-regular fa-eye fa-xl me-2"></i></a>  
+                                            <img width="30px" height="30px" src="https://cdn-icons-png.flaticon.com/128/1617/1617543.png" class="fa-solid fa-trash fa-xl me-2" data-bs-toggle="modal" data-bs-target="#editarpedidoModal"/>
+                                           </td>
                                         </tr>
                                         </tbody>
                                 </table>
@@ -160,39 +147,34 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="editarbeneficiarioModal" tabindex="-1" aria-labelledby="editarbeneficiarioModalLabel" aria-hidden="true">
+            <div class="modal fade" id="editarpedidoModal" tabindex="-1" aria-labelledby="editarpedidoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="m-0 font-weight-bold text-primary">Editar beneficiario</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               
-                <form>
-                    <!-- Campos del formulario -->
-                    <label for="nombre">Documento:</label>
-                    <input type="text" id="Documento" name="Documento" class="form-control">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="Nombre" name="Nombre" class="form-control">
-                    <label for="nombre">Teléfono:</label>
-                    <input type="text" id="Telefono" name="Telefono" class="form-control">
-                    <label for="nombre">Correo Electronico:</label>
-                    <input type="text" id="Correo" name="Correo" class="form-control">
-
-                    <br>
-
-                    <button id="miBoton" type="submit" name="Guardar" class="btn btn-primary next action-button float-end" value="Next">Guardar</button>
-                    <a href="beneficiarios"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
-                </form>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="m-0 font-weight-bold text-primary">Anular pedido</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-            </div>
+        <div class="modal-body">
+            <form action="" id="anularPedidoForm">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                        <use xlink:href="#exclamation-triangle-fill" />
+                    </svg>
+                    <div>
+                        ¿Seguro deseas anular el pedido?
+                    </div>
+                </div>
+                <button id="miBoton" type="button" class="btn btn-primary next action-button float-end" onclick="anularPedido()">Anular</button>
+                <button type="button" class="btn btn-dark previous action-button-previous float-end me-2" data-bs-dismiss="modal">Cancelar</button>
+            </form>
         </div>
+    </div>
+</div>
     </div>
        </div>
         </div> 
 </div>
-            <!-- FIN DEL CONTENIDO -->
+            <!-- End of Main Content -->
             <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -215,6 +197,25 @@
     <footer class="footer">
         {{> copyright}}
     </footer>
+
+   <script>
+    function anularPedido() {
+        // Aquí puedes realizar las acciones necesarias para anular el pedido, por ejemplo, enviar una solicitud al servidor
+
+        // Después de anular el pedido con éxito, muestra la alerta
+        Swal.fire({
+            title: "¡Pedido anulado!",
+            text: "El pedido se ha anulado de manera correcta.",
+            icon: "success",
+            confirmButtonText: "Aceptar"
+        }).then((result) => {
+            // Recarga la página después de cerrar la alerta
+            if (result.isConfirmed) {
+                location.reload();
+            }
+        });
+    }
+</script>
     <!-- Footer Section End -->
 
     {{> footer}}

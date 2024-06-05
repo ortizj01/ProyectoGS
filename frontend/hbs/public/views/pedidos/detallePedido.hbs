@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Pedido</title>
+   
+   <link rel="stylesheet" href="../assets/css/acordeon.css">
+     
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+    
+    <div class="container-fluid content-inner">
+    <div class="card-header py-3 text-center">
+        <h3 class="m-0 font-weight-bold text-primary">Detalle pedido</h3>
+    </div>
+
+  
+   <section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="checkout-steps-form-style-1">
+                    <ul id="accordionExample">
+                        <li>
+                            <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                aria-expanded="true" aria-controls="collapseThree">Datos Cliente</h6>
+                            <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Documento</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="1007510458" id="documentoCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Nombre</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="Yonier Alexander Ospina Hincapie" id="nombreCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Correo electrónico</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="ospinahincapie10@gmail.com" id="emailCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Telefono</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="3135497455" id="TelefonoCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Dirección</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="Calle 47 # 34 - 58" id="direccionCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label>Estado</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="ACTIVO" id="estadoCliente" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="checkout-steps-form-style-1">
+                    <ul id="accordionExample1">
+                        <li>
+                            <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                aria-expanded="true" aria-controls="collapseFour">Datos Beneficiario</h6>
+                            <section class="checkout-steps-form-content collapse show" id="collapseFour"
+                                aria-labelledby="headingFour" data-bs-parent="#accordionExample1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Documento</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="1007510458" id="documentoBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label >Nombre</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="Yonier Alexander Ospina Hincapie" id="nombreBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Correo electrónico</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="ospinahincapie10@gmail.com" id="emailBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label >Telefono</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="3135497455" id="TelefonoBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label for="mail">Dirección</label>
+                                            <div class="form-input form">
+                                                <input type="email" placeholder="Calle 47 # 34 - 58" id="direccionBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form form-default">
+                                            <label>Estado</label>
+                                            <div class="form-input form">
+                                                <input type="text" placeholder="ACTIVO" id="estadoBeneficiario" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <div class="container-fluid">
+
+    <div class="row">
+
+        <div class="card-header py-3 text-center">
+                <h3 class="m-0 font-weight-bold text-primary">Servicios</h3>
+            </div>
+
+            <div class="bd-example table-responsive">
+                <table  class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">IVA</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Sub Total</th>
+                        </tr>
+                    </thead>
+                      <tfoot>
+                    <tr>
+                    <th rowspan="1" colspan="1"></th>
+                    <th rowspan="1" colspan="1"></th>
+                    <th rowspan="1" colspan="1"></th>
+                    <th rowspan="1" colspan="1">TOTAL</th>
+                    <th rowspan="1" colspan="1">195.000</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <th scope="row">MEMBRESIA PLUS</th>
+                            <td>150.000</td>
+                            <td>45.000</td>
+                            <td>1</td>
+                            <td>195.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="card-header py-3 text-center">
+                <h3 class="m-0 font-weight-bold text-primary">Productos</h3>
+            </div>
+
+            <div class="bd-example table-responsive">
+                <table  class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Precio Unitario</th>
+                            <th scope="col">IVA</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Sub Total</th>
+                        </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                    <th rowspan="1" colspan="1"></th>
+                    <th rowspan="1" colspan="1"></th>
+                    <th rowspan="1" colspan="1"></th>
+                    <th rowspan="1" colspan="1">TOTAL</th>
+                    <th rowspan="1" colspan="1">1.000.000</th>
+                    </tr>
+                    </tfoot>
+                   
+                    <tbody>
+                        <tr>
+                            <th scope="row">BEST PROTEIN 2.1B LBS</th>
+                            <td>200.000</td>
+                            <td>50.000</td>
+                            <td>4</td>
+                            <td>450.000</td>
+                            
+                        </tr>
+                         <tr>
+                            <th scope="row">SUPER BARRA LBS</th>
+                            <td>500.000</td>
+                            <td>43.000</td>
+                            <td>4</td>
+                            <td>200.000</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">GATORADE</th>
+                            <td>500.000</td>
+                            <td>50.000</td>
+                            <td>1</td>
+                            <td>300.000</td>
+                            
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="bd-example table-responsive">
+                <table  class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+
+                        <thead>
+                        <tr>
+                            <th scope="col">TOTAL PEDIDO</th>
+                            <th scope="col">1.195.000</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center">
+                    <a href="pedidos" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+                    <a href="editarPedido"><button type="button" value="submith" id="btn-enviar" class="btn btn-primary">Editar</button></a>
+</div>
+            </div>
+            </div>
+                </div>
+
+            </div>
+                </div>
+                </div>
+                </div>
+    
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,139 @@
+
+.formularioActualizacion__label {
+    margin-bottom: 1rem;
+}
+
+.form-text.text-muted {
+	color: red;
+  }
+
+.formularioActualizacion__grupo-input {
+	position: relative;
+}
+
+.formularioActualizacion__input {
+	width: 100%;
+	background: #fff;
+	border: 3px solid transparent;
+	border-radius: 3px;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+	transition: .3s ease all;
+}
+
+.formularioActualizacion__input:focus {
+	border: 3px solid #0075FF;
+	outline: none;
+	box-shadow: 3px 0px 30px rgba(163,163,163, 0.4);
+}
+
+.formularioActualizacion__input-error {
+	font-size: 12px;
+	margin-bottom: 0;
+	display: none;
+}
+
+.formularioActualizacion__input-error-activo {
+	display: block;
+}
+
+.formularioActualizacion__validacion-estado {
+	position: absolute;
+	right: 10px;
+	bottom: 36px;
+	z-index: 100;
+	font-size: 20px;
+	opacity: 0;
+	top: 50%;
+	transform: translateY(80%);
+}
+
+.formularioActualizacion__checkbox {
+	margin-right: 10px;
+}
+
+.formularioActualizacion__grupo-terminos, 
+.formularioActualizacion__mensaje,
+.formularioActualizacion__grupo-btn-enviar {
+	grid-column: span 2;
+}
+
+.formularioActualizacion__mensaje {
+	color: #000;
+	height: 45px;
+	line-height: 45px;
+	background: #F66060;
+	padding: 0 15px;
+	border-radius: 3px;
+	display: none;
+	margin-top: 20px;
+}
+
+.formularioActualizacion__mensaje-activo {
+	display: block;
+}
+
+.formularioActualizacion__mensaje p {
+	margin-top: 10px;
+	margin: 0;
+}
+
+.formularioActualizacion__grupo-btn-enviar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.formularioActualizacion__btn {
+	height: 45px;
+	line-height: 45px;
+	width: 30%;
+	background: #000;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: .1s ease all;
+}
+
+.formularioActualizacion__btn:hover {
+	box-shadow: 3px 0px 30px rgba(163,163,163, 1);
+}
+
+.formularioActualizacion__mensaje-exito {
+	margin-top: 20px;
+	color: #000;
+	height: 45px;
+	line-height: 45px;
+	background: #119200;
+	padding: 0 15px;
+	border-radius: 3px;
+	display: none;
+}
+
+.formularioActualizacion__mensaje-exito-activo {
+	display: block;
+}
+
+/* ----- -----  Estilos para Validacion ----- ----- */
+.formularioActualizacion__grupo-correcto .formularioActualizacion__validacion-estado {
+	color: #1ed12d;
+	opacity: 1;
+}
+
+.formularioActualizacion__grupo-incorrecto .formularioActualizacion__label {
+	color: #bb2929;
+}
+
+.formularioActualizacion__grupo-incorrecto .formularioActualizacion__validacion-estado {
+	color: #bb2929;
+	opacity: 1;
+}
+
+.formularioActualizacion__grupo-incorrecto .formularioActualizacion__input {
+	border: 3px solid #bb2929;
+}
+
+

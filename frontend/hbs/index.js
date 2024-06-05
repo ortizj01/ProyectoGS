@@ -156,22 +156,6 @@ app.get('/agenda-servicios', (req, res) => {
     res.render('calendario')
 });
 
-//Ejercicios
-
-app.get('/ejercicios', (req, res)=>{
-    res.render('ejercicios_views/tablaEjercicios');
-});
-
-app.get('/nuevo-ejercicio', (req, res)=>{
-    res.render('ejercicios_views/formEjercicio');
-});
-
-//eventos
-app.get('/eventos', (req, res)=>{
-    res.render('eventos/calendario');
-});
-
-
 //
 
 
@@ -199,32 +183,34 @@ app.get('/CrearRol', (req, res)=>{
 
 // Inicio Ventas *YONIER*
 
+// Inicio Ventas *YONIER*
+
 app.get('/clientes', (req, res)=>{
-    res.render('clientes')
+    res.render('clientes/clientes')
 })
 app.get('/beneficiarios', (req, res)=>{
-    res.render('beneficiarios')
+    res.render('beneficiarios/beneficiarios')
 })
 app.get('/formularioCliente', (req, res)=>{
-    res.render('formularioCliente')
+    res.render('clientes/formularioCliente')
 })
-app.get('/editarCliente', (req, res)=>{
-    res.render('editarCliente')
+app.get('/detalleCliente', (req, res)=>{
+    res.render('clientes/detalleCliente')
+})
+app.get('/detalleBeneficiario', (req, res)=>{
+    res.render('beneficiarios/detalleBeneficiario')
 })
 app.get('/formularioBeneficiario', (req, res)=>{
-    res.render('formularioBeneficiario')
-})
-app.get('/detallePedido', (req, res)=>{
-    res.render('detallePedido')
-})
-app.get('/formularioPedido', (req, res)=>{
-    res.render('formularioPedido')
+    res.render('beneficiarios/formularioBeneficiario')
 })
 app.get('/pedidos', (req, res)=>{
-    res.render('pedidos')
+    res.render('pedidos/pedidos')
 })
-app.get('/ventas', (req, res)=>{
-    res.render('ventas')
+app.get('/editarPedido', (req, res)=>{
+    res.render('pedidos/editarPedido')
+})
+app.get('/detallePedido', (req, res)=>{
+    res.render('pedidos/detallePedido')
 })
 
 
