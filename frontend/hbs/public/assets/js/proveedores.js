@@ -25,7 +25,7 @@ const listarProveedores = async () => {
         
         // Aquí asumimos que data es un array de objetos de rutinas
         data.forEach(proveedor => {
-            // Verificar cada rutina
+
             console.log('proveedor:', proveedor);
             
             // Asegurarse de que las propiedades existan
@@ -52,6 +52,7 @@ const listarProveedores = async () => {
         });
 
         ObjectId.innerHTML = contenido;
+        $('#dataTable').DataTable();
 
     } catch (error) {
         console.error('Error:', error);

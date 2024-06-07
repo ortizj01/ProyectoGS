@@ -26,12 +26,24 @@ const editarCategoria = async (id) => {
         }
 
         const data = await response.json();
-        console.log('Categoria editada:', data);
-        alert('Categoria editado con éxito');
-        listarCategoria();
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Categoria editada con éxito',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirigir a otra vista, por ejemplo, la lista de proveedores
+                window.location.href = '../Categoriaprod'; // Reemplaza esta URL con la ruta real
+            }
+        });
     } catch (error) {
-        console.error('Error:', error);
-        alert('Hubo un error al editar el Categoria');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error al editar el categoria',
+            confirmButtonText: 'Aceptar'
+        });
     }
 };
 
@@ -56,12 +68,24 @@ const agregarCategoria = async () => {
         }
 
         const data = await response.json();
-        console.log('categoria agregado:', data);
-        alert('categoria agregado con éxito');
-        listarCategoria();
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Categoria agregada con éxito',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirigir a otra vista, por ejemplo, la lista de proveedores
+                window.location.href = '../Categoriaprod'; // Reemplaza esta URL con la ruta real
+            }
+        });
     } catch (error) {
-        console.error('Error:', error);
-        alert('Hubo un error al agregar la categoria');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error al agregar el categoria',
+            confirmButtonText: 'Aceptar'
+        });
     }
 };
 
@@ -112,6 +136,7 @@ const listarCategoria = async () => {
         });
 
         ObjectId.innerHTML = contenido;
+        $('#dataTable').DataTable();
 
     } catch (error) {
         console.error('Error:', error);

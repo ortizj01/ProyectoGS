@@ -51,6 +51,7 @@ const listarProductos= async () => {
         });
 
         ObjectId.innerHTML = contenido;
+        $('#dataTable').DataTable();
 
     } catch (error) {
         console.error('Error:', error);
@@ -320,7 +321,6 @@ formularioproductos.addEventListener('submit',(e) => {
     e.preventDefault();
     if(campos.Nombreproducto && campos.Precioproducto && campos.Imagen && campos.Ivaproducto){
         formularioproductos.reset()
-        alert("good")
         document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
         setTimeout(() => {
             document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
@@ -329,7 +329,6 @@ formularioproductos.addEventListener('submit',(e) => {
             icono.classList.remove('formulario__grupo-correcto')
         });
     } else {
-        alert("malo")
         document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo')
         setTimeout(() => {
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');

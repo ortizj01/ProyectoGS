@@ -51,14 +51,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Valor compra*</label>
-                                            <input type="number" class="form-control" name="valorCompra" placeholder="Valor compra" id="valorCompra"/>
+                                            <input type="number"type="text" disabled class="form-control" name="valorCompra" placeholder="Valor compra" id="valorCompra"/>
                                             <div id="errorValorCompra" class="error-message"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">numero Recibo Compra*</label>
-                                            <input type="number" class="form-control" name="numeroReciboCompra" placeholder="Valor compra" id="numeroReciboCompra"/>
+                                            <input type="number" class="form-control" name="numeroReciboCompra" placeholder="Numero recibo compra" id="numeroReciboCompra"/>
                                             <div id="errornumeroReciboCompra" class="error-message"></div>
                                         </div>
                                     </div>
@@ -74,38 +74,43 @@
                                     <!-- inicio -->
                                     
                                         
-                                        <label for="selectProducto">Selecciona un producto:</label>
-                                        <div class="productoContainer">
+                                    <label for="selectProducto">Selecciona un producto:</label>
+                                    <div class="productoContainer" id="productoInicial">
                                         <select id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
-                                            <option selected="" disabled="" >Agregar producto a la compra</option>
+                                            <option selected="" disabled="">Agregar producto a la compra</option>
                                             <!-- Agrega más opciones según tus necesidades -->
                                         </select>
 
-                                        <label for="cantidad" style="margin-left:50px" >Cantidad:</label>
-                                        <input style="width:90px" type="number"  name="cantidades[]" value="1" min="1" required>
+                                        <label for="Valor" style="margin-left:50px">Valor:</label>
+                                        <label id="valorProducto" class="valorProducto">$ 0</label>
 
+                                        <label for="cantidad" style="margin-left:50px">Cantidad:</label>
+                                        <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" required>
 
-                                        <label  for="Valor" style="margin-left:50px" >Valor:</label>
-                                        <label id="valorProducto" for="Valor" > $0</label>
+                                        <label for="valortotal" style="margin-left:50px">Valor Total:</label>
+                                        <label id="valortotal" class="valortotal">$ 0</label>
 
                                         <div class="productoContainer">
-                                        <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()"style="margin-left:50px"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                            <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()" style="margin-left:50px">
+                                                <i class="fa-solid fa-plus fa-lg"></i>
+                                            </button>
                                         </div>
-                                        </div>
-                                        
+                                    </div>
 
-                                        <div id="productosAgregados">
-                                            
-                                            <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
-                                            
-                                        </div>
+                                    <div id="productosAgregados">
+                                        <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+                                    </div>
+
+
 
                                     <!-- fin -->
                                     
 
                                 </div>
+                                <br>
+
                                 <button type="button" name="next" onclick="enviarCompra()" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
-                                <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button>
+                                <a href="../Compras"><button  type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
                         </form>
                         </div>
                     </div>

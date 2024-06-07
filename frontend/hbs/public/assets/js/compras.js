@@ -1,6 +1,63 @@
 const url1 = 'http://localhost:3000/api/compras'
 const url2 = 'http://localhost:3000/api/comprasproducto'
 
+function calcularValorTotal(container) {
+    // Obtener el valor del producto
+    let valorProductoText = container.querySelector('.valorProducto').textContent.trim();
+    let valorProducto = parseFloat(valorProductoText.replace('$', '').replace(',', '').trim());
+    
+    // Obtener la cantidad
+    let cantidad = parseInt(container.querySelector('input[name="cantidades[]"]').value);
+    
+    // Calcular el valor total
+    let valorTotal = valorProducto * cantidad;
+    
+    // Actualizar el valor total en el DOM
+    container.querySelector('.valortotal').textContent = `$ ${valorTotal.toFixed(2)}`;
+
+    // Recalcular la suma total de valores
+    let sumaTotal = 0;
+    document.querySelectorAll('.valortotal').forEach((element) => {
+        sumaTotal += parseFloat(element.textContent.replace('$', ''));
+    });
+
+    // Actualizar el valor de la compra en el input
+    document.getElementById('valorCompra').value = sumaTotal.toFixed(2);
+}
+
+// Resto del código...
+
+
+function actualizarValorProducto1(select) {
+    var idProducto = select.value;
+    if (idProducto) {
+        fetch(`http://localhost:3000/api/productos/${idProducto}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("valorProducto").innerHTML = `$ ${data.PrecioProducto}`;
+                // Actualizar el valor total
+                calcularValorTotal(select.closest('.productoContainer'));
+            })
+            .catch(error => console.error('Error al obtener el valor del producto:', error));
+    }
+}
+
+function actualizarValorProducto(select, labelValor) {
+    var idProducto = select.value;
+    if (idProducto === "Agregar producto a la compra") {
+        labelValor.innerHTML = `$ 0`;
+    } else {
+        fetch(`http://localhost:3000/api/productos/${idProducto}`)
+            .then(response => response.json())
+            .then(data => {
+                labelValor.innerHTML = `$ ${data.PrecioProducto}`;
+                // Actualizar el valor total
+                calcularValorTotal(select.closest('.productoContainer'));
+            })
+            .catch(error => console.error('Error al obtener el valor del producto:', error));
+    }
+}
+
 function agregarProducto() {
     var nuevoProductoContainer = document.createElement("div");
     nuevoProductoContainer.className = "productoContainer";
@@ -24,13 +81,27 @@ function agregarProducto() {
     labelValor.style.marginLeft = "50px";
 
     var labelValorP = document.createElement("label");
+    labelValorP.className = "valorProducto";
     labelValorP.innerHTML = "$ 0";
+
+    var labelValorTotal = document.createElement("label");
+    labelValorTotal.innerHTML = "Valor Total: ";
+    labelValorTotal.style.marginLeft = "50px";
+
+    var labelValorT = document.createElement("label");
+    labelValorT.className = "valortotal";
+    labelValorT.innerHTML = "$ 0";
 
     var nuevaCantidad = document.createElement("input");
     nuevaCantidad.type = "number";
     nuevaCantidad.style.width = "90px";
+    nuevaCantidad.name = "cantidades[]";
     nuevaCantidad.value = "1";
     nuevaCantidad.min = "1";
+    nuevaCantidad.required = true;
+    nuevaCantidad.addEventListener('input', function() {
+        calcularValorTotal(nuevoProductoContainer);
+    });
 
     var btnEliminar = document.createElement("button");
     btnEliminar.type = "button";
@@ -42,10 +113,12 @@ function agregarProducto() {
     };
 
     nuevoProductoContainer.appendChild(nuevoSelect);
-    nuevoProductoContainer.appendChild(labelCantidad);
-    nuevoProductoContainer.appendChild(nuevaCantidad);
     nuevoProductoContainer.appendChild(labelValor);
     nuevoProductoContainer.appendChild(labelValorP);
+    nuevoProductoContainer.appendChild(labelCantidad);
+    nuevoProductoContainer.appendChild(nuevaCantidad);
+    nuevoProductoContainer.appendChild(labelValorTotal);
+    nuevoProductoContainer.appendChild(labelValorT);
     nuevoProductoContainer.appendChild(btnEliminar);
 
     document.getElementById("productosAgregados").appendChild(nuevoProductoContainer);
@@ -54,46 +127,27 @@ function agregarProducto() {
     actualizarValorProducto(nuevoSelect, labelValorP);
 }
 
-function actualizarValorProducto1(select) {
-    var idProducto = select.value;
-    if (idProducto) {
-        fetch(`http://localhost:3000/api/productos/${idProducto}`)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("valorProducto").innerHTML = `$ ${data.PrecioProducto}`;
-            })
-            .catch(error => console.error('Error al obtener el valor del producto:', error));
-    }
-}
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Evento de escucha para el campo de cantidad inicial
+    document.querySelector('input[name="cantidades[]"]').addEventListener('input', function() {
+        calcularValorTotal(document.querySelector('.productoContainer'));
+    });
 
-function actualizarValorProducto(select, labelValor) {
-    var idProducto = select.value;
-    if(idProducto==="Agregar producto a la compra"){
-        labelValor.innerHTML = `$ 0`;
-    }else {
-        fetch(`http://localhost:3000/api/productos/${idProducto}`)
-            .then(response => response.json())
-            .then(data => {
-                labelValor.innerHTML = `$ ${data.PrecioProducto}`;
-            })
-            .catch(error => console.error('Error al obtener el valor del producto:', error));
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
+    // Cargar los proveedores
     const selectProveedores = document.getElementById('idProveedores');
     fetch('http://localhost:3000/api/proveedores')
         .then(response => response.json())
         .then(data => {
             data.forEach(proveedor => {
                 const option = document.createElement('option');
-                option.value = proveedor.IdProveedor;
+                option.value = proveedor.IdProveedores;
                 option.textContent = proveedor.NombreProveedor;
                 selectProveedores.appendChild(option);
             });
         })
         .catch(error => console.error('Error al cargar los proveedores:', error));
 
+    // Cargar los productos
     const selectProducto = document.getElementById('selectProducto');
     fetch('http://localhost:3000/api/productos')
         .then(response => response.json())
@@ -107,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error al cargar los productos:', error));
 });
+
 
 const listarCompras = async () => {
     let ObjectId = document.getElementById('contenidoCompras'); // obj donde se mostrara la info
@@ -148,9 +203,9 @@ const listarCompras = async () => {
                         <td style="text-align: center;">
                             <div class="centered-container">
                             <a href="../ProveedoresEditar?id=${compra.IdCompra}">
-                                <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                            </a>
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
+                            </a>
+                                
                         </td>
                     </tr>
                 `;
@@ -161,10 +216,14 @@ const listarCompras = async () => {
 
         ObjectId.innerHTML = contenido;
 
+        $('#dataTable').DataTable();
+
     } catch (error) {
         console.error('Error:', error);
     }
 };   
+
+
 
 
 async function enviarCompra() {
@@ -238,10 +297,24 @@ async function enviarCompra() {
 
         await Promise.all(productoPromises);
 
-        alert('Compra realizada con éxito');
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Proveedor agregado con éxito',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirigir a otra vista, por ejemplo, la lista de Compras
+                window.location.href = '../Compras'; // Reemplaza esta URL con la ruta real
+            }
+        });
     } catch (error) {
-        console.error('Error:', error);
-        alert('Hubo un problema al realizar la compra');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error al agregar el proveedor',
+            confirmButtonText: 'Aceptar'
+        });
     }
 }
 
