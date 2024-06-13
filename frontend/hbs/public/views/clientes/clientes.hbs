@@ -134,241 +134,7 @@
                     </div>
                 </div>
             </div>
-
-            
-                                                <!-- MODAL -->
-
-                                                                <!-- Modal editar -->
-   <div class="modal fade" id="editarClienteModal" tabindex="-1" aria-labelledby="editarClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="m-0 font-weight-bold text-primary">Editar cliente</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               
-                <form class="formularioActualizacion" id="formularioActualizacion">
-                    <!-- Campos del formulario -->
-                    <div class="row">
-                                                                    {{!-- Campo documento --}}
-
-                                            <div class="col-lg-6">
-                                                <div class="form-group formularioActualizacion__grupo" id="grupo__documentoCliente">
-                                                    <div class="formularioActualizacion__grupo-input" >
-                                                        <label for="documentoCliente" class="formularioActualizacion__label"># documento*</label>
-                                                        <input type="text" class="form-control" name="documentoCliente" id="documentoCliente" aria-describedby="documentoClienteHelp" placeholder="Ingrese Documento" readonly/>
-                                                        <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
-                                                    </div>
-                                                    <p class="formularioActualizacion__input-error">Ingresa un documento valido</p>
-                                                    <div><small id="documentoClienteHelp" class="form-text text-muted"><br></small> </div> 
-                                                    
-                                                </div>
-                                            </div>
-
-                                            {{!-- Campo Nombres --}}
-
-                                            <div class="col-lg-6">
-                                            <div class="form-group formularioActualizacion__grupo" id="grupo__nombreCliente">
-                                                    <div class="formularioActualizacion__grupo-input" >
-                                                    <label for="nombreCliente" class="formularioActualizacion__label">Nombre *</label>
-                                                    <input type="text" class="form-control" name="nombreCliente" id="nombreCliente" aria-describedby="nombreClienteHelp" placeholder="Ingrese Nombre"/>               
-                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
-                                                    </div>
-                                                    <p class="formularioActualizacion__input-error">Los nombres no puede contener numeros o caracteres especiales</p>
-                                                    <div><small id="nombreClienteHelp" class="form-text text-muted"><br></small> </div>  
-                                                </div>
-                                            </div>
-
-
-                                            {{!-- Campo correo --}}
-
-                                            <div class="col-lg-6">
-                                            <div class="form-group formularioActualizacion__grupo" id="grupo__correoCliente">
-                                                    <div class="formularioActualizacion__grupo-input" >
-                                                    <label for="correoCliente" class="formularioActualizacion__label">Correo Electronico *</label>
-                                                    <input type="text" class="form-control" name="correoCliente" id="correoCliente" aria-describedby="correoClienteHelp" placeholder="Ingrese Correo Electronico"/>               
-                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
-                                                    </div>
-                                                    <p class="formularioActualizacion__input-error">El correo no es valido</p>
-                                                    <div><small id="correoClienteHelp" class="form-text text-muted"><br></small> </div>  
-                                                </div>
-                                            </div>
-
-
-                                            {{!-- Campo Numero Cel --}}
-
-                                            <div class="col-lg-6">
-                                            <div class="form-group formularioActualizacion__grupo" id="grupo__telefonoCliente">
-                                                    <div class="formularioActualizacion__grupo-input" >
-                                                    <label for="telefonoCliente" class="formularioActualizacion__label">Telefono *</label>
-                                                    <input type="text" class="form-control" name="telefonoCliente" id="telefonoCliente" aria-describedby="telefonoClienteHelp" placeholder="Ingrese Telefono"/>               
-                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
-                                                    </div>
-                                                    <p class="formularioActualizacion__input-error">El numero no es valido.</p>
-                                                    <div><small id="telefonoClienteHelp" class="form-text text-muted"><br></small> </div>  
-                                                </div>
-                                            </div>
-
-
-
-                                            {{!-- Campo direccion --}}
-
-                                            <div class="col-lg-6">
-                                            <div class="form-group formularioActualizacion__grupo" id="grupo__direccionCliente">
-                                                    <div class="formularioActualizacion__grupo-input" >
-                                                    <label for="direccionCliente" class="formularioActualizacion__label">Dirección *</label>
-                                                    <input type="text" class="form-control" name="direccionCliente" id="direccionCliente" aria-describedby="direccionClienteHelp" placeholder="Ej: Cra 19 # 52-102"/>               
-                                                    <i class="formularioActualizacion__validacion-estado fas fa-times-circle "></i>
-                                                    </div>
-                                                    <p class="formularioActualizacion__input-error">Ingrese una direccion valida.</p>
-                                                    <div><small id="direccionClienteHelp" class="form-text text-muted"><br></small> </div>  
-                                                </div>
-                                            </div>
-
-                                            {{!-- Campo Estado --}}
-
-                                            <div class="col-md-6">
-                                            <div class="form-group formularioActualizacion__grupo formularioActualizacion__grupo-estadoCliente" id="grupo__estadoCliente">
-                                                <label for="estadoCliente">Seleccionar Estado*</label>
-                                                <select name="estadoCliente" id="estadoCliente" class="form-control" required>
-                                                    <option value="">Seleccione el Estado</option>
-                                                    <option value="true">Activo</option>
-                                                    <option value="false">Inactivo</option>
-                                                </select>
-                                                <small id="estadoClienteHelp" class="form-text text-muted"><br></small>
-                                            </div>
-                                            </div>
-
-                        </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark  previous action-button-previous float-end me-2" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary next action-button float-end" id="btnActualizar">Actualizar</button>
-                    </div>
-                </form>
-
-        </div>
-    </div>
-    </div>
-    </div>
-
-                                                                <!-- Modal Eliminar -->
-
-    <div class="modal fade" id="eliminarClienteModal" tabindex="-1" aria-labelledby="eliminarClienteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="m-0 font-weight-bold text-primary">¿Deseas eliminar este cliente?</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               
-                <form class="formularioEliminar" id="formularioEliminar">
-                    <!-- Campos del formulario -->
-                    <div class="row">
-                                            {{!-- Campo Documento --}}
-                <div class="col-lg-6">
-                <div class="form-group formularioEliminar__grupo" id="grupo__documentoCliente">
-                    <div class="formularioEliminar__grupo-input" >
-                        <label for="documentoCliente" class="formularioEliminar__label"># documento*</label>
-                        <input type="text" class="form-control" name="documentoCliente" id="documentoClienteEliminar" aria-describedby="documentoClienteHelp" placeholder="Ingrese Documento" readonly/>
-                        <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
-                    </div>
-                    <p class="formularioEliminar__input-error">Ingresa un documento valido</p>
-                    <div><small id="documentoClienteHelp" class="form-text text-muted"><br></small> </div> 
-                    
-                </div>
-                </div>
-
-                {{!-- Campo Nombres --}}
-
-                <div class="col-lg-6">
-                <div class="form-group formularioEliminar__grupo" id="grupo__nombreCliente">
-                    <div class="formularioEliminar__grupo-input" >
-                    <label for="nombreCliente" class="formularioEliminar__label">Nombre *</label>
-                    <input type="text" class="form-control" name="nombreCliente" id="nombreClienteEliminar" aria-describedby="nombreClienteHelp" placeholder="Ingrese Nombre"readonly/>               
-                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
-                    </div>
-                    <p class="formularioEliminar__input-error">Los nombres no puede contener numeros o caracteres especiales</p>
-                    <div><small id="nombreClienteHelp" class="form-text text-muted"><br></small> </div>  
-                </div>
-                </div>
-
-
-                {{!-- Campo correo --}}
-
-                <div class="col-lg-6">
-                <div class="form-group formularioEliminar__grupo" id="grupo__correoCliente">
-                    <div class="formularioEliminar__grupo-input" >
-                    <label for="correoCliente" class="formularioEliminar__label">Correo Electronico *</label>
-                    <input type="text" class="form-control" name="correoCliente" id="correoClienteEliminar" aria-describedby="correoClienteHelp" placeholder="Ingrese Correo Electronico"readonly/>               
-                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
-                    </div>
-                    <p class="formularioEliminar__input-error">El correo no es valido</p>
-                    <div><small id="correoClienteHelp" class="form-text text-muted"><br></small> </div>  
-                </div>
-                </div>
-
-
-                {{!-- Campo Numero Cel --}}
-
-                <div class="col-lg-6">
-                <div class="form-group formularioEliminar__grupo" id="grupo__telefonoCliente">
-                    <div class="formularioEliminar__grupo-input" >
-                    <label for="telefonoCliente" class="formularioEliminar__label">Telefono *</label>
-                    <input type="text" class="form-control" name="telefonoCliente" id="telefonoClienteEliminar" aria-describedby="telefonoClienteHelp" placeholder="Ingrese Telefono"readonly/>               
-                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
-                    </div>
-                    <p class="formularioEliminar__input-error">El numero no es valido.</p>
-                    <div><small id="telefonoClienteHelp" class="form-text text-muted"><br></small> </div>  
-                </div>
-                </div>
-
-
-
-                {{!-- Campo direccion --}}
-
-                <div class="col-lg-6">
-                <div class="form-group formularioEliminar__grupo" id="grupo__direccionCliente">
-                    <div class="formularioEliminar__grupo-input" >
-                    <label for="direccionCliente" class="formularioEliminar__label">Dirección *</label>
-                    <input type="text" class="form-control" name="direccionCliente" id="direccionClienteEliminar" aria-describedby="direccionClienteHelp" placeholder="Ej: Cra 19 # 52-102"readonly/>               
-                    <i class="formularioEliminar__validacion-estado fas fa-times-circle "></i>
-                    </div>
-                    <p class="formularioEliminar__input-error">Ingrese una direccion valida.</p>
-                    <div><small id="direccionClienteHelp" class="form-text text-muted"><br></small> </div>  
-                </div>
-                </div>
-
-                {{!-- Campo Estado --}}
-
-                <div class="col-md-6">
-                <div class="form-group formularioEliminar__grupo formularioEliminar__grupo-estadoCliente" id="grupo__estadoCliente">
-                <label for="estadoCliente">Seleccionar Estado*</label>
-                <select name="estadoCliente" id="estadoClienteEliminar" class="form-control" disabled>
-                    <option value="">Seleccione el Estado</option>
-                    <option value="true">Activo</option>
-                    <option value="false">Inactivo</option>
-                </select>
-                <small id="estadoClienteHelp" class="form-text text-muted"><br></small>
-                </div>
-                </div>
-
-                        
-
-                                 </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark  previous action-button-previous float-end me-2" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary next action-button float-end" id="btnEliminar">Eliminar</button>
-                    </div>
-                </form>
-
-        </div>
-    </div>
-    </div>
-    </div>
+                   
      </div>
     </div>
     <!-- FIN DEL CONTENIDO -->
@@ -398,9 +164,62 @@
     </footer>
     <!-- Footer Section End -->
     <script src="../assets/js/funcionesCliente.js"></script>
-    <script src="../assets/js/formEditarCliente.js"></script>
     <script src="../assets/js/formEliminarCliente.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const abrirModalEliminar = (id) => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminarlo',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            eliminarCliente(id);
+        }
+    });
+};
+
+const eliminarCliente = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error en la solicitud DELETE');
+        }
+
+        Swal.fire({
+            title: "¡Eliminado!",
+            text: "Cliente eliminado correctamente!",
+            icon: "success"
+        }).then(() => {
+            listarClientes(); // Volver a cargar la lista de clientes
+        });
+
+    } catch (error) {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: "error",
+            title: "¡Oops...",
+            text: "Hubo un problema al eliminar al cliente"
+        });
+    }
+};
+
+// Cargar la lista de clientes cuando la página se carga
+document.addEventListener('DOMContentLoaded', listarClientes);
+    </script>
+
     
     {{> footer}}
 </body>

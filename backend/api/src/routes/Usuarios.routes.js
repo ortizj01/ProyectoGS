@@ -1,11 +1,10 @@
 import { Router } from "express";
-import{ deleteUsuarios, getUsuarios, postUsuarios, putUsuarios, getUsuario,getUserWithBeneficiary, getClientes, createCliente} from "../controllers/Usuarios.controllers.js";
+import{ deleteUsuarios, getUsuarios, postUsuarios, putUsuarios, getUsuario,getUserWithBeneficiary, getClientes} from "../controllers/Usuarios.controllers.js";
 const router=Router()
 
 
 // Rutas para clientes
 router.get('/clientes', getClientes); // Listar clientes
-router.post('/clientes', createCliente); // Registrar cliente
 
 router.get('/ping',(req,res)=>res.send('pong'))
 

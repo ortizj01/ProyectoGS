@@ -88,11 +88,23 @@ res.send({
 
 
 export const deleteUsuarios = async (req, res) => {
-    try {
-        const [result] = await pool.query('DELETE FROM Usuarios WHERE IdUsuario = ?', [req.params.id]);
+    const id = parseInt(req.params.id, 10);
 
-        if (result.affectedRows <= 0) {
-            return res.status(400).json({
+    if (isNaN(id)) {
+        return res.status(400).json({
+            message: 'Invalid user ID'
+        });
+    }
+
+    try {
+        // Primero eliminar las referencias en RolUsuario
+        const [rolResult] = await pool.query('DELETE FROM RolUsuario WHERE IdUsuario = ?', [id]);
+
+        // Luego eliminar el usuario en Usuarios
+        const [userResult] = await pool.query('DELETE FROM Usuarios WHERE IdUsuario = ?', [id]);
+
+        if (userResult.affectedRows <= 0) {
+            return res.status(404).json({
                 message: 'Usuario not found'
             });
         }
@@ -101,11 +113,13 @@ export const deleteUsuarios = async (req, res) => {
             message: 'User deleted successfully'
         });
     } catch (error) {
+        console.error('Error during DELETE operation:', error);
         return res.status(500).json({
             message: 'Something goes wrong'
         });
     }
 };
+
 export const putUsuarios = async (req, res) => {
     const { id } = req.params;
     const { Documento, TipoDocumento, Nombres, Apellidos, Correo, Telefono, FechaDeNacimiento, Direccion, Genero, Contrasena, Estado, Beneficiario } = req.body;
@@ -164,7 +178,7 @@ export const getClientes = async (req, res) => {
     try {
         const sql = `
             SELECT 
-                u.Documento, u.Nombres, u.Apellidos, u.Correo, u.Telefono, u.FechaDeNacimiento, u.Direccion, u.Genero, u.Estado,
+                u.IdUsuario, u.Documento, u.Nombres, u.Apellidos, u.Correo, u.Telefono, u.FechaDeNacimiento, u.Direccion, u.Genero, u.Estado,
                 r.IdRol AS RolId, r.NombreRol AS RolNombre
             FROM 
                 Usuarios u
@@ -185,34 +199,4 @@ export const getClientes = async (req, res) => {
 };
 
 
-// Función para registrar un cliente
-export const createCliente = async (req, res) => {
-    try {
-        const { Documento, TipoDocumento, Nombres, Apellidos, Correo, Telefono, FechaDeNacimiento, Direccion, Genero, Contrasena, Estado, Beneficiario } = req.body;
 
-        // Encriptar la contraseña antes de almacenarla
-        let contraseñaEncriptada = await bcrypt.hash(Contrasena, 10);
-
-        // Insertar el usuario en la tabla Usuarios
-        const [resultUsuario] = await pool.query(
-            'INSERT INTO Usuarios (Documento, TipoDocumento, Nombres, Apellidos, Correo, Telefono, FechaDeNacimiento, Direccion, Genero, Contrasena, Estado, Beneficiario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [Documento, TipoDocumento, Nombres, Apellidos, Correo, Telefono, FechaDeNacimiento, Direccion, Genero, contraseñaEncriptada, Estado, Beneficiario]
-        );
-
-        // Obtener el ID del usuario insertado
-        const IdUsuario = resultUsuario.insertId;
-
-        // Asignar el rol de cliente (ID 2) al usuario en la tabla RolUsuario
-        const [resultRol] = await pool.query('INSERT INTO RolUsuario (IdRol, IdUsuario) VALUES (?, ?)', [4, IdUsuario]);
-
-        // Responder con el ID del usuario creado y el ID del rol asignado
-        res.status(201).json({
-            id: IdUsuario,
-            rolAsignado: resultRol.insertId,
-            message: 'Cliente creado exitosamente'
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al crear el cliente' });
-    }
-};

@@ -223,6 +223,9 @@ app.get('/formularioCliente', (req, res)=>{
 app.get('/detalleCliente', (req, res)=>{
     res.render('clientes/detalleCliente')
 })
+app.get('/editarCliente', (req, res)=>{
+    res.render('clientes/editarCliente')
+})
 app.get('/detalleBeneficiario', (req, res)=>{
     res.render('beneficiarios/detalleBeneficiario')
 })

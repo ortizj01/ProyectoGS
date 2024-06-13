@@ -1,7 +1,5 @@
 import { pool } from '../db.js';
 
-
-// Obtener usuario por su Id junto con los roles asignados
 // Obtener usuario por su Id junto con los roles asignados
 export const getUsuarioRolById = async (req, res) => {
     try {
@@ -17,7 +15,7 @@ export const getUsuarioRolById = async (req, res) => {
         }
 
         // Consulta para obtener los roles asignados al usuario
-        const [rolesRows] = await pool.query('SELECT r.* FROM Roles r JOIN RolUsuario ru ON r.IdRol = ru.IdRol WHERE ru.IdUsuario = ?', [IdUsuario]);
+        const [rolesRows] = await pool.query('SELECT r.*, ru.IdRolUsuario FROM Roles r JOIN RolUsuario ru ON r.IdRol = ru.IdRol WHERE ru.IdUsuario = ?', [IdUsuario]);
 
         // Agregar los roles al objeto de usuario
         const usuario = usuarioRows[0];
@@ -30,7 +28,6 @@ export const getUsuarioRolById = async (req, res) => {
     }
 };
 
-
 // Obtener roles de un usuario específico
 export const getRolesDeUsuario = async (req, res) => {
     try {
@@ -39,7 +36,7 @@ export const getRolesDeUsuario = async (req, res) => {
             return res.status(400).json({ error: 'IdUsuario es requerido' });
         }
 
-        const [rows] = await pool.query('SELECT r.* FROM Roles r JOIN RolUsuario ru ON r.IdRol = ru.IdRol WHERE ru.IdUsuario = ?', [IdUsuario]);
+        const [rows] = await pool.query('SELECT r.*, ru.IdRolUsuario FROM Roles r JOIN RolUsuario ru ON r.IdRol = ru.IdRol WHERE ru.IdUsuario = ?', [IdUsuario]);
         res.json(rows);
     } catch (error) {
         console.error(error);
@@ -55,6 +52,12 @@ export const agregarRolAUsuario = async (req, res) => {
 
         if (!IdUsuario || !IdRol) {
             return res.status(400).json({ error: 'IdUsuario e IdRol son requeridos' });
+        }
+
+        // Verificar si el usuario ya tiene asignado este rol
+        const [existingRole] = await pool.query('SELECT * FROM RolUsuario WHERE IdUsuario = ? AND IdRol = ?', [IdUsuario, IdRol]);
+        if (existingRole.length > 0) {
+            return res.status(400).json({ error: 'El usuario ya tiene asignado este rol' });
         }
 
         const [result] = await pool.query('INSERT INTO RolUsuario (IdRol, IdUsuario) VALUES (?, ?)', [IdRol, IdUsuario]);
@@ -77,6 +80,12 @@ export const eliminarRolDeUsuario = async (req, res) => {
 
         if (!IdRolUsuario) {
             return res.status(400).json({ error: 'IdRolUsuario es requerido' });
+        }
+
+        // Verificar si el rol de usuario existe antes de eliminarlo
+        const [existingRole] = await pool.query('SELECT * FROM RolUsuario WHERE IdRolUsuario = ?', [IdRolUsuario]);
+        if (existingRole.length === 0) {
+            return res.status(404).json({ error: 'El rol de usuario no existe' });
         }
 
         await pool.query('DELETE FROM RolUsuario WHERE IdRolUsuario = ?', [IdRolUsuario]);

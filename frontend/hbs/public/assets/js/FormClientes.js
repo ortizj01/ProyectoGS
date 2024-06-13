@@ -2,11 +2,11 @@ const formularioRegistro = document.getElementById('formularioRegistro');
 const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
 
 document.getElementById('togglePassword').addEventListener('click', function() {
-    togglePasswordVisibility('password');
+    togglePasswordVisibility('contrasena');
 });
 
 document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-    togglePasswordVisibility('confirmarPassword');
+    togglePasswordVisibility('confirmarContrasena');
 });
 
 function togglePasswordVisibility(inputId) {
@@ -23,59 +23,72 @@ function togglePasswordVisibility(inputId) {
 }
 
 const expresiones = {
-    nombreCliente: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    apellidosCliente: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    documentoCliente: /^[a-zA-Z0-9]{7,10}$/,
-    correoCliente: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    direccionCliente: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
-    telefonoCliente: /^[0-9]{7,10}$/,
-    password: /^(?=.*[A-Z])(?=.*\d).{4,12}$/ // Mínimo 4 y máximo 12 caracteres, al menos una letra mayúscula y un número.
+    documento: /^[a-zA-Z0-9]{7,10}$/,
+    tipoDocumento: /^(cedula_ciudadania|cedula_extranjeria|tarjeta_identidad)$/,
+    nombres: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+    apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+    correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    telefono: /^[0-9]{7,11}$/,
+    fechaDeNacimiento: /^(\d{4})-(\d{2})-(\d{2})$/,
+    direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
+    genero: /^(masculino|femenino|otro)$/,
+    contrasena: /^(?=.*[A-Z])(?=.*\d).{4,12}$/,
+    beneficiario: /^(1|0)$/
 };
 
 const campos = {
-    nombreCliente: false,
-    apellidosCliente: false,
-    documentoCliente: false,
-    correoCliente: false,
-    telefonoCliente: false,
-    direccionCliente: false,
-    generoCliente: false,
-    estadoCliente: false,
-    password: false
+    documento: false,
+    tipoDocumento: false,
+    nombres: false,
+    apellidos: false,
+    correo: false,
+    telefono: false,
+    fechaDeNacimiento: false,
+    direccion: false,
+    genero: false,
+    contrasena: false,
+    confirmarContrasena: false,
+    beneficiario: false
 };
 
 const validarFormulario = (e) => {
     switch (e.target.name) {
-        case "nombreCliente":
-            validarCampo(expresiones.nombreCliente, e.target, 'nombreCliente');
+        case "documento":
+            validarCampo(expresiones.documento, e.target, 'documento');
             break;
-        case "apellidosCliente":
-            validarCampo(expresiones.apellidosCliente, e.target, 'apellidosCliente');
+        case "tipoDocumento":
+            validarSelect(expresiones.tipoDocumento, e.target, 'tipoDocumento');
             break;
-        case "documentoCliente":
-            validarCampo(expresiones.documentoCliente, e.target, 'documentoCliente');
+        case "nombres":
+            validarCampo(expresiones.nombres, e.target, 'nombres');
             break;
-        case "correoCliente":
-            validarCampo(expresiones.correoCliente, e.target, 'correoCliente');
+        case "apellidos":
+            validarCampo(expresiones.apellidos, e.target, 'apellidos');
             break;
-        case "telefonoCliente":
-            validarCampo(expresiones.telefonoCliente, e.target, 'telefonoCliente');
+        case "correo":
+            validarCampo(expresiones.correo, e.target, 'correo');
             break;
-        case "direccionCliente":
-            validarCampo(expresiones.direccionCliente, e.target, 'direccionCliente');
+        case "telefono":
+            validarCampo(expresiones.telefono, e.target, 'telefono');
             break;
-        case "generoCliente":
-            validarSelect(e.target, 'generoCliente');
+        case "fechaDeNacimiento":
+            validarCampo(expresiones.fechaDeNacimiento, e.target, 'fechaDeNacimiento');
             break;
-        case "estadoCliente":
-            validarSelect(e.target, 'estadoCliente');
+        case "direccion":
+            validarCampo(expresiones.direccion, e.target, 'direccion');
             break;
-        case "password":
-            validarCampo(expresiones.password, e.target, 'password');
-            validarPassword2();
+        case "genero":
+            validarSelect(expresiones.genero, e.target, 'genero');
             break;
-        case "confirmarPassword":
-            validarPassword2();
+        case "contrasena":
+            validarCampo(expresiones.contrasena, e.target, 'contrasena');
+            validarConfirmacionContrasena();
+            break;
+        case "confirmarContrasena":
+            validarConfirmacionContrasena();
+            break;
+        case "beneficiario":
+            validarSelect(expresiones.beneficiario, e.target, 'beneficiario');
             break;
     }
 };
@@ -98,8 +111,8 @@ const validarCampo = (expresion, input, campo) => {
     }
 };
 
-const validarSelect = (select, campo) => {
-    if (select.value !== "") {
+const validarSelect = (expresion, select, campo) => {
+    if (expresion.test(select.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formularioRegistro__grupo-incorrecto');
         document.getElementById(`grupo__${campo}`).classList.add('formularioRegistro__grupo-correcto');
     } else {
@@ -108,24 +121,24 @@ const validarSelect = (select, campo) => {
     }
 };
 
-const validarPassword2 = () => {
-    const inputPassword1 = document.getElementById('password');
-    const inputPassword2 = document.getElementById('confirmarPassword');
+const validarConfirmacionContrasena = () => {
+    const contrasena = document.getElementById('contrasena');
+    const confirmarContrasena = document.getElementById('confirmarContrasena');
 
-    if (inputPassword1.value !== inputPassword2.value || inputPassword2.value === '') {
-        document.getElementById(`grupo__confirmarPassword`).classList.add('formularioRegistro__grupo-incorrecto');
-        document.getElementById(`grupo__confirmarPassword`).classList.remove('formularioRegistro__grupo-correcto');
-        document.querySelector(`#grupo__confirmarPassword i`).classList.remove('fa-check-circle');
-        document.querySelector(`#grupo__confirmarPassword i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__confirmarPassword .formularioRegistro__input-error`).classList.add('formularioRegistro__input-error-activo');
-        campos['password'] = false;
+    if (contrasena.value !== confirmarContrasena.value || confirmarContrasena.value === '') {
+        document.getElementById(`grupo__confirmarContrasena`).classList.add('formularioRegistro__grupo-incorrecto');
+        document.getElementById(`grupo__confirmarContrasena`).classList.remove('formularioRegistro__grupo-correcto');
+        document.querySelector(`#grupo__confirmarContrasena i`).classList.remove('fa-check-circle');
+        document.querySelector(`#grupo__confirmarContrasena i`).classList.add('fa-times-circle');
+        document.querySelector(`#grupo__confirmarContrasena .formularioRegistro__input-error`).classList.add('formularioRegistro__input-error-activo');
+        campos['confirmarContrasena'] = false;
     } else {
-        document.getElementById(`grupo__confirmarPassword`).classList.remove('formularioRegistro__grupo-incorrecto');
-        document.getElementById(`grupo__confirmarPassword`).classList.add('formularioRegistro__grupo-correcto');
-        document.querySelector(`#grupo__confirmarPassword i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__confirmarPassword i`).classList.remove('fa-times-circle');
-        document.querySelector(`#grupo__confirmarPassword .formularioRegistro__input-error`).classList.remove('formularioRegistro__input-error-activo');
-        campos['password'] = true;
+        document.getElementById(`grupo__confirmarContrasena`).classList.remove('formularioRegistro__grupo-incorrecto');
+        document.getElementById(`grupo__confirmarContrasena`).classList.add('formularioRegistro__grupo-correcto');
+        document.querySelector(`#grupo__confirmarContrasena i`).classList.add('fa-check-circle');
+        document.querySelector(`#grupo__confirmarContrasena i`).classList.remove('fa-times-circle');
+        document.querySelector(`#grupo__confirmarContrasena .formularioRegistro__input-error`).classList.remove('formularioRegistro__input-error-activo');
+        campos['confirmarContrasena'] = true;
     }
 };
 
@@ -141,8 +154,8 @@ inputs.forEach((input) => {
 formularioRegistro.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if (campos.documentoCliente && campos.nombreCliente && campos.apellidosCliente && campos.correoCliente &&
-        campos.telefonoCliente && campos.direccionCliente && campos.password ) {
+    if (campos.documento && campos.nombres && campos.apellidos &&
+        campos.correo && campos.telefono && campos.fechaDeNacimiento && campos.direccion && campos.contrasena && campos.confirmarContrasena) {
         
         formularioRegistro.reset();
 

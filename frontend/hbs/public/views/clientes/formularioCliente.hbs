@@ -40,173 +40,181 @@
                     </div>
                     <div class="card-body">
         <form class="formularioRegistro" id="formularioRegistro">
-    <div class="row">
-        <!-- Documento -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__documento">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="documento" class="formularioRegistro__label">Documento *</label>
-                    <input type="text" class="form-control" name="documento" id="documento" aria-describedby="documentoHelp" placeholder="Ingrese Documento"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Ingresa un documento válido</p>
-                <div><small id="documentoHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Tipo de Documento -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__tipoDocumento">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="tipoDocumento" class="formularioRegistro__label">Tipo de Documento *</label>
-                    <input type="text" class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" placeholder="Ingrese Tipo de Documento"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Ingresa un tipo de documento válido</p>
-                <div><small id="tipoDocumentoHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Nombres -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__nombres">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="nombres" class="formularioRegistro__label">Nombres *</label>
-                    <input type="text" class="form-control" name="nombres" id="nombres" aria-describedby="nombresHelp" placeholder="Ingrese Nombres"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Los nombres no pueden contener números o caracteres especiales</p>
-                <div><small id="nombresHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Apellidos -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__apellidos">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="apellidos" class="formularioRegistro__label">Apellidos *</label>
-                    <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="apellidosHelp" placeholder="Ingrese Apellidos"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Los apellidos no pueden contener números o caracteres especiales</p>
-                <div><small id="apellidosHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Correo Electrónico -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__correo">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="correo" class="formularioRegistro__label">Correo Electrónico *</label>
-                    <input type="email" class="form-control" name="correo" id="correo" aria-describedby="correoHelp" placeholder="Ingrese Correo Electrónico"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">El correo no es válido</p>
-                <div><small id="correoHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Teléfono -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__telefono">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="telefono" class="formularioRegistro__label">Teléfono *</label>
-                    <input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingrese Teléfono"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">El número no es válido</p>
-                <div><small id="telefonoHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Fecha de Nacimiento -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__fechaDeNacimiento">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="fechaDeNacimiento" class="formularioRegistro__label">Fecha de Nacimiento *</label>
-                    <input type="date" class="form-control" name="fechaDeNacimiento" id="fechaDeNacimiento" aria-describedby="fechaDeNacimientoHelp" placeholder="Ingrese Fecha de Nacimiento"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Ingresa una fecha de nacimiento válida</p>
-                <div><small id="fechaDeNacimientoHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Dirección -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__direccion">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="direccion" class="formularioRegistro__label">Dirección *</label>
-                    <input type="text" class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingrese Dirección"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Ingresa una dirección válida</p>
-                <div><small id="direccionHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Género -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__genero">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="genero" class="formularioRegistro__label">Género *</label>
-                    <input type="text" class="form-control" name="genero" id="genero" aria-describedby="generoHelp" placeholder="Ingrese Género"/>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">Ingresa un género válido</p>
-                <div><small id="generoHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Contraseña -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__contrasena">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="contrasena" class="formularioRegistro__label">Contraseña *</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" name="contrasena" id="contrasena" aria-describedby="contrasenaHelp" placeholder="Ingrese una contraseña"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword"><span class="fa-regular fa-eye fa-xl me-2"></span></button>
+            <div class="row">
+                    <!-- Documento -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__documento">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="documento" class="formularioRegistro__label">Documento *</label>
+                                <input type="text" class="form-control" name="documento" id="documento" aria-describedby="documentoHelp" placeholder="Ingrese Documento" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">Ingresa un documento válido</p>
+                            <div><small id="documentoHelp" class="form-text text-muted"><br></small></div>
                         </div>
                     </div>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
-                </div>
-                <p class="formularioRegistro__input-error">La contraseña debe contener:<br>- Mínimo un número,<br>- Una letra mayúscula,<br>- Máximo 12 caracteres.</p>
-                <div><small id="contrasenaHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Confirmar Contraseña -->
-        <div class="col-lg-6">
-            <div class="form-group formularioRegistro__grupo" id="grupo__confirmarContrasena">
-                <div class="formularioRegistro__grupo-input">
-                    <label for="confirmarContrasena" class="formularioRegistro__label">Confirmar Contraseña *</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword"><span class="fa-regular fa-eye fa-xl me-2"></span></button>
+                    <!-- Tipo de Documento -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__tipoDocumento">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="tipoDocumento" class="formularioRegistro__label">Tipo de Documento *</label>
+                                <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
+                                    <option value="">Seleccione Tipo de Documento</option>
+                                    <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
+                                    <option value="cedula_extranjeria">Cédula de Extranjería</option>
+                                    <option value="tarjeta_identidad">Tarjeta de Identidad</option>
+                                </select>
+                            </div>
+                            <p class="formularioRegistro__input-error">Ingresa un tipo de documento válido</p>
+                            <div><small id="tipoDocumentoHelp" class="form-text text-muted"><br></small></div>
                         </div>
                     </div>
-                    <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                    <!-- Nombres -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__nombres">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="nombres" class="formularioRegistro__label">Nombres *</label>
+                                <input type="text" class="form-control" name="nombres" id="nombres" aria-describedby="nombresHelp" placeholder="Ingrese Nombres" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">Los nombres no pueden contener números o caracteres especiales</p>
+                            <div><small id="nombresHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Apellidos -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__apellidos">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="apellidos" class="formularioRegistro__label">Apellidos *</label>
+                                <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="apellidosHelp" placeholder="Ingrese Apellidos" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">Los apellidos no pueden contener números o caracteres especiales</p>
+                            <div><small id="apellidosHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Correo Electrónico -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__correo">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="correo" class="formularioRegistro__label">Correo Electrónico *</label>
+                                <input type="email" class="form-control" name="correo" id="correo" aria-describedby="correoHelp" placeholder="Ingrese Correo Electrónico" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">El correo no es válido</p>
+                            <div><small id="correoHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Teléfono -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__telefono">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="telefono" class="formularioRegistro__label">Teléfono *</label>
+                                <input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingrese Teléfono" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">El número no es válido</p>
+                            <div><small id="telefonoHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Fecha de Nacimiento -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__fechaDeNacimiento">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="fechaDeNacimiento" class="formularioRegistro__label">Fecha de Nacimiento *</label>
+                                <input type="date" class="form-control" name="fechaDeNacimiento" id="fechaDeNacimiento" aria-describedby="fechaDeNacimientoHelp" placeholder="Ingrese Fecha de Nacimiento" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">Ingresa una fecha de nacimiento válida</p>
+                            <div><small id="fechaDeNacimientoHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Dirección -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__direccion">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="direccion" class="formularioRegistro__label">Dirección *</label>
+                                <input type="text" class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingrese Dirección" required/>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">Ingresa una dirección válida</p>
+                            <div><small id="direccionHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Género -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__genero">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="genero" class="formularioRegistro__label">Género *</label>
+                                <select class="form-control" name="genero" id="genero" aria-describedby="generoHelp" required>
+                                    <option value="">Seleccione Género</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="femenino">Femenino</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                
+                            </div>
+                            <p class="formularioRegistro__input-error">Ingresa un género válido</p>
+                            <div><small id="generoHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Contraseña -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__contrasena">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="contrasena" class="formularioRegistro__label">Contraseña *</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="contrasena" id="contrasena" aria-describedby="contrasenaHelp" placeholder="Ingrese una contraseña" required/>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword"><span class="fa-regular fa-eye fa-xl me-2"></span></button>
+                                    </div>
+                                </div>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">La contraseña debe contener:<br>- Mínimo un número,<br>- Una letra mayúscula,<br>- Máximo 12 caracteres.</p>
+                            <div><small id="contrasenaHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Confirmar Contraseña -->
+                    <div class="col-lg-6">
+                        <div class="form-group formularioRegistro__grupo" id="grupo__confirmarContrasena">
+                            <div class="formularioRegistro__grupo-input">
+                                <label for="confirmarContrasena" class="formularioRegistro__label">Confirmar Contraseña *</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña" required/>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword"><span class="fa-regular fa-eye fa-xl me-2"></span></button>
+                                    </div>
+                                </div>
+                                <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                            </div>
+                            <p class="formularioRegistro__input-error">La contraseña no coincide</p>
+                            <div><small id="confirmarContrasenaHelp" class="form-text text-muted"><br></small></div>
+                        </div>
+                    </div>
+                    <!-- Estado -->
+                    <div class="col-md-6">
+                            <div class="form-group formularioRegistro__grupo formularioRegistro__grupo-estado" id="grupo__estado">
+                                <label for="estado">Estado *</label>
+                                <input type="hidden" name="estado" id="estado" value="0">
+                                <input type="text" class="form-control" value="Activo" disabled>
+                                <small id="estadoHelp" class="form-text text-muted"><br></small>
+                            </div>
+                        </div>
+                    <!-- Beneficiario -->
+                    <div class="col-md-6">
+                        <div class="form-group formularioRegistro__grupo formularioRegistro__grupo-beneficiario" id="grupo__beneficiario">
+                            <label for="beneficiario">Seleccionar Beneficiario *</label>
+                            <select name="beneficiario" id="beneficiario" class="form-control" required>
+                                <option value="">Seleccione el Beneficiario</option>
+                                <option value="1">Sí</option>
+                                <option value="0">No</option>
+                            </select>
+                            <small id="beneficiarioHelp" class="form-text text-muted"><br></small>
+                        </div>
+                    </div>
                 </div>
-                <p class="formularioRegistro__input-error">La contraseña no coincide</p>
-                <div><small id="confirmarContrasenaHelp" class="form-text text-muted"><br></small></div>
-            </div>
-        </div>
-        <!-- Estado -->
-        <div class="col-md-6">
-            <div class="form-group formularioRegistro__grupo formularioRegistro__grupo-estado" id="grupo__estado">
-                <label for="estado">Seleccionar Estado *</label>
-                <select name="estado" id="estado" class="form-control" required>
-                    <option value="">Seleccione el Estado</option>
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                </select>
-                <small id="estadoHelp" class="form-text text-muted"><br></small>
-            </div>
-        </div>
-        <!-- Beneficiario -->
-        <div class="col-md-6">
-            <div class="form-group formularioRegistro__grupo formularioRegistro__grupo-beneficiario" id="grupo__beneficiario">
-                <label for="beneficiario">Seleccionar Beneficiario *</label>
-                <select name="beneficiario" id="beneficiario" class="form-control" required>
-                    <option value="">Seleccione el Beneficiario</option>
-                    <option value="1">Sí</option>
-                    <option value="0">No</option>
-                </select>
-                <small id="beneficiarioHelp" class="form-text text-muted"><br></small>
-            </div>
-        </div>
+
         <div>
             <button type="submit" class="btn btn-primary next action-button float-end" id="btnRegistrar">Registrar</button>
             <a href="../clientes"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
@@ -234,6 +242,7 @@
     {{> footer}}
 
     <script src="../assets/js/funcionesCliente.js"></script>
+    <script src="../assets/js/FormClientes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
