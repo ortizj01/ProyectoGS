@@ -16,16 +16,47 @@ export const getRol = async (req, res) => {
     res.json(rows[0])
 }
 
+// Crear un nuevo rol con permisos
 export const crearRol = async (req, res) => {
-    const {NombreRol, EstadoRol} = req.body
-    const [rows] = await pool.query('INSERT INTO Roles (NombreRol, EstadoRol) VALUES (?,?)',
-    [NombreRol, EstadoRol])
-    res.send({
-        id: rows.insertId,
-        NombreRol,
-        EstadoRol,
+    const { NombreRol, EstadoRol, Permisos } = req.body;
+    const connection = await pool.getConnection();
+    
+    try {
+        await connection.beginTransaction();
         
-    })
+        const [rows] = await connection.query(
+            'INSERT INTO Roles (NombreRol, EstadoRol) VALUES (?,?)',
+            [NombreRol, EstadoRol]
+        );
+
+        const idRol = rows.insertId;
+        
+        if (Permisos && Permisos.length > 0) {
+            for (const idPermiso of Permisos) {
+                await connection.query(
+                    'INSERT INTO PermisosRoles (IdRol, IdPermiso) VALUES (?, ?)',
+                    [idRol, idPermiso]
+                );
+            }
+        }
+
+        await connection.commit();
+        
+        res.send({
+            id: idRol,
+            NombreRol,
+            EstadoRol,
+            Permisos
+        });
+    } catch (error) {
+        await connection.rollback();
+        console.error('Error:', error);
+        res.status(500).json({
+            message: 'Internal Server Error'
+        });
+    } finally {
+        connection.release();
+    }
 }
 
 export const eliminarRol =  async (req, res) => {

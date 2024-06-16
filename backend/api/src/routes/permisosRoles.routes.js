@@ -8,6 +8,6 @@ router.get('/permisosRoles/:IdRol', getPermisosDeRol);
 
 router.post('/permisosRoles/:IdRol', agregarPermisoARol);
 
-router.delete('/permisosRoles/:IdPermisoRol', eliminarPermisoDeRol);
+router.delete('/permisosRoles/:IdRol/:IdPermiso', eliminarPermisoDeRol);
 
 export default router;

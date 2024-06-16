@@ -43,13 +43,13 @@ export const agregarPermisoARol = async (req, res) => {
 // Eliminar un permiso de un rol
 export const eliminarPermisoDeRol = async (req, res) => {
     try {
-        const { IdPermisoRol } = req.params;
+        const { IdRol, IdPermiso } = req.params;
 
-        if (!IdPermisoRol) {
-            return res.status(400).json({ error: 'IdPermisoRol es requerido' });
+        if (!IdRol || !IdPermiso) {
+            return res.status(400).json({ error: 'IdRol e IdPermiso son requeridos' });
         }
 
-        await pool.query('DELETE FROM PermisoRoles WHERE IdPermisoRol = ?', [IdPermisoRol]);
+        await pool.query('DELETE FROM PermisoRoles WHERE IdRol = ? AND IdPermiso = ?', [IdRol, IdPermiso]);
 
         res.sendStatus(204);
     } catch (error) {
