@@ -102,6 +102,10 @@ app.get('/ProveedoresEditar', (req, res)=>{
     res.render('ProveedoresEditar')
 })
 
+app.get('/visualizarcompra', (req, res)=>{
+    res.render('visualizarcompra')
+})
+
 
 // FIN COMPRAS
 

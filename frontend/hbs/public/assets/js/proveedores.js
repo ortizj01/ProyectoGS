@@ -37,7 +37,7 @@ const listarProveedores = async () => {
                         <td>${proveedor.Telefono}</td>
                         <td>${proveedor.Direccion}</td>
                         <td>${proveedor.NIT}</td>
-                        <td>${proveedor.EstadoProveedores}</td>
+                        <td>${proveedor.estado_descripcion}</td>
                         <td style="text-align: center;">
                             <div class="centered-container">
                             <a href="../ProveedoresEditar?id=${proveedor.IdProveedores}">

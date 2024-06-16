@@ -147,19 +147,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         })
         .catch(error => console.error('Error al cargar los proveedores:', error));
 
+
     // Cargar los productos
-    const selectProducto = document.getElementById('selectProducto');
-    fetch('http://localhost:3000/api/productos')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(producto => {
-                const option = document.createElement('option');
-                option.value = producto.IdProducto;
-                option.textContent = producto.NombreProducto;
-                selectProducto.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error al cargar los productos:', error));
+
 });
 
 
@@ -195,15 +185,18 @@ const listarCompras = async () => {
                 contenido += `
                     <tr>
                         <td>${compra.NumeroReciboCompra}</td>
-                        <td>${compra.FechaCompra}</td>
-                        <td>${compra.ValorCompra}</td>
-                        <td>${compra.FechaRegistroCompra}</td>
-                        <td>${compra.EstadoCompra}</td>
-                        <td>${compra.IdProveedores}</td>
+                        <td>${compra.Fecha_compraf}</td>
+                        <td>$${compra.ValorCompra}</td>
+                        <td>${compra.Fecha_RegistroCompra}</td>
+                        <td>${compra.estado_descripcion}</td>
+                        <td>${compra.NombreProveedor}</td>
                         <td style="text-align: center;">
                             <div class="centered-container">
-                            <a href="../ProveedoresEditar?id=${compra.IdCompra}">
+                            <a href="../visualizarcompra?id=${compra.IdCompra}">
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
+                            </a>
+                            <a href="../formDevolucioncom?id=${compra.IdCompra}">
+                                <i class="fa fa-retweet fa-xl me-2"></i>
                             </a>
                                 
                         </td>
@@ -324,7 +317,7 @@ async function enviarCompra() {
         Swal.fire({
             icon: 'success',
             title: 'Éxito',
-            text: 'Proveedor agregado con éxito',
+            text: 'Compra agregado con éxito',
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -343,21 +336,7 @@ async function enviarCompra() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const selectElement = document.getElementById('idProveedores');
 
-    fetch('http://localhost:3000/api/proveedores')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(producto => {
-                const option = document.createElement('option');
-                option.value = producto.IdProducto;
-                option.textContent = producto.NombreProducto;
-                selectElement.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error al cargar los productos:', error));
-});
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -375,3 +354,99 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error al cargar los productos:', error));
 });
+
+
+const precargarDatosCompraEnFormulario = async () => {
+
+    
+    // Buscar el parámetro 'id' en la URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var compraId = urlParams.get('id');
+    console.log(compraId);
+    try {
+        const response = await fetch(`${url1}/${compraId}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+
+
+        const compra = await response.json();
+
+        // Precargar los datos de la compra en el formulario en label
+        document.getElementById('Fechacompra').textContent = compra.Fecha_compraf;
+        document.getElementById('Valorcompra').textContent = '$'+compra.ValorCompra;
+        document.getElementById('Fecharegistrocompra').textContent = compra.Fecha_RegistroCompra;
+        document.getElementById('Numerorecibocompra').textContent =compra.NumeroReciboCompra;
+        document.getElementById('Proveedor').textContent = compra.NombreProveedor;
+
+
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+const precargarDatosCompraproductoEnFormulario = async () => {
+
+    
+    // Buscar el parámetro 'id' en la URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var compraId = urlParams.get('id');
+    console.log(compraId);
+    try {
+        const response = await fetch(`${url2}/${compraId}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+
+
+        const compraproducto = await response.json();
+
+          // Crear o hacer referencia a la tabla HTML objetivo
+        const compraProductoTable = document.getElementById('compraProductoTable');
+
+        // Limpiar las filas de la tabla existentes
+        compraProductoTable.innerHTML = '';
+
+        // Recorrer los objetos de productos de compra
+        compraproducto.forEach(producto => {
+            // Crear una nueva fila de tabla
+            const tableRow = compraProductoTable.insertRow();
+
+            // Crear y completar celdas de tabla para cada punto de datos
+            const NombreProductoCell = tableRow.insertCell();
+            NombreProductoCell.textContent = producto.NombreProducto;
+
+            const PrecioProductoCell = tableRow.insertCell();
+            PrecioProductoCell.textContent ='$'+ producto.PrecioProducto;
+
+            
+            const cantidadProductoCell = tableRow.insertCell();
+            cantidadProductoCell.textContent = producto.CantidadProducto;
+        
+            const ValortotalCell = tableRow.insertCell();
+            ValortotalCell.textContent ='$'+  producto.Valortotal;});
+
+
+
+
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+

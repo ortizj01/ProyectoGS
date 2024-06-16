@@ -3,11 +3,13 @@ const inputs = document.querySelectorAll('#formularioCategoria input');
 
 
 const expresiones = {
-	Nombrecategoria: /^[A-Za-z]+$/
+	Nombrecategoria: /^[A-Za-z]+$/,
+    categoria:/^[A-Za-z]+$/
 }
 
 const campos={
     Nombrecategoria:false,
+    categoria:false
 }
 
 
@@ -15,6 +17,11 @@ const validarformularioCategoria = (e)=> {
     switch(e.target.name){
         case "Nombrecategoria":
             validarcampo(expresiones.Nombrecategoria, e.target,"Nombrecategoria");
+            break
+    }
+    switch(e.target.name){
+        case "categoria":
+            validarcampo(expresiones.categoria, e.target,"categoria");
             break
     }
 
@@ -49,7 +56,7 @@ inputs.forEach((input)=>{
 
 formulariocategoria.addEventListener('submit',(e) => {
     e.preventDefault();
-    if(campos.Nombrecategoria){
+    if(campos.Nombrecategoria && campos.categoria){
         formulariocategoria.reset()
         document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
         setTimeout(() => {

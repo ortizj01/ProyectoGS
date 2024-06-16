@@ -122,7 +122,7 @@ const listarCategoria = async () => {
                 contenido += `
                     <tr>
                         <td>${categoria.NombreCategoriaProductos}</td>
-                        <td>${categoria.EstadoCategoriaProductos}</td>
+                        <td>${categoria.estado_descripcion}</td>
                         <td style="text-align: center;">
                             <div class="centered-container">
                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"

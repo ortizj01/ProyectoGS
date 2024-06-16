@@ -6,7 +6,7 @@
     <title>Devoluciones Compras</title>
     {{> header}}
 </head>
-<body class="  ">
+<body onload="listarDevCompras()">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -28,205 +28,66 @@
 
               
     <!-- Inicio contenido -->
-    <br>
-    <div class="position-relative">
-      <a class="nav-link " href="../formDevolucioncom"><button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button></a>
-    </div>
-    </div>
-    <br>
     <div class="container-fluid content-inner">
-        <div class="row">
-      <div class="col-sm-12">
-         <div class="card">
-            <div class="card-header d-flex justify-content-between">
-               <div class="header-title">
-                  <h4 class="card-title">Devoluciones Compras</h4>
-               </div>
+            <div class="card-header py-2">
+                    <h2 class="m-2 font-weight-bold text-primary">Devolucion Compras</h2>
             </div>
-            <div class="card-body p-0">
-               <div class="table-responsive mt-4">
-                  <table id="basic-table" class="table table-striped mb-0" role="grid">
-                     <thead>
-                        <tr>
-                           <th>id de la compra</th>
-                           <th>Fecha de la devolucion</th>
-                           <th>productos</th>
-                           <th>Motivacion de devolucion</th>
-                           <th>Acciones</th>
-                           <th>Estado</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>
-                                 <h6>64656</h6>                    
-                           </td>
-                           <td><h6>13/11/2023</h6></td>
-                           <td>
-                              <h6>Proteina,bebida de liche</h6>
-                           </td>
-                           <td>
-                                 <h6>Mal estado del producto</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <a href="../DevolucionEditar"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
-                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                 <div class="wrap-toggle" style="margin-top:10px;">
-                                       <input type="checkbox" id="toggle" class="offscreen" />
-                                       <label for="toggle" class="switch"></label>
-                                 </div>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                
+                <div class="card-body">
+                    
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+<br>
+</div>
+                            </div>
 
-                           <td>
-                                 <h6>64586</h6>                    
-                           </td>
-                           <td><h6>21/10/2023</h6></td>
-                           <td>
-                              <h6>Aminoacidos</h6>
-                           </td>
-                           <td>
-                                 <h6>Mal estado del producto</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                 <div class="wrap-toggle" style="margin-top:10px;">
-                                       <input type="checkbox" id="toggle1" class="offscreen" />
-                                       <label for="toggle1" class="switch"></label>
-                                 </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-
-                           <td>
-                                 <h6>39856</h6>                    
-                           </td>
-                           <td><h6>26/02/2023</h6></td>
-                           <td>
-                              <h6>Proteina</h6>
-                           </td>
-                           <td>
-                                 <h6>Mal estado del producto</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                 <div class="wrap-toggle" style="margin-top:10px;">
-                                       <input type="checkbox" id="toggle2" class="offscreen" />
-                                       <label for="toggle2" class="switch"></label>
-                                 </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-
-                           <td>
-                                 <h6>65696</h6>                    
-                           </td>
-                           <td><h6>23/05/2023</h6></td>
-                           <td>
-                              <h6>Preentreno</h6>
-                           </td>
-                           <td>
-                                 <h6>Mal estado del producto</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                 <div class="wrap-toggle" style="margin-top:10px;">
-                                       <input type="checkbox" id="toggle3" class="offscreen" />
-                                       <label for="toggle3" class="switch"></label>
-                                 </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-
-                           <td>
-                                 <h6>64123</h6>                    
-                           </td>
-                           <td><h6>08/06/2023</h6></td>
-                           <td>
-                              <h6>Creatina</h6>
-                           </td>
-                           <td>
-                                 <h6>Mal estado del producto</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                 <div class="wrap-toggle" style="margin-top:10px;">
-                                       <input type="checkbox" id="toggle4" class="offscreen" />
-                                       <label for="toggle4" class="switch"></label>
-                                 </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                        <tr>
-
-                           <td>
-                                 <h6>64852</h6>                    
-                           </td>
-                           <td><h6>19/02/2023</h6></td>
-                           <td>
-                              <h6>Aminoacidos</h6>
-                           </td>
-                           <td>
-                                 <h6>Mal estado del producto</h6>
-                           </td>
-                           <td style="text-align: center;">
-                              <div class="centered-container">
-                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                 <div class="wrap-toggle" style="margin-top:10px;">
-                                       <input type="checkbox" id="toggle5" class="offscreen" />
-                                       <label for="toggle5" class="switch"></label>
-                                 </div>
-                           </td>
-                           <td>
-                              Activo
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  
-               </div>
-
-               
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    >NumeroReciboCompra</th>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    >Motivo</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Start date: activate to sort column ascending"
+                                                    >ValorDevolucion</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    >Fecha devolucion Compra</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    >Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    >Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenidoDevCompras">                        
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                
+                           
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-         </div>
-
-      </div>
-
-      <div style="padding-left: 80%;">
-         <ul class="pagination" >
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>
-      </div>
-   </div>
+       </div>  
     </div>
 
     <!-- Fin contenido --> 
@@ -236,7 +97,7 @@
         {{> copyright}}
     </footer>
    <!-- Footer Section End -->
-
+    <script src="../assets/js/Devolucion.js"></script>
     {{> footer}}
 </body>
 </html>

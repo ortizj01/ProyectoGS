@@ -8,7 +8,7 @@
     {{> header}}
 </head>
 
-<body class="  ">
+<body onload="precargarDatosCompraEnFormulario();precargarDatosproductosEnFormulario()">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -47,78 +47,45 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Fecha compra*</label>
-                                        <input type="date" class="form-control" name="Nombre Proveedor"
-                                            placeholder="Fecha compra" />
+                                        <input disabled type="date" id="Fecha_compra" class="form-control" name="Fecha_compra"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="exampleFormControlSelect1">Id Compra*</label>
-                                        <select class="form-select" id="exampleFormControlSelect1" name="dia">
-                                            <option selected="" disabled="">Id Compra</option>
-                                            <option>6252</option>
-                                            <option>6251</option>
-                                            <option>6250</option>
-                                            <option>6219</option>
-                                            <option>6218</option>
-                                            <option>6217</option>
-                                        </select>
+                                        <label class="form-label" for="exampleFormControlSelect1">Numero Recibo de Compra</label>
+                                        <input disabled type="text" id="NumeroReciboCompra" class="form-control" name="NumeroReciboCompra"/>
                                     </div>
                                 </div>
 
-                                <!-- inicio -->
-
-
-                                <label for="selectProducto">Selecciona un producto:</label>
-                                <div class="productoContainer">
-                                    <select id="selectProducto" name="productos[]" style="width:300px">
-                                        <option selected="" disabled="">Agregar producto a la Devolucion</option>
-                                        <option value="producto1">Creatina</option>
-                                        <option value="producto2">Aminoacidos</option>
-                                        <option value="producto3">Elite</option>
-                                        <option value="producto3">Agua</option>
-                                        <!-- Agrega más opciones según tus necesidades -->
-                                    </select>
-
-                                    <label for="cantidad" style="margin-left:50px">Cantidad:</label>
-                                    <input style="width:90px" type="number" name="cantidades[]" value="1" min="1">
-
-
-                                    <label for="Valor" style="margin-left:50px">Valor:</label>
-                                    <label>$25.000</label>
-                                    <div class="productoContainer">
-                                    <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()" style="margin-left:50px"><i
-                                            class="fa-solid fa-plus fa-lg"></i></button>
-                                </div>
-
-                                </div>
-                                <div id="productosAgregados">
-                                    <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
-
-                                </div>
-
-                                <!-- fin -->
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="form-group">
                                             <label class="form-label">Motivo de la Devolucion</label>
-                                            <input type="text" class="form-control" name="Nombre Proveedor"
-                                                placeholder="Motivo de la Devolucion" />
+                                            <input type="text" id="MDevolucion" class="form-control" name="MDevolucion"/>
                                         </div>
                                     </div>
+                                </div>
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="form-group">
                                                 <label class="form-label">Valor de la Devolucion</label>
-                                                <label class="form-label">$ 58.000</label>
+                                                <input disabled type="text" id="ValorDev"/>
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
+
+                                    
+                                <br>
+                                <div  id="productosAgregados" style="margin-left: 350px;" >
+                                    <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+
+
                                 </div>
-                            </div>
-                            <button type="button" name="next" class="btn btn-primary next action-button float-end"
-                                value="Next">Guardar</button>
-                            <button type="button" name="previous"
+
+
+                            <button type="button" class="btn btn-primary next action-button float-end" onclick="enviarDevCompra()" >Realizar devolucion</button>
+                            <button type="button"
                                 class="btn btn-dark previous action-button-previous float-end me-1"
                                 value="Previous">Cancelar</button>
                         </form>

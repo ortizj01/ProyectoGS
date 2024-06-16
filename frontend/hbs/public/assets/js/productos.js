@@ -35,8 +35,8 @@ const listarProductos= async () => {
                         <td>${producto.IvaProducto}</td>
                         <td>${producto.Stock}</td>
                         <td>${producto.Imagen}</td> 
-                        <td>${producto.EstadoProducto}</td>
-                        <td>${producto.IdCategoriaProductos}</td>
+                        <td>${producto.estado_descripcion}</td>
+                        <td>${producto.Nombre_categoria}</td>
                         <td style="text-align: center;">
                             <div class="centered-container">
                             <a href="../ProductosEditar?id=${producto.IdProducto}">
