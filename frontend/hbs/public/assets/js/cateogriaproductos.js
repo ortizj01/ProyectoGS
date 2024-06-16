@@ -8,6 +8,17 @@ const editarCategoria = async (id) => {
     const NombreCategoriaProductos = document.getElementById('categoria').value;
     const EstadoCategoriaProductos = document.getElementById('Estado').value;
 
+
+    if (NombreCategoriaProductos === "" || EstadoCategoriaProductos === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
     try {
         const response = await fetch(`${url}/${id}`, {
             method: 'PATCH', // Cambiado a 'PATCH' para cumplir con el método de la API
@@ -50,6 +61,18 @@ const editarCategoria = async (id) => {
 
 const agregarCategoria = async () => {
     const NombreCategoriaProductos=document.getElementById('NombreCategoriaProductos').value;
+
+
+    if (NombreCategoriaProductos === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
     try {
         const response = await fetch(url, {
             method: 'POST',

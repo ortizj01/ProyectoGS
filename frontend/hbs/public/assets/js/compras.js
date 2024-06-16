@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 option.value = proveedor.IdProveedores;
                 option.textContent = proveedor.NombreProveedor;
                 selectProveedores.appendChild(option);
-            });
+            });         
         })
         .catch(error => console.error('Error al cargar los proveedores:', error));
 
@@ -251,6 +251,17 @@ async function enviarCompra() {
     const ValorCompra = document.getElementById("valorCompra").value;
     const NumeroReciboCompra = document.getElementById("numeroReciboCompra").value;
     const IdProveedores = document.getElementById("idProveedores").value;
+
+    if (FechaCompra === "" || ValorCompra === "" || NumeroReciboCompra === "" || IdProveedores === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
 
     const compra = {
         FechaCompra,

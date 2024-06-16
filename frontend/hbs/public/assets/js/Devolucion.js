@@ -120,6 +120,16 @@ async function enviarDevCompra() {
     const Motivo = document.getElementById("MDevolucion").value;
     const ValorDevolucion = document.getElementById("ValorDev").value;
 
+    if (Motivo === "" || ValorDevolucion === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
     const devcompra = {
         Motivo,
         ValorDevolucion,
@@ -286,7 +296,6 @@ const listarDevCompras = async () => {
         console.error('Error:', error);
     }
 }; 
-
 
 
 

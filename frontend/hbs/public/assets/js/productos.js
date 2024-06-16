@@ -130,7 +130,18 @@ const editarProductos = async () => {
     const Imagen = document.getElementById('Imagen').value;
     const EstadoProducto = document.getElementById('Estadoedit').value;
     const IdCategoriaProductos = document.getElementById('categoria').value;
-    console.log(EstadoProducto)
+    
+
+    if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || Imagen === "" || EstadoProducto === "" || IdCategoriaProductos === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
     try {
         const response = await fetch(`${url}/${id}`, {
             method: 'PATCH', // Cambiado a 'PATCH' para cumplir con el método de la API
@@ -182,6 +193,17 @@ const agregarProducto = async () => {
     const IvaProducto = document.getElementById('Ivaproducto').value;
     const Imagen = document.getElementById('Imagen').value;
     const IdCategoriaProductos = document.getElementById('SelectorCategoria').value;
+
+    if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || Imagen === "" || IdCategoriaProductos === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
 
 
     try {
@@ -345,7 +367,6 @@ inputs.forEach((input)=>{
 formularioproductos.addEventListener('submit',(e) => {
     e.preventDefault();
     if(campos.Nombreproducto && campos.Precioproducto && campos.Imagen && campos.Ivaproducto){
-        formularioproductos.reset()
         document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
         setTimeout(() => {
             document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');

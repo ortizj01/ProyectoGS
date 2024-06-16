@@ -65,8 +65,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleFormControlSelect1">Proveedor *</label>
-                                            <select class="form-select" class="prueba" id="idProveedores">
-                                            <option selected="" disabled="">Selecciona el Proveedor</option>
+                                            <select class="idProveedores" id="idProveedores">
+                                            <option selected="" disabled="" value="">Selecciona el Proveedor</option>
                                             </select>
                                         </div>
                                     </div>
@@ -76,8 +76,8 @@
                                        
                                     <label for="selectProducto">Selecciona un producto:</label>
                                     <div class="productoContainer" id="productoInicial">
-                                        <select id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
-                                            <option selected="" disabled="">Agregar producto a la compra</option>
+                                        <select class="selectProducto" id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
+                                            <option selected="" disabled="" value="">Agregar producto a la compra</option>
                                             <!-- Agrega más opciones según tus necesidades -->
                                         </select>
 

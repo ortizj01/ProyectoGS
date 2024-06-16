@@ -130,7 +130,19 @@ const editarProveedor = async () => {
     const Direccion = document.getElementById('Direccionedit').value;
     const NIT = document.getElementById('NITedit').value;
     const EstadoProveedores = document.getElementById('Estadoedit').value;
-    console.log(EstadoProveedores)
+    
+    if (NombreProveedor === "" || NombreContactoProveedor === "" || Telefono === "" || Direccion === "" || NIT === "" || EstadoProveedores === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
+
+
     try {
         const response = await fetch(`${url}/${id}`, {
             method: 'PATCH', // Cambiado a 'PATCH' para cumplir con el método de la API
@@ -180,11 +192,23 @@ const editarProveedor = async () => {
 
 const agregarProveedor = async () => {
 
+
+
     const NombreProveedor = document.getElementById('Nombreproveedor').value;
     const NombreContactoProveedor = document.getElementById('Contactoproveedor').value;
     const Telefono = document.getElementById('Telefono').value;
     const Direccion = document.getElementById('Direccion').value;
     const NIT = document.getElementById('Nit').value;
+    
+    if (NombreProveedor === "" || NombreContactoProveedor === "" || Telefono === "" || Direccion === "" || NIT === "") {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error',
+            text: 'Llene todos los campos',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
 
 
     try {
@@ -319,7 +343,6 @@ formularioproveedores.addEventListener('submit',(e) => {
     e.preventDefault();
     if(campos.Nombreproveedor && campos.Contactoproveedor && campos.Telefono && campos.Direccion && campos.Nit){
         formularioproveedores.reset()
-        alert("good")
         document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
         setTimeout(() => {
             document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
@@ -328,11 +351,10 @@ formularioproveedores.addEventListener('submit',(e) => {
             icono.classList.remove('formulario__grupo-correcto')
         });
     } else {
-        alert("malo")
+        
         document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo')
         setTimeout(() => {
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
         }, 3000);
-
     }
 });
