@@ -21,7 +21,7 @@ async function cargarVentas() {
                 <td>${venta.EstadoVenta === 1 ? 'Activo' : 'Inactivo'}</td>
                 <td>
                     <i class="fa-regular fa-eye fa-xl me-2" onclick="verDetalleVenta(${venta.IdVenta})"></i>
-                    <i class="fa-solid fa-trash fa-xl me-2 trash-icon" onclick="eliminarVenta(${venta.IdVenta})"></i>
+                    <i class="fa-solid fa-trash fa-xl me-2 trash-icon" onclick="confirmarEliminarVenta(${venta.IdVenta})"></i>
                 </td>
             `;
             listaVentas.appendChild(row);
@@ -49,7 +49,6 @@ async function verDetalleVenta(idVenta) {
                 </div>
                 <div class="col">
                     <p><strong>Fecha de Venta:</strong> ${new Date(venta.FechaVenta).toLocaleDateString()}</p>
-                    <p><strong>Pago Neto:</strong> ${venta.PagoNeto}</p>
                     <p><strong>IVA:</strong> ${venta.Iva}</p>
                     <p><strong>Total:</strong> ${venta.Total}</p>
                     <p><strong>Estado:</strong> ${venta.EstadoVenta === 1 ? 'Activo' : 'Inactivo'}</p>
@@ -73,18 +72,52 @@ async function verDetalleVenta(idVenta) {
     }
 }
 
-async function eliminarVenta(idVenta) {
-    if (confirm('¿Estás seguro de que quieres eliminar esta venta?')) {
-        try {
-            const response = await fetch(`${urlVentas}/${idVenta}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) throw new Error('Error al eliminar la venta');
-            alert('Venta eliminada exitosamente');
-            cargarVentas();
-        } catch (error) {
-            console.error('Error al eliminar la venta:', error);
-            alert('Error al eliminar la venta');
+function confirmarEliminarVenta(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "No podrás revertir esto",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            eliminarVenta(id);
         }
+    });
+}
+
+async function eliminarVenta(id) {
+    try {
+        const response = await fetch(`${urlVentas}/${id}`, {
+            method: 'DELETE',
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            Swal.fire(
+                'Eliminada!',
+                data.message,
+                'success'
+            );
+        } else {
+            Swal.fire(
+                'Error!',
+                data.message,
+                'error'
+            );
+        }
+
+        // Recargar las ventas después de la eliminación
+        cargarVentas();
+    } catch (error) {
+        console.error('Error al eliminar la venta:', error);
+        Swal.fire(
+            'Error!',
+            'Error al eliminar la venta',
+            'error'
+        );
     }
 }

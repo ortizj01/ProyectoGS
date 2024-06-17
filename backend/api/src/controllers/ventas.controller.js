@@ -47,17 +47,16 @@ export const getVenta = async (req, res) => {
     }
 };
 
-// Crear una nueva venta
 export const crearVenta = async (req, res) => {
-    const { IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta, productos, membresias } = req.body;
+    const { IdUsuario, FechaVenta, Iva, Total, EstadoVenta, productos, membresias } = req.body;
     const connection = await pool.getConnection();
     
     try {
         await connection.beginTransaction();
         
         const [result] = await connection.query(
-            'INSERT INTO Ventas (IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta) VALUES (?, ?, ?, ?, ?, ?)', 
-            [IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta]
+            'INSERT INTO Ventas (IdUsuario, FechaVenta, Iva, Total, EstadoVenta) VALUES (?, ?, ?, ?, ?)', 
+            [IdUsuario, FechaVenta, Iva, Total, EstadoVenta]
         );
 
         const idVenta = result.insertId;
@@ -82,7 +81,7 @@ export const crearVenta = async (req, res) => {
 
         await connection.commit();
         
-        res.status(201).json({ id: idVenta, IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta, productos, membresias });
+        res.status(201).json({ id: idVenta, IdUsuario, FechaVenta, Iva, Total, EstadoVenta, productos, membresias });
     } catch (error) {
         await connection.rollback();
         console.error(error);
@@ -92,72 +91,37 @@ export const crearVenta = async (req, res) => {
     }
 };
 
-// Actualizar una venta
-export const actualizarVenta = async (req, res) => {
-    const { IdVenta } = req.params;
-    const { IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta, productos, membresias } = req.body;
-    const connection = await pool.getConnection();
+export const eliminarVenta = async (req, res) => {
+    const { id } = req.params;
+    let connection;
 
     try {
+        connection = await pool.getConnection();
         await connection.beginTransaction();
 
-        const [result] = await connection.query(
-            'UPDATE Ventas SET IdUsuario = ?, FechaVenta = ?, PagoNeto = ?, Iva = ?, Total = ?, EstadoVenta = ? WHERE IdVenta = ?', 
-            [IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta, IdVenta]
-        );
+        // Eliminar los productos de la venta
+        await connection.query('DELETE FROM VentasProducto WHERE IdVenta = ?', [id]);
+        // Eliminar las membresías de la venta
+        await connection.query('DELETE FROM VentasMembresia WHERE IdVenta = ?', [id]);
+        // Eliminar la venta
+        const [result] = await connection.query('DELETE FROM Ventas WHERE IdVenta = ?', [id]);
 
         if (result.affectedRows === 0) {
             await connection.rollback();
-            return res.status(404).json({ error: 'Venta no encontrada' });
-        }
-
-        await connection.query('DELETE FROM VentasProducto WHERE IdVenta = ?', [IdVenta]);
-        await connection.query('DELETE FROM VentasMembresia WHERE IdVenta = ?', [IdVenta]);
-
-        if (productos && productos.length > 0) {
-            for (const producto of productos) {
-                await connection.query(
-                    'INSERT INTO VentasProducto (IdVenta, IdProducto, Cantidad) VALUES (?, ?, ?)', 
-                    [IdVenta, producto.IdProducto, producto.Cantidad]
-                );
-            }
-        }
-
-        if (membresias && membresias.length > 0) {
-            for (const membresia of membresias) {
-                await connection.query(
-                    'INSERT INTO VentasMembresia (IdVenta, IdMembresia, Cantidad) VALUES (?, ?, ?)', 
-                    [IdVenta, membresia.IdMembresia, membresia.Cantidad]
-                );
-            }
+            return res.status(404).json({ message: 'Venta no encontrada' });
         }
 
         await connection.commit();
-
-        res.json({ IdVenta, IdUsuario, FechaVenta, PagoNeto, Iva, Total, EstadoVenta, productos, membresias });
-    } catch (error) {
-        await connection.rollback();
-        console.error(error);
-        res.status(500).json({ error: 'Error al actualizar la venta' });
-    } finally {
-        connection.release();
-    }
-};
-
-// Eliminar una venta
-export const eliminarVenta = async (req, res) => {
-    const { IdVenta } = req.params;
-
-    try {
-        const [result] = await pool.query('DELETE FROM Ventas WHERE IdVenta = ?', [IdVenta]);
-        if (result.affectedRows === 0) return res.status(404).json({ error: 'Venta no encontrada' });
-
-        await pool.query('DELETE FROM VentasProducto WHERE IdVenta = ?', [IdVenta]);
-        await pool.query('DELETE FROM VentasMembresia WHERE IdVenta = ?', [IdVenta]);
-
-        res.sendStatus(204);
+        res.status(200).json({ message: 'Venta eliminada con éxito' });
     } catch (error) {
         console.error(error);
+        if (connection) {
+            await connection.rollback();
+        }
         res.status(500).json({ error: 'Error al eliminar la venta' });
+    } finally {
+        if (connection) {
+            connection.release();
+        }
     }
 };

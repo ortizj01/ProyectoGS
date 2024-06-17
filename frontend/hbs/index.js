@@ -218,6 +218,10 @@ app.get('/GestionVentas', (req, res)=>{
     res.render('GestionVentas')
 })
 
+app.get('/formuVenta', (req, res)=>{
+    res.render('formuVenta')
+})
+
 app.get('/GestionDevoluciones', (req, res)=>{
     res.render('GestionDevoluciones')
 })
@@ -226,9 +230,7 @@ app.get('/formulDevolucion', (req, res)=>{
     res.render('formulDevolucion')
 })
 
-app.get('/formuVenta', (req, res)=>{
-    res.render('formuVenta')
-})
+
 
 
 // FIN JOHANY
