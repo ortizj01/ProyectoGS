@@ -1,12 +1,13 @@
 import { Router } from 'express';
-import * as ValoracionMedicaController from '../controllers/valoracionMedica.controller.js';
+import { getValoracionesMedicas, getValoracionMedicaById, getValoracionMedicaByUsuarioId, createValoracionMedica, updateValoracionMedica, deleteValoracionMedica } from '../controllers/valoracionMedica.controller.js';
 
 const router = Router();
 
-router.get('/', ValoracionMedicaController.getValoracionesMedicas);
-router.get('/:id', ValoracionMedicaController.getValoracionMedicaById);
-router.post('/', ValoracionMedicaController.createValoracionMedica);
-router.put('/:id', ValoracionMedicaController.updateValoracionMedica);
-router.delete('/:id', ValoracionMedicaController.deleteValoracionMedica);
+router.get('/valoracionesMedicas', getValoracionesMedicas);
+router.get('/valoracionesMedicas/:id', getValoracionMedicaById);
+router.get('/valoracionesMedicas/usuario/:id', getValoracionMedicaByUsuarioId); // Nueva ruta
+router.post('/valoracionesMedicas', createValoracionMedica);
+router.put('/valoracionesMedicas/:id', updateValoracionMedica);
+router.delete('/valoracionesMedicas/:id', deleteValoracionMedica);
 
 export default router;

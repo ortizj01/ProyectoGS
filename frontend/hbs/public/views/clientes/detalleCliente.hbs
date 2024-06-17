@@ -9,7 +9,7 @@
      
     {{> header}}
 </head>
-<body class="  ">
+<body onload="cargarDatosCliente()">
         <!-- Inicio del cargar -->
     <div id="loading">
       <div class="loader simple-loader">
@@ -37,75 +37,107 @@
         <h3 class="m-0 font-weight-bold text-primary">Detalle cliente</h3>
     </div>
 
-   <section class="checkout-wrapper section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="checkout-steps-form-style-1">
-                    <ul id="accordionExample">
-                        <li>
-                            <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                aria-expanded="true" aria-controls="collapseThree">Datos Cliente</h6>
-                            <section class="checkout-steps-form-content collapse show" id="collapseThree"
-                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label for="mail">Documento</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="1007510458" id="documentoCliente" readonly>
+  <section class="checkout-wrapper section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="checkout-steps-form-style-1">
+                        <ul id="accordionExample">
+                            <li>
+                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                    aria-expanded="true" aria-controls="collapseThree">Datos Cliente</h6>
+                                <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="tipoDocumentoCliente">Tipo Documento</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="tipoDocumentoCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="documentoCliente">Documento</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="documentoCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="nombreCliente">Nombre</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="nombreCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="apellidosCliente">Apellidos</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="apellidosCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="emailCliente">Correo electrónico</label>
+                                                <div class="form-input form">
+                                                    <input type="email" id="emailCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="TelefonoCliente">Telefono</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="TelefonoCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="direccionCliente">Dirección</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="direccionCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="fechaNacimientoCliente">Fecha de nacimiento</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="fechaNacimientoCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="generoCliente">Genero</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="generoCliente" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form form-default">
+                                                <label for="estadoCliente">Estado</label>
+                                                <div class="form-input form">
+                                                    <input type="text" id="estadoCliente" readonly>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label for="mail">Nombre</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="Yonier Alexander Ospina Hincapie" id="nombreCliente" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label for="mail">Correo electrónico</label>
-                                            <div class="form-input form">
-                                                <input type="email" placeholder="ospinahincapie10@gmail.com" id="emailCliente" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label for="mail">Telefono</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="3135497455" id="TelefonoCliente" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label for="mail">Dirección</label>
-                                            <div class="form-input form">
-                                                <input type="email" placeholder="Calle 47 # 34 - 58" id="direccionCliente" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>Estado</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="ACTIVO" id="estadoCliente" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </li>
-                    </ul>
+                                </section>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
    <div class="container-fluid">
@@ -189,6 +221,7 @@
     <footer class="footer">
         {{> copyright}}
     </footer>
+    <script src="../assets/js/funcionesCliente.js"></script>
     <!-- Footer Section End -->
 
     {{> footer}}

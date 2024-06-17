@@ -7,13 +7,13 @@
     {{> header}}
     <link rel="stylesheet" href="../assets/css/validacionesFormsEditarCliente.css" />
 </head>
-<body>
+<body onload="cargarDatosEditarCliente()">
     <!-- Inicio del cargar -->
     <div id="loading">
-      <div class="loader simple-loader">
-          <div class="loader-body">
-          </div>
-      </div>
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
     </div>
     <!-- Fin cargar -->
 
@@ -27,7 +27,7 @@
 
     <!-- Inicio contenido -->
     <div class="container-fluid content-inner">
-         <div class="row">                
+        <div class="row">                
             <div class="col-sm-12 col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
@@ -45,7 +45,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__documento">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="documento" class="formularioEditar__label">Documento *</label>
-                                            <input type="text" class="form-control" name="documentoEditar" id="documentoEditar" aria-describedby="documentoHelp" placeholder="Ingrese Documento" required/>
+                                            <input type="text" class="form-control" name="documento" id="documento" aria-describedby="documentoHelp" placeholder="Ingrese Documento" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">Ingresa un documento válido</p>
@@ -57,7 +57,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__tipoDocumento">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="tipoDocumento" class="formularioEditar__label">Tipo de Documento *</label>
-                                            <select class="form-control" name="tipoDocumentoEditar" id="tipoDocumentoEditar" aria-describedby="tipoDocumentoHelp" required>
+                                            <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
                                                 <option value="">Seleccione Tipo de Documento</option>
                                                 <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
                                                 <option value="cedula_extranjeria">Cédula de Extranjería</option>
@@ -73,7 +73,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__nombres">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="nombres" class="formularioEditar__label">Nombres *</label>
-                                            <input type="text" class="form-control" name="nombresEditar" id="nombresEditar" aria-describedby="nombresHelp" placeholder="Ingrese Nombres" required/>
+                                            <input type="text" class="form-control" name="nombres" id="nombres" aria-describedby="nombresHelp" placeholder="Ingrese Nombres" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">Los nombres no pueden contener números o caracteres especiales</p>
@@ -85,7 +85,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__apellidos">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="apellidos" class="formularioEditar__label">Apellidos *</label>
-                                            <input type="text" class="form-control" name="apellidosEditar" id="apellidosEditar" aria-describedby="apellidosHelp" placeholder="Ingrese Apellidos" required/>
+                                            <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="apellidosHelp" placeholder="Ingrese Apellidos" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">Los apellidos no pueden contener números o caracteres especiales</p>
@@ -97,7 +97,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__correo">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="correo" class="formularioEditar__label">Correo Electrónico *</label>
-                                            <input type="email" class="form-control" name="correoEditar" id="correoEditar" aria-describedby="correoHelp" placeholder="Ingrese Correo Electrónico" required/>
+                                            <input type="email" class="form-control" name="correo" id="correo" aria-describedby="correoHelp" placeholder="Ingrese Correo Electrónico" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">El correo no es válido</p>
@@ -109,7 +109,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__telefono">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="telefono" class="formularioEditar__label">Teléfono *</label>
-                                            <input type="text" class="form-control" name="telefonoEditar" id="telefonoEditar" aria-describedby="telefonoHelp" placeholder="Ingrese Teléfono" required/>
+                                            <input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingrese Teléfono" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">El número no es válido</p>
@@ -121,7 +121,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__fechaDeNacimiento">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="fechaDeNacimiento" class="formularioEditar__label">Fecha de Nacimiento *</label>
-                                            <input type="date" class="form-control" name="fechaDeNacimientoEditar" id="fechaDeNacimientoEditar" aria-describedby="fechaDeNacimientoHelp" placeholder="Ingrese Fecha de Nacimiento" required/>
+                                            <input type="date" class="form-control" name="fechaDeNacimiento" id="fechaDeNacimiento" aria-describedby="fechaDeNacimientoHelp" placeholder="Ingrese Fecha de Nacimiento" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">Ingresa una fecha de nacimiento válida</p>
@@ -133,7 +133,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__direccion">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="direccion" class="formularioEditar__label">Dirección *</label>
-                                            <input type="text" class="form-control" name="direccionEditar" id="direccionEditar" aria-describedby="direccionHelp" placeholder="Ingrese Dirección" required/>
+                                            <input type="text" class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingrese Dirección" required/>
                                             <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formularioEditar__input-error">Ingresa una dirección válida</p>
@@ -145,7 +145,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__genero">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="genero" class="formularioEditar__label">Género *</label>
-                                            <select class="form-control" name="generoEditar" id="generoEditar" aria-describedby="generoHelp" required>
+                                            <select class="form-control" name="genero" id="genero" aria-describedby="generoHelp" required>
                                                 <option value="">Seleccione Género</option>
                                                 <option value="masculino">Masculino</option>
                                                 <option value="femenino">Femenino</option>
@@ -161,7 +161,7 @@
                                     <div class="form-group formularioEditar__grupo" id="grupo__estado">
                                         <div class="formularioEditar__grupo-input">
                                             <label for="estado" class="formularioEditar__label">Estado *</label>
-                                            <select class="form-control" name="estadoEditar" id="estadoEditar" aria-describedby="estadoHelp" required>
+                                            <select class="form-control" name="estado" id="estado" aria-describedby="estadoHelp" required>
                                                 <option value="">Seleccione Estado</option>
                                                 <option value="0">Activo</option>
                                                 <option value="1">Inactivo</option>
@@ -172,24 +172,177 @@
                                     </div>
                                 </div>
                                 <!-- Beneficiario -->
-                                    <div class="col-md-6">
-                                        <div class="form-group formularioRegistro__grupo formularioRegistro__grupo-beneficiario" id="grupo__beneficiario">
-                                            <label for="beneficiario">Seleccionar Beneficiario *</label>
-                                            <select name="beneficiarioEditar" id="beneficiarioEditar" class="form-control" required>
-                                                <option value="">Seleccione el Beneficiario</option>
-                                                <option value="1">Sí</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                            <small id="beneficiarioHelp" class="form-text text-muted"><br></small>
+                                <div class="col-md-6">
+                                    <div class="form-group formularioEditar__grupo formularioEditar__grupo-beneficiario" id="grupo__beneficiario">
+                                        <label for="beneficiario">Seleccionar Beneficiario *</label>
+                                        <select name="beneficiario" id="beneficiario" class="form-control" required>
+                                            <option value="">Seleccione el Beneficiario</option>
+                                            <option value="1">Sí</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                        <small id="beneficiarioHelp" class="form-text text-muted"><br></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Formulario de Valoración Médica -->
+                            <div id="valoracionMedica" style="display: none;">
+                                <div class="card-header py-6 text-center mb-4">
+                                    <h3 class="m-0 font-weight-bold text-primary">Valoración Médica</h3>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__TieneCondicionCronica">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="TieneCondicionCronica" class="formularioEditar__label">¿Tiene Condición Crónica? *</label>
+                                                <select class="form-control" name="TieneCondicionCronica" id="TieneCondicionCronica" aria-describedby="TieneCondicionCronicaHelp" required>
+                                                    <option value="">Seleccione una opción</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Seleccione una opción válida</p>
+                                            <div><small id="TieneCondicionCronicaHelp" class="form-text text-muted"><br></small></div>
                                         </div>
                                     </div>
-                                    <div class="form-group mt-3">
-                                <button type="submit" class="btn btn-primary next action-button float-end" >Actualizar</button>
-                                <a href="../clientes"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__CirugiaPrevia">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="CirugiaPrevia" class="formularioEditar__label">¿Cirugía Previa? *</label>
+                                                <select class="form-control" name="CirugiaPrevia" id="CirugiaPrevia" aria-describedby="CirugiaPreviaHelp" required>
+                                                    <option value="">Seleccione una opción</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Seleccione una opción válida</p>
+                                            <div><small id="CirugiaPreviaHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__AlergiasConocidas">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="AlergiasConocidas" class="formularioEditar__label">Alergias Conocidas *</label>
+                                                <input type="text" class="form-control" name="AlergiasConocidas" id="AlergiasConocidas" aria-describedby="AlergiasConocidasHelp" placeholder="Ingrese Alergias Conocidas" required/>
+                                                <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Ingrese alergias conocidas válidas</p>
+                                            <div><small id="AlergiasConocidasHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__MedicamentosActuales">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="MedicamentosActuales" class="formularioEditar__label">Medicamentos Actuales *</label>
+                                                <input type="text" class="form-control" name="MedicamentosActuales" id="MedicamentosActuales" aria-describedby="MedicamentosActualesHelp" placeholder="Ingrese Medicamentos Actuales" required/>
+                                                <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Ingrese medicamentos actuales válidos</p>
+                                            <div><small id="MedicamentosActualesHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__LesionesMusculoesqueleticas">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="LesionesMusculoesqueleticas" class="formularioEditar__label">Lesiones Musculoesqueléticas *</label>
+                                                <select class="form-control" name="LesionesMusculoesqueleticas" id="LesionesMusculoesqueleticas" aria-describedby="LesionesMusculoesqueleticasHelp" required>
+                                                    <option value="">Seleccione una opción</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Seleccione una opción válida</p>
+                                            <div><small id="LesionesMusculoesqueleticasHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__EnfermedadCardiacaVascular">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="EnfermedadCardiacaVascular" class="formularioEditar__label">Enfermedad Cardíaca o Vascular *</label>
+                                                <select class="form-control" name="EnfermedadCardiacaVascular" id="EnfermedadCardiacaVascular" aria-describedby="EnfermedadCardiacaVascularHelp" required>
+                                                    <option value="">Seleccione una opción</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Seleccione una opción válida</p>
+                                            <div><small id="EnfermedadCardiacaVascularHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__AntecedentesFamiliares">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="AntecedentesFamiliares" class="formularioEditar__label">Antecedentes Familiares *</label>
+                                                <select class="form-control" name="AntecedentesFamiliares" id="AntecedentesFamiliares" aria-describedby="AntecedentesFamiliaresHelp" required>
+                                                    <option value="">Seleccione una opción</option>
+                                                    <option value="si">Sí</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Seleccione una opción válida</p>
+                                            <div><small id="AntecedentesFamiliaresHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__TipoAfiliacion">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="TipoAfiliacion" class="formularioEditar__label">Tipo de Afiliación *</label>
+                                                <select class="form-control" name="TipoAfiliacion" id="TipoAfiliacion" aria-describedby="TipoAfiliacionHelp" required>
+                                                    <option value="">Seleccione un Tipo</option>
+                                                    <option value="contributivo">Contributivo</option>
+                                                    <option value="subsidiado">Subsidiado</option>
+                                                    <option value="otro">Otro</option>
+                                                </select>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Seleccione un tipo de afiliación válido</p>
+                                            <div><small id="TipoAfiliacionHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__Peso">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="Peso" class="formularioEditar__label">Peso (kg) *</label>
+                                                <input type="number" class="form-control" name="Peso" id="Peso" aria-describedby="PesoHelp" placeholder="Ingrese su peso en kg" required/>
+                                                <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Ingrese un peso válido</p>
+                                            <div><small id="PesoHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__Altura">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="Altura" class="formularioEditar__label">Altura (m) *</label>
+                                                <input type="number" class="form-control" name="Altura" id="Altura" aria-describedby="AlturaHelp" placeholder="Ingrese su altura en metros" step="0.01" required/>
+                                                <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Ingrese una altura válida</p>
+                                            <div><small id="AlturaHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group formularioEditar__grupo" id="grupo__IMC">
+                                            <div class="formularioEditar__grupo-input">
+                                                <label for="IMC" class="formularioEditar__label">IMC *</label>
+                                                <input type="number" class="form-control" name="IMC" id="IMC" aria-describedby="IMCHelp" placeholder="Ingrese IMC" readonly required/>
+                                                <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formularioEditar__input-error">Ingrese un IMC válido</p>
+                                            <div><small id="IMCHelp" class="form-text text-muted"><br></small></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                         </div>
-                         </div>
-                            
+
+                            <div class="form-group mt-3">
+                                <button type="button" class="btn btn-primary next action-button float-end" onclick="actualizarCliente()">Actualizar</button>
+                                <a href="../clientes"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+                                
+                                <!-- Botón Editar Valoración Médica -->
+                                <button type="button" class="btn btn-secondary float-end me-1" id="editarValoracionMedicaBtn" style="display:none;" onclick="redirigirValoracionMedica()">Editar Valoración Médica</button>
+
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -201,164 +354,8 @@
     <!-- Inicio Footer -->
     {{> footer}}
     <script src="../assets/js/funcionesCliente.js"></script>
-    <script src="../assets/js/FormEditarCliente.js"></script>
+    <script src="../assets/js/formEditarCliente.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Fin Footer -->
-    <script>
-       document.addEventListener('DOMContentLoaded', async function() {
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
-
-        if (!id) {
-            console.error('ID del cliente no encontrado en la URL');
-            return;
-        }
-
-        // Obtener los datos del cliente
-        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`);
-        if (!response.ok) {
-            throw new Error('Error al obtener datos del cliente: ' + response.statusText);
-        }
-        const cliente = await response.json();
-
-        const fechaNacimiento = new Date(cliente.FechaDeNacimiento);
-        const formattedFechaNacimiento = fechaNacimiento.toISOString().split('T')[0];
-
-        document.getElementById('clienteId').value = cliente.IdUsuario;
-        document.getElementById('documentoEditar').value = cliente.Documento;
-        document.getElementById('tipoDocumentoEditar').value = cliente.TipoDocumento;
-        document.getElementById('nombresEditar').value = cliente.Nombres;
-        document.getElementById('apellidosEditar').value = cliente.Apellidos;
-        document.getElementById('correoEditar').value = cliente.Correo;
-        document.getElementById('telefonoEditar').value = cliente.Telefono;
-        document.getElementById('fechaDeNacimientoEditar').value = formattedFechaNacimiento;
-        document.getElementById('direccionEditar').value = cliente.Direccion;
-        document.getElementById('generoEditar').value = cliente.Genero;
-        document.getElementById('estadoEditar').value = cliente.Estado;
-
-        // Obtener los roles del cliente
-        const rolesResponse = await fetch(`http://localhost:3000/api/usuariosRol/${id}/roles`);
-        if (!rolesResponse.ok) {
-            throw new Error('Error al obtener roles del cliente: ' + rolesResponse.statusText);
-        }
-        const roles = await rolesResponse.json();
-
-        // Verificar si el cliente tiene el rol de beneficiario (IdRol = 5)
-        const beneficiarioSelect = document.getElementById('beneficiarioEditar');
-        if (roles.some(rol => rol.IdRol === 5)) {
-            beneficiarioSelect.value = "1";
-        } else {
-            beneficiarioSelect.value = "0";
-        }
-
-    } catch (error) {
-        console.error('Error:', error);
-    }
-});
-
-document.getElementById('formularioEditar').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    try {
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries());
-        const id = data.id;
-
-        const getResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`);
-        if (!getResponse.ok) {
-            throw new Error('Error al obtener datos del cliente: ' + getResponse.statusText);
-        }
-        const currentData = await getResponse.json();
-
-        const updatedData = {
-            Documento: data.documentoEditar || currentData.Documento,
-            TipoDocumento: data.tipoDocumentoEditar || currentData.TipoDocumento,
-            Nombres: data.nombresEditar || currentData.Nombres,
-            Apellidos: data.apellidosEditar || currentData.Apellidos,
-            Correo: data.correoEditar || currentData.Correo,
-            Telefono: data.telefonoEditar || currentData.Telefono,
-            FechaDeNacimiento: data.fechaDeNacimientoEditar || currentData.FechaDeNacimiento,
-            Direccion: data.direccionEditar || currentData.Direccion,
-            Genero: data.generoEditar || currentData.Genero,
-            Contrasena: currentData.Contrasena,
-            Estado: data.estadoEditar,
-            Beneficiario: null // Siempre enviar Beneficiario como null
-        };
-
-        const putResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData)
-        });
-
-        if (!putResponse.ok) {
-            throw new Error('Error en la solicitud: ' + putResponse.statusText);
-        }
-
-        // Obtener roles actuales del usuario
-        const rolesResponse = await fetch(`http://localhost:3000/api/usuariosRol/${id}/roles`);
-        if (!rolesResponse.ok) {
-            throw new Error('Error al obtener roles del cliente: ' + rolesResponse.statusText);
-        }
-        const roles = await rolesResponse.json();
-
-        const beneficiarioSelect = document.getElementById('beneficiarioEditar');
-        const tieneRolBeneficiario = Array.isArray(roles) && roles.some(rol => rol.IdRol === 5);
-
-        // Verificar y manejar roles de beneficiario
-        if (beneficiarioSelect.value === "1" && !tieneRolBeneficiario) {
-            // Asignar el rol de beneficiario
-            const rolResponse = await fetch(`http://localhost:3000/api/usuariosRol/${id}/roles`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ IdRol: 5 }) // IdRol 5 es el rol de beneficiario
-            });
-
-            if (!rolResponse.ok) {
-                throw new Error('Error al asignar el rol de beneficiario: ' + rolResponse.statusText);
-            }
-        } else if (beneficiarioSelect.value === "0" && tieneRolBeneficiario) {
-            // Eliminar el rol de beneficiario
-            const rolUsuario = roles.find(rol => rol.IdRol === 5);
-            if (rolUsuario) {
-                const eliminarRolResponse = await fetch(`http://localhost:3000/api/usuariosRol/roles/${rolUsuario.IdRolUsuario}`, {
-                    method: 'DELETE'
-                });
-
-                if (!eliminarRolResponse.ok) {
-                    throw new Error('Error al eliminar el rol de beneficiario: ' + eliminarRolResponse.statusText);
-                }
-            }
-        }
-
-        console.log('Datos del cliente actualizados correctamente');
-         Swal.fire({
-            title: "¡Excelente!",
-            text: "Cliente Actualizado Correctamente!",
-            icon: "success",
-        }).then(() => {
-           window.location.href = '/clientes';
-        });
-
-        document.querySelectorAll('.formularioEditar__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formularioEditar__grupo-correcto');
-        });
-        
-    } catch (error) {
-        console.error('Error:', error);
-        console.log('Error al actualizar los datos del cliente');
-        Swal.fire({
-            icon: "error",
-            title: "¡Oops...",
-            text: "Ingresa los datos correctos"
-        });
-    }
-});
-    </script>
-    
 </body>
 </html>

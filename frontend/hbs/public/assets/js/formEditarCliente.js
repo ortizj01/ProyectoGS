@@ -39,37 +39,37 @@ const campos = {
 
 const validarFormulario = (e) => {
     switch (e.target.name) {
-        case "documentoEditar":
+        case "documento":
             validarCampo(expresiones.documento, e.target, 'documento');
             break;
-        case "tipoDocumentoEditar":
+        case "tipoDocumento":
             validarSelect(expresiones.tipoDocumento, e.target, 'tipoDocumento');
             break;
-        case "nombresEditar":
+        case "nombres":
             validarCampo(expresiones.nombres, e.target, 'nombres');
             break;
-        case "apellidosEditar":
+        case "apellidos":
             validarCampo(expresiones.apellidos, e.target, 'apellidos');
             break;
-        case "correoEditar":
+        case "correo":
             validarCampo(expresiones.correo, e.target, 'correo');
             break;
-        case "telefonoEditar":
+        case "telefono":
             validarCampo(expresiones.telefono, e.target, 'telefono');
             break;
-        case "fechaDeNacimientoEditar":
+        case "fechaDeNacimiento":
             validarCampo(expresiones.fechaDeNacimiento, e.target, 'fechaDeNacimiento');
             break;
-        case "direccionEditar":
+        case "direccion":
             validarCampo(expresiones.direccion, e.target, 'direccion');
             break;
-        case "generoEditar":
+        case "genero":
             validarSelect(expresiones.genero, e.target, 'genero');
             break;
-        case "estadoEditar":
+        case "estado":
             validarSelect(expresiones.estado, e.target, 'estado');
             break;
-        case "beneficiarioEditar":
+        case "beneficiario":
             validarSelect(expresiones.beneficiario, e.target, 'beneficiario');
             break;
     }

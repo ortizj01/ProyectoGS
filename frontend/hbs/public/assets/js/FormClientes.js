@@ -151,33 +151,3 @@ inputs.forEach((input) => {
     }
 });
 
-formularioRegistro.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if (campos.documento && campos.nombres && campos.apellidos &&
-        campos.correo && campos.telefono && campos.fechaDeNacimiento && campos.direccion && campos.contrasena && campos.confirmarContrasena) {
-        
-        formularioRegistro.reset();
-
-        // Aquí podrías añadir la lógica para enviar los datos por POST
-
-        Swal.fire({
-            title: "¡Excelente!",
-            text: "Cliente Registrado Correctamente!",
-            icon: "success"
-        }).then(() => {
-            location.reload();
-        });
-
-        document.querySelectorAll('.formularioRegistro__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formularioRegistro__grupo-correcto');
-        });
-
-    } else {
-        Swal.fire({
-            icon: "error",
-            title: "¡Oops...",
-            text: "Ingresa los datos correctos"
-        });
-    }
-});

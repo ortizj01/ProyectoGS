@@ -232,6 +232,12 @@ app.get('/detalleBeneficiario', (req, res)=>{
 app.get('/formularioBeneficiario', (req, res)=>{
     res.render('beneficiarios/formularioBeneficiario')
 })
+app.get('/EditarBeneficiario', (req, res)=>{
+    res.render('beneficiarios/EditarBeneficiario')
+})
+app.get('/editarValoracionMedica', (req, res)=>{
+    res.render('beneficiarios/editarValoracionMedica')
+})
 app.get('/pedidos', (req, res)=>{
     res.render('pedidos/pedidos')
 })

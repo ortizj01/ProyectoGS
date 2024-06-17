@@ -22,8 +22,8 @@ import UsuariosRoutes from "./routes/Usuarios.routes.js";
 import pedidosRoutes from './routes/pedidos.routes.js';
 import pedidosProductoRoutes from './routes/pedidosProducto.routes.js';
 import pedidosMembresiaRoutes from './routes/pedidosMembresia.routes.js';
-import valoracionMedicaRoutes from './routes/valoracionMedica.routes.js';
 import usuarioRolRoutes from './routes/usuarioRol.routes.js';
+import valoracionMedicaRoutes from './routes/valoracionMedica.routes.js';
 
 const app = express()
 
@@ -51,10 +51,7 @@ app.use('/api',devolucionescomprasRoutes)
 app.use('/api',comprasproductoRoutes)
 app.use('/api',devolucioncomprasproductoRoutes)
 app.use('/api', ejerciciosRoutes)
-app.use('/api/pedidos', pedidosRoutes);
-app.use('/api/pedidosProducto', pedidosProductoRoutes);
-app.use('/api/pedidosMembresia', pedidosMembresiaRoutes);
-app.use('/api/valoracionMedica', valoracionMedicaRoutes);
+app.use('/api', valoracionMedicaRoutes);
 app.use('/api', usuarioRolRoutes)
 app.use('/Api',UsuariosRoutes)
 app.use(indexRoutes)

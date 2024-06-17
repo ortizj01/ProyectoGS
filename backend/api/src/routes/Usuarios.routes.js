@@ -1,25 +1,27 @@
 import { Router } from "express";
-import{ deleteUsuarios, getUsuarios, postUsuarios, putUsuarios, getUsuario,getUserWithBeneficiary, getClientes} from "../controllers/Usuarios.controllers.js";
-const router=Router()
-
+import { deleteUsuarios, getUsuarios, postUsuarios, putUsuarios, getUsuario, getUserWithBeneficiary, getClientes, getBeneficiarios, getUsuariosPorDocumento } from "../controllers/Usuarios.controllers.js";
+const router = Router();
 
 // Rutas para clientes
 router.get('/clientes', getClientes); // Listar clientes
 
-router.get('/ping',(req,res)=>res.send('pong'))
+// Rutas para beneficiarios
+router.get('/beneficiarios', getBeneficiarios); // Listar beneficiarios
 
-router.get('/usuarios',getUsuarios)
+router.get('/ping', (req, res) => res.send('pong'));
 
-router.get('/usuarios/:id',getUsuario)
+router.get('/usuarios', getUsuarios);
 
-router.post('/usuarios',postUsuarios)
+router.get('/usuarios/:id', getUsuario);
 
-router.put('/usuarios/:id',putUsuarios)
+router.post('/usuarios', postUsuarios);
 
-router.delete('/usuarios/:id',deleteUsuarios)
+router.put('/usuarios/:id', putUsuarios);
+
+router.delete('/usuarios/:id', deleteUsuarios);
 
 router.get('/UsuarioBeneficiario/:id', getUserWithBeneficiary);
 
+router.get('/usuarios/buscar/:documento', getUsuariosPorDocumento);
 
-
-export default router
+export default router;
