@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva venta</title>
+    {{> header}}
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+<div class="container-fluid content-inner">
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h4 class="card-title">Agregar Venta</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="formVenta">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="idUsuarios">Usuario *</label>
+                                    <select class="form-select" id="idUsuarios" name="idUsuarios" required>
+                                        <option selected="" disabled="">Selecciona el Usuario</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Venta*</label>
+                                    <input type="date" class="form-control" name="fechaVenta" id="fechaVenta" required />
+                                    <div id="errorFechaVenta" class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">IVA*</label>
+                                    <input type="number" class="form-control" name="iva" id="iva" required />
+                                    <div id="errorIva" class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Total*</label>
+                                    <input type="number" class="form-control" name="total" id="total" required readonly />
+                                    <div id="errorTotal" class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="selectProducto" class="form-label">Selecciona un producto:</label>
+                                <div class="productoContainer d-flex align-items-center mb-2">
+                                    <select id="selectProducto" class="form-select" name="productos[]" onchange="actualizarValorProducto(this)">
+                                        <option selected="" disabled="">Agregar producto a la venta</option>
+                                    </select>
+                                    <label for="cantidad" style="margin-left:20px">Cantidad:</label>
+                                    <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" class="form-control d-inline-block no-arrows" required>
+                                    <label for="Valor" style="margin-left:20px">Valor:</label>
+                                    <label class="valorProducto" for="Valor">$0</label>
+                                    <label for="ValorTotal" style="margin-left:20px">Valor Total:</label>
+                                    <label class="valortotal" for="ValorTotal">$0</label>
+                                    <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()" style="margin-left:20px"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                </div>
+                                <div id="productosAgregados"></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="selectMembresia" class="form-label">Selecciona una membresía:</label>
+                                <div class="membresiaContainer d-flex align-items-center mb-2">
+                                    <select id="selectMembresia" class="form-select" name="membresias[]" onchange="actualizarValorMembresia(this)">
+                                        <option selected="" disabled="">Agregar membresía a la venta</option>
+                                    </select>
+                                    <label for="cantidadMembresia" style="margin-left:20px">Cantidad:</label>
+                                    <input style="width:90px" type="number" name="cantidadesMembresia[]" value="1" min="1" class="form-control d-inline-block no-arrows" required>
+                                    <label for="Valor" style="margin-left:20px">Valor:</label>
+                                    <label class="valorMembresia" for="Valor">$0</label>
+                                    <label for="ValorTotal" style="margin-left:20px">Valor Total:</label>
+                                    <label class="valortotal" for="ValorTotal">$0</label>
+                                    <button type="button" class="btn btn-soft-info mt-2" onclick="agregarMembresia()" style="margin-left:20px"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                </div>
+                                <div id="membresiasAgregadas"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" onclick="enviarVenta()" class="btn btn-primary mt-3">Guardar</button>
+                            <button type="button" class="btn btn-dark mt-3 ms-2" onclick="location.href='/GestionVentas'">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Fin contenido -->
+    <script src="../assets/js/ventas/crud.ventas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/form.js"></script>
+    {{> footer}}
+</body>
+
+</html>

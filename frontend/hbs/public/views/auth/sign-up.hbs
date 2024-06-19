@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Gym System | Registrate </title>
+      
+    {{> header}}
+   <link rel="stylesheet" href="../assets/css/validacionesForms.css" />
+      
+  </head>
+  <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
+    <!-- loader Start -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- loader END -->
+    
+      <div class="wrapper">
+      <section class="login-content">
+         <div class="row m-0 align-items-center bg-white vh-150">            
+               <div class="col-md-6 d-md-block d-none p-1 mt-n1 vh-100 overflow-hidden">
+               <img src="../../assets/images/auth/02.jpg" class="img-fluid gradient-main animated-scaleX">
+            </div>
+            <div class="col-md-6">               
+               <div class="row justify-content-center">
+                  <div class="col-md-10">
+                           <a href="../../dashboard/index.html" class="navbar-brand d-flex align-items-center mb-3">
+                              
+                              <!--Logo start-->
+                              {{!-- <div class="logo-main">
+                                <div class="logo-normal">
+                                    <svg class=" icon-30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.4 7H4.6C4.26863 7 4 7.26863 4 7.6V16.4C4 16.7314 4.26863 17 4.6 17H7.4C7.73137 17 8 16.7314 8 16.4V7.6C8 7.26863 7.73137 7 7.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M19.4 7H16.6C16.2686 7 16 7.26863 16 7.6V16.4C16 16.7314 16.2686 17 16.6 17H19.4C19.7314 17 20 16.7314 20 16.4V7.6C20 7.26863 19.7314 7 19.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 14.4V9.6C1 9.26863 1.26863 9 1.6 9H3.4C3.73137 9 4 9.26863 4 9.6V14.4C4 14.7314 3.73137 15 3.4 15H1.6C1.26863 15 1 14.7314 1 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M23 14.4V9.6C23 9.26863 22.7314 9 22.4 9H20.6C20.2686 9 20 9.26863 20 9.6V14.4C20 14.7314 20.2686 15 20.6 15H22.4C22.7314 15 23 14.7314 23 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 12H16" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="logo-mini">
+                                    <svg class=" icon-30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.4 7H4.6C4.26863 7 4 7.26863 4 7.6V16.4C4 16.7314 4.26863 17 4.6 17H7.4C7.73137 17 8 16.7314 8 16.4V7.6C8 7.26863 7.73137 7 7.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M19.4 7H16.6C16.2686 7 16 7.26863 16 7.6V16.4C16 16.7314 16.2686 17 16.6 17H19.4C19.7314 17 20 16.7314 20 16.4V7.6C20 7.26863 19.7314 7 19.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 14.4V9.6C1 9.26863 1.26863 9 1.6 9H3.4C3.73137 9 4 9.26863 4 9.6V14.4C4 14.7314 3.73137 15 3.4 15H1.6C1.26863 15 1 14.7314 1 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M23 14.4V9.6C23 9.26863 22.7314 9 22.4 9H20.6C20.2686 9 20 9.26863 20 9.6V14.4C20 14.7314 20.2686 15 20.6 15H22.4C22.7314 15 23 14.7314 23 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 12H16" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div> --}}
+                              <!--logo End-->
+                              
+                              
+                              
+                              
+                              {{!-- <h4 class="logo-title ms-5">Gym System</h4> --}}
+                           </a>
+                           <h2 class="mb-2 text-center">Regístrate</h2>
+                           <p class="text-center">Crea tu cuenta en GS.</p>
+                              <form class="formularioRegistro" id="formularioRegistro">
+                                 <div class="row">
+                                    
+                                    {{!-- Campo Nombres --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__nombres">
+                                       <label for="nombres" class="formularioRegistro__label">Nombres *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="text" class="form-control" name="Nombres" id="Nombres">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">Los nombres no puede contener numeros o caracteres especiales</p>
+                                    </div>
+
+                                    {{!-- Campo Apellidos --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__apellidos">
+                                       <label for="apellidos" class="formularioRegistro__label">Apellidos *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="text" class="form-control" name="Apellidos" id="Apellidos">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">Los apellidos no puede contener numeros o caracteres especiales</p>
+                                    </div>
+
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__tipoDocumento">
+                                       <label for="TipoDocumento">Tipo de documento:</label>
+                                       <select id="TipoDocumento" name="TipoDocumento">
+                                       <option value="" disabled selected hidden>Seleccione...</option>
+                                       <option value="Cedula">Cédula de Ciudadanía</option>
+                                       <option value="Pasaporte">Pasaporte</option>
+                                       </select>
+                                       <p class="formularioRegistro__input-error">Seleccione el tipo de documento</p>
+                                    </div> 
+
+                                    {{!-- Campo #Doc --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__documento">
+                                       <label for="documento" class="formularioRegistro__label"># Documento *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="text" class="form-control" name="Documento" id="Documento">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">Ingresa un documento valido</p>
+                                    </div>
+
+                                    {{!-- Campo Correo --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__correo">
+                                       <label for="correo" class="formularioRegistro__label">Correo Electronico *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="email" class="form-control" name="Correo" id="Correo">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">El correo no es valido</p>
+                                    </div>
+                                    
+                                    {{!-- Campo Numero Cel --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__telefono">
+                                       <label for="telefono" class="formularioRegistro__label">Telefono *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="text" class="form-control" name="Telefono" id="Telefono">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">El numero no es valido.</p>
+                                    </div>
+
+                                    {{!-- Campo edad --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__fechaNacimiento">
+                                       <label for="edad" class="formularioRegistro__label">Fecha Nacimiento *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="date" class="form-control" name="FechaDeNacimiento" id="FechaDeNacimiento">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">Ingrese una fecha valida</p>
+                                    </div>
+
+                                    {{!-- Campo direccion --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__direccion">
+                                       <label for="direccion" class="formularioRegistro__label">Direccion *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="text" class="form-control" name="Direccion" id="Direccion" placeholder="Ej: Cra 19 # 52-102">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">Ingrese una direccion valida.</p>
+                                    </div>
+
+                                    {{!-- Campo genero --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__genero">
+                                       <label for="Genero">Genero:</label>
+                                       <select id="Genero" name="Genero">
+                                       <option value="" disabled selected hidden>Seleccione...</option>
+                                       <option value="Masculino">Masculino</option>
+                                       <option value="Femenino">Femenino</option>
+                                       </select>
+                                       <p class="formularioRegistro__input-error">Seleccione el genero</p>
+                                    </div> 
+
+                                    {{!-- Campo contrasenia --}}
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__password">
+                                       <label for="password" class="formularioRegistro__label">Contraseña *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="password" class="form-control" name="Contrasena" id="Contrasena">                           
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <span onclick="mostrar()">
+                                             <i id="iconoMostrar" class="fas fa-eye"></i>
+                                          </span>
+                                          <p class="formularioRegistro__input-error">
+                                             La contraseña debe contener:
+                                             <br>- Mínimo un número,
+                                             <br>- Una letra mayúscula,
+                                             <br>- Máximo 12 caracteres.
+                                          </p>
+
+                                    </div>
+
+                                    <div class="col-lg-6 formularioRegistro__grupo" id="grupo__confirmarPassword">
+                                       <label for="confirmarPassword" class="formularioRegistro__label">Confirmar Contraseña *</label>
+                                          <div class="formularioRegistro__grupo-input" >
+                                             <input type="password" class="form-control" name="confirmarPassword" id="confirmarPassword">                             
+                                             <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                          </div>
+                                          <p class="formularioRegistro__input-error">La contraseña no coincide.</p>
+
+                                    </div>
+
+                                       <div class="col-lg-12 d-flex justify-content-center formulario__grupo grupo__terminos">
+                                          <div class="form-check mb-3 formulario__label">
+                                             <input type="checkbox" class="form-check-input" name="terminos" id="terminos">
+                                             Acepto las condiciones de uso
+                                          </div>
+                                       </div>
+                                 </div>
+                              </div>
+
+
+                              <div class="formularioRegistro__grupo formularioRegistro__grupo-btn-enviar d-flex justify-content-center">
+                                 <button type="submit" class="btn btn-danger" >Registrar</button>
+                                 
+                                 <p class="formularioRegistro__mensaje-exito alert alert-succes" id="formularioRegistro__mensaje-exito">Registro exitoso!</p>
+                                 <div class="formularioRegistro__mensaje"  id="formularioRegistro__mensaje">
+                                 <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                              </div>
+                              </div>
+
+                              
+                            </form>
+                              <p class="mt-3 text-center">
+                                 Ya tiene una cuenta? <a href="ingresar" class="text-underline">Inicie sesión</a>
+                              </p>
+
+                        </div>
+                     </div>    
+                  </div>
+               </div>           
+               <div class="sign-bg sign-bg-right">
+                  <svg width="280" height="230" viewBox="0 0 421 359" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <g opacity="0.05">
+                        <rect x="-15.0845" y="154.773" width="543" height="77.5714" rx="38.7857" transform="rotate(-45 -15.0845 154.773)" fill="#FF5733"/>
+                        <rect x="149.47" y="319.328" width="543" height="77.5714" rx="38.7857" transform="rotate(-45 149.47 319.328)" fill="#FF5733"/>
+                        <rect x="203.936" y="99.543" width="310.286" height="77.5714" rx="38.7857" transform="rotate(45 203.936 99.543)" fill="#FF5733"/>
+                        <rect x="204.316" y="-229.172" width="543" height="77.5714" rx="38.7857" transform="rotate(45 204.316 -229.172)" fill="#FF5733"/>
+                     </g>
+                  </svg>
+               </div>
+            </div>   
+         </div>
+      </section>
+      </div>
+
+         <!-- Validaciones form registro -->
+      
+      
+
+    {{> footer}}
+    <script src="../../assets/js/authRegistro.js"></script>
+   <script src="../../assets/js/sign-up.js"></script>
+  </body>
+</html>

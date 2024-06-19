@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi perfil</title>
+    {{> header}}
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body"></div>
+      </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="iq-navbar-header" style="height: 100px;">
+        <div class="container-fluid iq-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flex-wrap d-flex justify-content-between align-items-center">
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="iq-header-img">
+            <img src="../assets/images/dashboard/top-header4.png" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+        </div>
+    </div>
+
+    <div class="container-fluid content-inner mt-n5 py-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Configuración</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="acc-edit">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="Nombres">Nombres:</label>
+                                        <input type="text" class="form-control" id="Nombres">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Apellidos">Apellidos:</label>
+                                        <input type="text" class="form-control" id="Apellidos">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Correo">Email:</label>
+                                        <input type="email" class="form-control" id="Correo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Telefono">Teléfono:</label>
+                                        <input type="number" class="form-control" id="Telefono">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Documento"># Documento:</label>
+                                        <input type="number" class="form-control" id="Documento" readonly="readonly">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FechaDeNacimiento">Fecha Nacimiento</label>
+                                        <input type="date" class="form-control" id="FechaDeNacimiento">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Direccion">Dirección</label>
+                                        <input type="text" class="form-control" id="Direccion">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Genero">Género:</label>
+                                        <select class="form-control" id="Genero">
+                                            <option value="" disabled selected hidden>Seleccione...</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                    <button type="reset" class="btn mm-bg-danger">Cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Restablecer Contraseña</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="acc-edit">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="pw-actual">Contraseña Actual:</label>
+                                        <input type="password" class="form-control" id="pw-actual">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pw-nueva">Contraseña nueva:</label>
+                                        <input type="password" class="form-control" id="pw-nueva">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pw-confirma">Confirmar Contraseña:</label>
+                                        <input type="password" class="form-control" id="pw-confirma">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                    <button type="reset" class="btn mm-bg-danger">Cancelar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fin contenido -->
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+<script src="../../assets/js/infoLogin.js"></script>
+    {{> footer}}
+</body>
+</html>

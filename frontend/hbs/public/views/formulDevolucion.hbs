@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar devolucion</title>
+    {{> header}}
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar Devolucion</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="FormularioDevolucion">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre completo:</label>
+                                        <input type="text" class="form-control" name="NombreVenta"
+                                            placeholder="Nombre completo" oninput="validateNombreVenta(this)" />
+                                        <span class="error-message" id="nombre-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="productos">Productos</label>
+                                        <select id="producto" name="productos">
+                                            <option value="Vitaminas">Vitaminas</option>
+                                            <option value="Proteinas">Proteínas</option>
+                                            <option value="Gatorade">Gatorade</option>
+                                        </select>
+                                        <span class="error-message" id="producto-error"></span>
+                                        <div class="productoContainer">
+                                            <button type="button" class="btn btn-soft-info mt-2"
+                                                onclick="agregarProducto()"><i
+                                                    class="fa-solid fa-plus fa-lg"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Id venta:</label>
+                                        <input type="text" class="form-control" name="IdVenta" placeholder="Id Venta"
+                                            oninput="validateIdVenta(this)" />
+                                        <span class="error-message" id="IdVenta-error"></span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Motivo:</label>
+                                        <textarea type="text" class="form-control" name="Motivo"
+                                            placeholder="Escribe tu motivo aqui..."
+                                            oninput="validateMotivo(this)"></textarea>
+                                        <span class="error-message" id="Motivo-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" name="Guardar" class="btn btn-primary next action-button float-end"
+                                value="Next">Guardar</button>
+                            <a href="GestionDevoluciones" type="button" name="Cancelar"
+                                class="btn btn-dark previous action-button-previous float-end me-1"
+                                value="Previous">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <script src="../assets/js/formDevolucion.js"></script>
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+
+</html>
