@@ -117,3 +117,5 @@ async function cerrarSesion() {
 if (document.getElementById('logoutButton')) {
     document.getElementById('logoutButton').addEventListener('click', cerrarSesion);
 }
+
+

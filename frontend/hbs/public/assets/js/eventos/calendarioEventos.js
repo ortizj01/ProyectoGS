@@ -48,9 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('endDate').value = info.dateStr; // Asignar fecha seleccionada
                 document.getElementById('startTime').value = ''; // Limpiar hora de inicio
                 document.getElementById('endTime').value = ''; // Limpiar hora de fin
-                document.getElementById('description').value = ''; // Limpiar descripción
-                document.getElementById('isActive').checked = false; // Desmarcar isActive
+                document.getElementById('description').value = ''; // Limpiar descripció
+                document.getElementById('estadoLabel').style.display = 'none';
                 document.getElementById('isActive').style.display = 'none'; // Ocultar campo EstadoAgenda
+                document.getElementById('eventModalLabel').textContent = 'Nuevo Evento'; // Cambiar el título del modal
                 loadSelectOptionsAndShowModal(modal); // Cargar opciones de select y luego mostrar el modal
             },
             eventClick: function(info) {
@@ -62,8 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('startTime').value = info.event.startStr.slice(11, 16); // Asignar hora (HH:mm)
                 document.getElementById('endTime').value = info.event.endStr.slice(11, 16); // Asignar hora (HH:mm)
                 document.getElementById('description').value = info.event.extendedProps.description;
-                document.getElementById('isActive').checked = info.event.extendedProps.isActive; // Usar checkbox para isActive
+                document.getElementById('estadoLabel').style.display = 'block';
                 document.getElementById('isActive').style.display = 'block'; // Mostrar campo EstadoAgenda
+                document.getElementById('eventModalLabel').textContent = 'Editar Evento'; // Cambiar el título del modal
                 loadSelectOptionsAndShowModal(modal, info); // Cargar opciones de select y luego mostrar el modal
             },
             datesSet: function() {

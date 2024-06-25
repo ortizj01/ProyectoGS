@@ -1,15 +1,16 @@
-const url = 'http://localhost:3000/api/ejercicios';
-
+// JavaScript para manejar la carga y edición de ejercicios
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        console.error('No token found');
+        console.error('No se encontró el token');
         return;
     }
 
     const urlParams = new URLSearchParams(window.location.search);
     const ejercicioId = urlParams.get('id');
+
+    const formulario = document.getElementById('formularioRegistro');
 
     if (ejercicioId) {
         try {
@@ -18,40 +19,41 @@ document.addEventListener('DOMContentLoaded', async () => {
                 mode: 'cors',
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    "Content-type": "application/json; charset=UTF-8"
+                    'Content-type': 'application/json; charset=UTF-8'
                 }
             });
 
             if (!response.ok) {
                 const errorMessage = await response.text();
-                throw new Error('Error en la solicitud: ' + response.statusText + ' - ' + errorMessage);
+                throw new Error(`Error en la solicitud: ${response.statusText} - ${errorMessage}`);
             }
 
             const data = await response.json();
             const ejercicio = data.ejercicio;
-            console.log('Respuesta de la API:', ejercicio);
 
-            // Establecer los valores de los campos del formulario
-            document.querySelector('[name="nombreEjercicio"]').value = ejercicio.NombreEjercicio || '';
-            document.querySelector('[name="descripcionEjercicio"]').value = ejercicio.DescripcionEjercicio || '';
-            document.querySelector('[name="repeticiones"]').value = ejercicio.RepeticionesEjercicio || '';
+            // Llenar los campos del formulario con los datos del ejercicio
+            formulario.nombreEjercicio.value = ejercicio.NombreEjercicio || '';
+            formulario.descripcionEjercicio.value = ejercicio.DescripcionEjercicio || '';
+            formulario.repeticiones.value = ejercicio.RepeticionesEjercicio || '';
+            formulario.estado.value = ejercicio.EstadoEjercicio || '1'; // Valor por defecto activo
+
+            // Establecer el ID del ejercicio en un campo oculto
             document.getElementById('ejercicioId').value = ejercicio.IdEjercicio || '';
-            document.querySelector('[name="estado"]').value = ejercicio.EstadoEjercicio || '';
 
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
-    const formulario = document.getElementById('formularioRegistro');
+    // Manejar el envío del formulario de edición
     formulario.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const nombreEjercicio = document.querySelector('[name="nombreEjercicio"]').value;
-        const descripcionEjercicio = document.querySelector('[name="descripcionEjercicio"]').value;
-        const repeticiones = document.querySelector('[name="repeticiones"]').value;
-        const ejercicioId = document.getElementById('ejercicioId').value;
-        const estado = document.querySelector('[name="estado"]').value;
+        const nombreEjercicio = formulario.nombreEjercicio.value;
+        const descripcionEjercicio = formulario.descripcionEjercicio.value;
+        const repeticiones = formulario.repeticiones.value;
+        const estado = formulario.estado.value;
+        const ejercicioId = formulario.ejercicioId.value;
 
         const ejercicioActualizado = {
             NombreEjercicio: nombreEjercicio,
@@ -61,28 +63,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         try {
-            console.log('Actualizando ejercicio:', ejercicioActualizado);
-
             const response = await fetch(`${url}/${ejercicioId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json; charset=UTF-8'
                 },
                 body: JSON.stringify(ejercicioActualizado)
             });
 
             if (!response.ok) {
                 const errorMessage = await response.text();
-                throw new Error('Error en la solicitud: ' + response.statusText + ' - ' + errorMessage);
+                throw new Error(`Error en la solicitud: ${response.statusText} - ${errorMessage}`);
             }
 
-            const result = await response.text();
+            const result = await response.json();
             console.log('Resultado:', result);
 
+            // Cerrar el modal después de enviar el formulario
+            const modal = new bootstrap.Modal(document.getElementById('registroModal'));
+            modal.hide();
+
             // Redirigir a la lista de ejercicios después de actualizar
-            window.location.href = 'ejercicios';
+            window.location.href = 'ejercicios'; // Ajustar según la URL correcta de tu lista de ejercicios
 
         } catch (error) {
             console.error('Error:', error);

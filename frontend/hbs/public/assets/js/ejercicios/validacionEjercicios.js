@@ -1,5 +1,4 @@
-const formularioRegistro = document.getElementById('formularioRegistro')
-const inputs = document.querySelectorAll('#formularioRegistro input')
+const inputs = document.querySelectorAll('#formularioRegistro input');
 
 
 const expresiones = {
@@ -78,10 +77,14 @@ formularioRegistro.addEventListener('submit', (e) =>{
         formularioRegistro.reset()
 
         Swal.fire({
-            title: "Excelente!",
-            text: "La rutina se guardo con exito!",
-            icon: "success"
-          });
+            position: 'top-end', // Posición en la esquina superior derecha
+            icon: 'success',
+            title: 'Excelente!',
+            text: 'El ejercicio se guardó con éxito.',
+            showConfirmButton: false, // No mostrar el botón de confirmación
+            timer: 2000 // Tiempo en milisegundos (2 segundos en este caso)
+        });
+        
 
           document.querySelectorAll('.formularioRegistro__grupo-correcto').forEach((icono) => {
             icono.classList.remove('formularioRegistro__grupo-correcto')

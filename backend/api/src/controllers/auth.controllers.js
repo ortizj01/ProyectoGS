@@ -165,8 +165,8 @@ export const obtenerUsuarioAutenticado = async (req, res) => {
 
         // Consulta para obtener todos los datos necesarios del usuario
         const [rows] = await pool.query(`
-            SELECT Usuarios.Nombres, Usuarios.Apellidos, Usuarios.Correo, Usuarios.Telefono, Usuarios.Documento,
-                   Usuarios.FechaDeNacimiento, Usuarios.Direccion, Usuarios.Genero, Roles.NombreRol AS Rol
+            SELECT Usuarios.IdUsuario, Usuarios.Nombres, Usuarios.Apellidos, Usuarios.Correo, Usuarios.Telefono, Usuarios.Documento, Usuarios.TipoDocumento,
+                   Usuarios.FechaDeNacimiento, Usuarios.Direccion, Usuarios.Genero, Usuarios.Estado, Roles.NombreRol AS Rol
             FROM Usuarios
             INNER JOIN RolUsuario ON Usuarios.IdUsuario = RolUsuario.IdUsuario
             INNER JOIN Roles ON RolUsuario.IdRol = Roles.IdRol

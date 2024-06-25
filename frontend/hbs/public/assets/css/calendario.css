@@ -1,0 +1,21 @@
+.modal-backdrop {
+    opacity: 0.5 !important;
+}
+
+/* Estilo adicional para hacer los campos más visibles */
+.form-control,
+.form-select {
+    opacity: 1;
+    border: 1px solid #ced4da; /* Agrega un borde gris claro */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Agrega un ligero sombreado */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Cambiar el borde y sombreado cuando el campo tiene foco */
+.form-control:focus,
+.form-select:focus {
+    border-color: #656565; /* Cambia el borde a azul cuando tiene foco */
+    box-shadow: 0 0 8px rgba(115, 115, 115, 0.6); /* Aumenta el sombreado cuando tiene foco */
+}
+
+

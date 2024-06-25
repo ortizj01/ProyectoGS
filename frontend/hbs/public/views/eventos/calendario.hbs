@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eventos</title>
     {{> header}}
-    
+    <link rel="stylesheet" href="../../assets/css/calendario.css">
 </head>
 <body class="  ">
         <!-- Inicio del cargar -->
@@ -108,7 +108,7 @@
                         <textarea id="description" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="isActive" class="form-label">Estado</label>
+                        <label for="isActive" id="estadoLabel" class="form-label">Estado</label>
                         <select id="isActive" class="form-select">
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
@@ -117,7 +117,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" id="saveEventButton">Guardar</button>
             </div>
         </div>
@@ -136,14 +136,11 @@
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.9/fullcalendar.min.js'></script>
-        <!-- FullCalendar Locales -->
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.9/locale/es.min.js'></script>
-
-        
         <script src='../../assets/vendor/fullcalendar/core/main.js'></script>
         <script src='../../assets/vendor/fullcalendar/daygrid/main.js'></script>
         <script src='../../assets/vendor/fullcalendar/timegrid/main.js'></script>
         <script src='../../assets/vendor/fullcalendar/list/main.js'></script>
+        <script src='../../assets/vendor/fullcalendar/core/locales/es.js'></script>
         <script src='../../assets/vendor/fullcalendar/interaction/main.js'></script>
         <script src='../../assets/vendor/moment.min.js'></script>
         <script src='../../assets/js/plugins/calender.js'></script>

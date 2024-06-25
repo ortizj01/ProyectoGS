@@ -1,143 +1,196 @@
-const formularioRegistro = document.getElementById('formularioRegistro')
-const inputs = document.querySelectorAll('#formularioRegistro input')
+document.addEventListener('DOMContentLoaded', function() {
+    const formularioRegistro = document.getElementById('formularioRegistro');
+    const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
 
-const expresiones = {
-	nombres: /^[a-zA-ZÀ-ÿ\s]{1,20}$/, // Letras y espacios, pueden llevar acentos.
-    apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
-    documento: /^[A-Za-z0-9\s-]{10}$/,
-	password:  /^(?=.*[A-Z])(?=.*\d).+$/, // 4 a 12 digitos.
-	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    fechaNacimiento: /^.*$/,
-    direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
-	telefono: /^(\(\+?\d{2,3}\)[\*|\s|\-|\.]?(([\d][\*|\s|\-|\.]?){6})(([\d][\s|\-|\.]?){2})?|(\+?[\d][\s|\-|\.]?){8}(([\d][\s|\-|\.]?){2}(([\d][\s|\-|\.]?){2})?)?)$/
-}
+    const expresiones = {
+        Nombres: /^[a-zA-ZÀ-ÿ\s]{1,20}$/,
+        Apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        Documento: /^[A-Za-z0-9\s-]{10}$/,
+        Correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+        Telefono: /^(\(\+?\d{2,3}\)[\*|\s|\-|\.]?(([\d][\*|\s|\-|\.]?){6})(([\d][\s|\-|\.]?){2})?|(\+?[\d][\s|\-|\.]?){8}(([\d][\s|\-|\.]?){2}(([\d][\s|\-|\.]?){2})?)?)$/,
+        FechaDeNacimiento: /^\d{4}-\d{2}-\d{2}$/,
+        Direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
+        Contrasena: /^(?=.*[A-Z])(?=.*\d).+$/ // Mínimo una mayúscula y un número, de 4 a 12 caracteres.
+    };
 
-const campos = {
-    nombres: false, 
-    apellidos: false, 
-    documento: false, 
-    correo: false, 
-    telefono: false, 
-    fechaNacimiento: false,
-    direccion: false,
-    password: false
-}
+    const campos = {
+        Nombres: false,
+        Apellidos: false,
+        TipoDocumento: false,
+        Documento: false,
+        Correo: false,
+        Telefono: false,
+        FechaDeNacimiento: false,
+        Direccion: false,
+        Genero: false,
+        Contrasena: false,
+        confirmarPassword: false,
+        terminos: false
+    };
 
-const validarFormulario = (e) => {
-    switch (e.target.name) {
-        case "nombres":
-            validarCampo(expresiones.nombres, e.target, 'nombres')
-        break
-        case "apellidos":
-            validarCampo(expresiones.apellidos, e.target, 'apellidos')
-        break
-        case "documento":
-            validarCampo(expresiones.documento, e.target, 'documento')
-        break
-        case "correo":
-            validarCampo(expresiones.correo, e.target, 'correo')
-        break
-        case "telefono":
-            validarCampo(expresiones.telefono, e.target, 'telefono')
-        break
-        case "fechaNacimiento":
-            validarCampo(expresiones.fechaNacimiento, e.target, 'fechaNacimiento')
-        break
-        case "direccion":
-            validarCampo(expresiones.direccion, e.target, 'direccion')
-        break
-        case "password":
-            validarCampo(expresiones.password, e.target, 'password')
-            validarPassword2()
-        break
-        case "confirmarPassword":
-            validarPassword2()
-        break
-    }
-}
+    const validarCampo = (expresion, input, campo) => {
+        const grupo = input.closest('.form-group');
+        const mensajeError = grupo.querySelector('.text-danger');
 
-const validarCampo = (expresion, input, campo) => {
-    if (expresion.test(input.value)) {
-        document.getElementById(`grupo__${campo}`).classList.remove('formularioRegistro__grupo-incorrecto')
-        document.getElementById(`grupo__${campo}`).classList.add('formularioRegistro__grupo-correcto')
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle')
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle')
-        document.querySelector(`#grupo__${campo} .formularioRegistro__input-error`).classList.remove('formularioRegistro__input-error-activo')
-        campos[campo] = true
-    }else {
-        document.getElementById(`grupo__${campo}`).classList.add('formularioRegistro__grupo-incorrecto')
-        document.getElementById(`grupo__${campo}`).classList.remove('formularioRegistro__grupo-correcto')
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle')
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle')
-        document.querySelector(`#grupo__${campo} .formularioRegistro__input-error`).classList.add('formularioRegistro__input-error-activo')
-        campo[false]
-    }
-}
+        if (expresion.test(input.value)) {
+            grupo.classList.remove('formularioRegistro__grupo-incorrecto');
+            grupo.classList.add('formularioRegistro__grupo-correcto');
+            mensajeError.classList.add('d-none');
+            campos[campo] = true;
+        } else {
+            grupo.classList.add('formularioRegistro__grupo-incorrecto');
+            grupo.classList.remove('formularioRegistro__grupo-correcto');
+            mensajeError.classList.remove('d-none');
+            campos[campo] = false;
+        }
+    };
 
-const validarPassword2 = () =>{
-    const inputPassword1 = document.getElementById('password')
-    const inputPassword2 = document.getElementById('confirmarPassword')
+    const validarFechaNacimiento = (input) => {
+        const grupo = input.closest('.form-group');
+        const mensajeError = grupo.querySelector('.text-danger');
 
-    if (inputPassword1.value !== inputPassword2.value) {
-        document.getElementById(`grupo__confirmarPassword`).classList.add('formularioRegistro__grupo-incorrecto')
-        document.getElementById(`grupo__confirmarPassword`).classList.remove('formularioRegistro__grupo-correcto')
-        document.querySelector(`#grupo__confirmarPassword i`).classList.remove('fa-check-circle')
-        document.querySelector(`#grupo__confirmarPassword i`).classList.add('fa-times-circle')
-        document.querySelector(`#grupo__confirmarPassword .formularioRegistro__input-error`).classList.add('formularioRegistro__input-error-activo')
-        campos['password'] = false
-    } else {
-        document.getElementById(`grupo__confirmarPassword`).classList.remove('formularioRegistro__grupo-incorrecto')
-        document.getElementById(`grupo__confirmarPassword`).classList.add('formularioRegistro__grupo-correcto')
-        document.querySelector(`#grupo__confirmarPassword i`).classList.add('fa-check-circle')
-        document.querySelector(`#grupo__confirmarPassword i`).classList.remove('fa-times-circle')
-        document.querySelector(`#grupo__confirmarPassword .formularioRegistro__input-error`).classList.remove('formularioRegistro__input-error-activo')
-        campos['password'] = true
-    }
-}
+        if (expresiones.FechaDeNacimiento.test(input.value)) {
+            // Verificar si la fecha no es futura
+            const fechaNacimiento = new Date(input.value);
+            const hoy = new Date();
+            
+            if (fechaNacimiento >= hoy) {
+                grupo.classList.add('formularioRegistro__grupo-incorrecto');
+                grupo.classList.remove('formularioRegistro__grupo-correcto');
+                mensajeError.textContent = 'La fecha de nacimiento no puede ser futura.';
+                mensajeError.classList.remove('d-none');
+                campos['FechaDeNacimiento'] = false;
+            } else {
+                grupo.classList.remove('formularioRegistro__grupo-incorrecto');
+                grupo.classList.add('formularioRegistro__grupo-correcto');
+                mensajeError.classList.add('d-none');
+                campos['FechaDeNacimiento'] = true;
+            }
+        } else {
+            grupo.classList.add('formularioRegistro__grupo-incorrecto');
+            grupo.classList.remove('formularioRegistro__grupo-correcto');
+            mensajeError.classList.remove('d-none');
+            campos['FechaDeNacimiento'] = false;
+        }
+    };
 
-inputs.forEach((input) => {
-    input.addEventListener('keyup', validarFormulario)
-    input.addEventListener('blur', validarFormulario)
-})
+    const validarSelect = (select, campo) => {
+        const grupo = select.closest('.form-group');
+        const mensajeError = grupo.querySelector('.text-danger');
 
-formularioRegistro.addEventListener('submit', (e) =>{
-    e.preventDefault();
+        if (select.value !== "") {
+            grupo.classList.remove('formularioRegistro__grupo-incorrecto');
+            grupo.classList.add('formularioRegistro__grupo-correcto');
+            mensajeError.classList.add('d-none');
+            campos[campo] = true;
+        } else {
+            grupo.classList.add('formularioRegistro__grupo-incorrecto');
+            grupo.classList.remove('formularioRegistro__grupo-correcto');
+            mensajeError.classList.remove('d-none');
+            campos[campo] = false;
+        }
+    };
 
-    const terminos = document.getElementById('terminos')
-    if (campos.nombres && campos.apellidos && campos.documento && campos.correo && campos.fechaNacimiento && campos.telefono && 
-        campos.direccion && campos.password && terminos.checked) {
-        formularioRegistro.reset()
+    const validarPassword2 = () => {
+        const inputPassword1 = document.getElementById('Contrasena');
+        const inputPassword2 = document.getElementById('confirmarPassword');
+        const grupoConfirmarPass = document.getElementById('grupo__confirmarPassword');
+        const mensajeError = grupoConfirmarPass.querySelector('.text-danger');
+    
+        if (inputPassword1.value !== inputPassword2.value) {
+            grupoConfirmarPass.classList.add('formularioRegistro__grupo-incorrecto');
+            grupoConfirmarPass.classList.remove('formularioRegistro__grupo-correcto');
+            mensajeError.classList.remove('d-none');
+            campos['confirmarPassword'] = false;
+        } else {
+            grupoConfirmarPass.classList.remove('formularioRegistro__grupo-incorrecto');
+            grupoConfirmarPass.classList.add('formularioRegistro__grupo-correcto');
+            mensajeError.classList.add('d-none');
+            campos['confirmarPassword'] = true;
+        }
+    };
 
+    const validarTerminos = (checkbox) => {
+        campos['terminos'] = checkbox.checked;
+    };
+
+    const mostrarExito = () => {
+        // Mostrar éxito con SweetAlert
         Swal.fire({
-            title: "Excelente!",
-            text: "Te has registrado con exito!",
-            icon: "success"
-          });
-        document.querySelectorAll('.formularioRegistro__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formularioRegistro__grupo-correcto')
-        })
+            icon: 'success',
+            title: 'Registro exitoso',
+            text: '¡Tu registro ha sido completado con éxito!',
+            timer: 3000, // Cierra automáticamente después de 3 segundos
+            showConfirmButton: false
+        });
 
-    } else {
+        formularioRegistro.reset();
+        document.getElementById('formularioRegistro__mensaje-exito').classList.remove('d-none');
+    };
+
+    const mostrarError = () => {
+        // Mostrar error con SweetAlert
         Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Debes completar el formulario!"
-          });
-    }
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor completa todos los campos correctamente.',
+            timer: 3000, // Cierra automáticamente después de 3 segundos
+            showConfirmButton: false
+        });
 
-})
+        document.getElementById('formularioRegistro__mensaje').classList.remove('d-none');
+    };
 
-function mostrar(){
-    var campoPass = document.getElementById("password");
-      var icono = document.getElementById("iconoMostrar");
+    // Event listeners para validar en tiempo real
+    inputs.forEach((input) => {
+        if (input.tagName === "SELECT") {
+            input.addEventListener('change', () => {
+                const campo = input.id;
+                validarSelect(input, campo);
+            });
+        } else {
+            input.addEventListener('keyup', () => {
+                const campo = input.id;
+                validarCampo(expresiones[campo], input, campo);
+            });
 
-      if (campoPass.type === "password") {
-        campoPass.type = "text";
-        icono.classList.remove("fa-eye");
-        icono.classList.add("fa-eye-slash");
-      } else {
-        campoPass.type = "password";
-        icono.classList.remove("fa-eye-slash");
-        icono.classList.add("fa-eye");
-      }
-}
+            input.addEventListener('blur', () => {
+                const campo = input.id;
+                validarCampo(expresiones[campo], input, campo);
+            });
+        }
+    });
+
+    // Event listener para validar la confirmación de contraseña
+    const inputPassword1 = document.getElementById('Contrasena');
+    const inputPassword2 = document.getElementById('confirmarPassword');
+    inputPassword1.addEventListener('input', validarPassword2);
+    inputPassword2.addEventListener('input', validarPassword2);
+
+    // Event listener para validar los términos y condiciones
+    const checkboxTerminos = document.getElementById('terminos');
+    checkboxTerminos.addEventListener('change', () => {
+        validarTerminos(checkboxTerminos);
+    });
+
+    // Event listener para el envío del formulario
+    formularioRegistro.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Validar todos los campos
+        Object.keys(campos).forEach(campo => {
+            if (campo === 'TipoDocumento' || campo === 'Genero') {
+                validarSelect(document.getElementById(campo), campo);
+            } else if (campo !== 'confirmarPassword' && campo !== 'terminos') {
+                validarCampo(expresiones[campo], document.getElementById(campo), campo);
+            }
+        });
+
+        // Verificar si todos los campos son válidos
+        if (Object.values(campos).every(campo => campo)) {
+            mostrarExito();
+        } else {
+            mostrarError();
+        }
+    });
+});

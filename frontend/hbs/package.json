@@ -15,6 +15,7 @@
     "@fullcalendar/daygrid": "^6.1.14",
     "@fullcalendar/list": "^6.1.14",
     "@fullcalendar/timegrid": "^6.1.14",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

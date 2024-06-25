@@ -8,8 +8,8 @@ const router = Router()
 
 router.get('/ejercicios', getEjercicios)
 router.get('/ejercicios/:IdEjercicio', 
-    validarJWT,
-    tieneRol(1,2),
+    // validarJWT,
+    // tieneRol(1,2),
     getEjercicio
 )
 router.post('/ejercicios', createEjercicios)
