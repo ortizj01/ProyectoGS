@@ -72,9 +72,6 @@ function calcularValorTotal() {
         total += valor * cantidad;
     });
 
-    const iva = parseFloat(document.getElementById('iva').value) || 0;
-    total += (total * iva / 100);
-
     document.getElementById('total').value = total.toFixed(2);
 }
 
@@ -198,7 +195,6 @@ function eliminarMembresia(button) {
 
 async function enviarVenta() {
     const fechaVenta = document.getElementById('fechaVenta').value;
-    const iva = document.getElementById('iva').value;
     const total = document.getElementById('total').value;
     const idUsuario = document.getElementById('idUsuarios').value;
 
@@ -212,7 +208,7 @@ async function enviarVenta() {
         Cantidad: document.querySelectorAll('input[name="cantidadesMembresia[]"]')[index].value
     }));
 
-    if (!fechaVenta || !iva || !total || !idUsuario || (productos.length === 0 && membresias.length === 0)) {
+    if (!fechaVenta || !total || !idUsuario || (productos.length === 0 && membresias.length === 0)) {
         alert('Por favor, complete todos los campos obligatorios y agregue al menos un producto o una membresía.');
         return;
     }
@@ -220,7 +216,6 @@ async function enviarVenta() {
     const venta = {
         IdUsuario: idUsuario,
         FechaVenta: fechaVenta,
-        Iva: parseFloat(iva),
         Total: parseFloat(total),
         EstadoVenta: 1,
         productos: productos,
@@ -243,4 +238,3 @@ async function enviarVenta() {
         alert('Error al crear la venta');
     }
 }
-

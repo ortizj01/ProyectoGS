@@ -222,8 +222,8 @@ app.get('/formuVenta', (req, res)=>{
     res.render('formuVenta')
 })
 
-app.get('/GestionDevolucionesVentas', (req, res)=>{
-    res.render('GestionDevolucionesVentas')
+app.get('/devolucionVentas', (req, res)=>{
+    res.render('devolucionVentas')
 })
 
 app.get('/formulDevolucionVenta', (req, res)=>{

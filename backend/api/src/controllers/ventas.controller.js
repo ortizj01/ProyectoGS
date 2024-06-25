@@ -48,15 +48,15 @@ export const getVenta = async (req, res) => {
 };
 
 export const crearVenta = async (req, res) => {
-    const { IdUsuario, FechaVenta, Iva, Total, EstadoVenta, productos, membresias } = req.body;
+    const { IdUsuario, FechaVenta, Total, EstadoVenta, productos, membresias } = req.body;
     const connection = await pool.getConnection();
     
     try {
         await connection.beginTransaction();
         
         const [result] = await connection.query(
-            'INSERT INTO Ventas (IdUsuario, FechaVenta, Iva, Total, EstadoVenta) VALUES (?, ?, ?, ?, ?)', 
-            [IdUsuario, FechaVenta, Iva, Total, EstadoVenta]
+            'INSERT INTO Ventas (IdUsuario, FechaVenta, Total, EstadoVenta) VALUES (?, ?, ?, ?)', 
+            [IdUsuario, FechaVenta, Total, EstadoVenta]
         );
 
         const idVenta = result.insertId;
@@ -81,7 +81,7 @@ export const crearVenta = async (req, res) => {
 
         await connection.commit();
         
-        res.status(201).json({ id: idVenta, IdUsuario, FechaVenta, Iva, Total, EstadoVenta, productos, membresias });
+        res.status(201).json({ id: idVenta, IdUsuario, FechaVenta, Total, EstadoVenta, productos, membresias });
     } catch (error) {
         await connection.rollback();
         console.error(error);

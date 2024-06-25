@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva Devolución Venta</title>
+    <title>Nueva Devolución de Venta</title>
     {{> header}}
 </head>
-<body onload="precargarDatosVentaEnFormulario();precargarDatosProductosVentaEnFormulario()">
+<body onload="">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
-            <div class="loader-body"></div>
+            <div class="loader-body">
+            </div>
         </div>
     </div>
     <!-- Fin cargar -->
@@ -23,70 +24,76 @@
     {{> topbar}}
     <!-- Fin Barra superior -->
 
- <div class="container-fluid content-inner">
-        <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Agregar Devolución Venta</h4>
-                        </div>
+    <!-- Inicio contenido -->
+<div class="container-fluid content-inner">
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h4 class="card-title">Agregar Devolución</h4>
                     </div>
-                    <div class="card-body">
-                        <form id="formDevolucionesVenta">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Fecha Venta*</label>
-                                        <input disabled type="date" id="Fecha_venta" class="form-control" name="Fecha_venta"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="exampleFormControlSelect1">Número Recibo de Venta</label>
-                                        <input disabled type="text" id="NumeroReciboVenta" class="form-control" name="NumeroReciboVenta"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label class="form-label">Motivo de la Devolución</label>
-                                            <input type="text" id="MDevolucion" class="form-control" name="MDevolucion"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label class="form-label">Valor de la Devolución</label>
-                                            <input disabled type="text" id="ValorDev"/>
-                                        </div>
-                                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="formDevolucion">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="idVenta">Venta *</label>
+                                    <select class="form-select" id="idVenta" name="idVenta" required onchange="cargarProductosDeVenta()">
+                                        <option selected="" disabled="">Selecciona la Venta</option>
+                                    </select>
                                 </div>
                             </div>
-                            <br>
-                            <div id="productosAgregados" style="margin-left: 350px;"></div>
-                            <button type="button" class="btn btn-primary next action-button float-end" onclick="enviarDevVenta()">Realizar devolución</button>
-                            <button type="button" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button>
-                        </form>
-                    </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Motivo*</label>
+                                    <input type="text" class="form-control" name="motivo" id="motivo" required />
+                                    <div id="errorMotivo" class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Fecha Devolución*</label>
+                                    <input type="date" class="form-control" name="fechaDevolucion" id="fechaDevolucion" required />
+                                    <div id="errorFechaDevolucion" class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Valor Devolución*</label>
+                                    <input type="number" class="form-control" name="valorDevolucionVenta" id="valorDevolucionVenta" required readonly />
+                                    <div id="errorValorDevolucionVenta" class="error-message"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="selectProductoDevolucion" class="form-label">Selecciona un producto:</label>
+                                <div id="productosDeVentaContainer">
+                                    <!-- Productos de la venta cargados dinámicamente -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" onclick="enviarDevolucion()" class="btn btn-primary mt-3">Guardar</button>
+                            <button type="button" class="btn btn-dark mt-3 ms-2" onclick="location.href='/GestionDevoluciones'">Cancelar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
     <!-- Fin contenido -->
-
-    <!-- Fin contenido -->
-
-    <script src="../assets/js/devolucionVentas/devolucion.ventas.js"></script>
 
     <!-- Footer Section Start -->
     <footer class="footer">
         {{> copyright}}
     </footer>
     <!-- Footer Section End -->
+    <script src="../assets/js/devolucionVentas/formDevolucionVenta.js"></script>
+    <script src="../assets/js/form.js"></script>
+    <script src="../assets/js/"></script>
 
     {{> footer}}
 </body>
-
 </html>

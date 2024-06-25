@@ -1,267 +1,90 @@
-const formulario = document.getElementById('FormularioDevolucion');
+const urlVentas = 'http://localhost:3000/api/ventas';
+const urlDevoluciones = 'http://localhost:3000/api/devolucionventas';
+const urlProductosDeVenta = 'http://localhost:3000/api/ventas';
 
-if (formulario) {
-    formulario.addEventListener("submit", function (event) {
-        event.preventDefault();
-        validateForm();
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    function validateNombreVenta (input) {
-        const regex = /^[a-zA-Z\s]*$/;
-        return regex.test(input.value.trim());
-    }
-
-    function validateIdVenta(input) {
-        const regex = /^\d+$/;
-        return regex.test(input.value.trim());
-    }
-
-    function validateMotivo(input) {
-        const regex = /^[a-zA-Z\s]{8,70}$/;
-        return regex.test(input.value.trim());
-    }
-
-    function updateErrorMessage(id, isValid, message) {
-        const errorSpan = document.getElementById(id);
-        errorSpan.textContent = isValid ? '' : message;
-    }
-
-    function validateForm() {
-        const nombreInput = document.querySelector('input[name="NombreVenta"]');
-        const productoInput = document.querySelector('select[name="productos"]');
-        const idVentaInput = document.querySelector('input[name="IdVenta"]');
-        const motivoInput = document.querySelector('textarea[name="Motivo"]');
-    
-        const isValidNombre = validateNombreVenta(nombreInput); // Corregir aquí
-        const isValidProducto = productoInput.value !== "";
-        const isValidIdVenta = validateIdVenta(idVentaInput);
-        const isValidMotivo = validateMotivo(motivoInput);
-    
-        updateErrorMessage('nombre-error', isValidNombre, 'Solo se permiten letras y espacios en el nombre');
-        updateErrorMessage('producto-error', isValidProducto, 'Seleccione un producto');
-        updateErrorMessage('IdVenta-error', isValidIdVenta, 'Ingrese un ID de venta válido');
-        updateErrorMessage('Motivo-error', isValidMotivo, 'Ingrese un motivo válido');
-    
-        if (isValidNombre && isValidProducto && isValidIdVenta && isValidMotivo) {
-            alert('Formulario válido. Guardar información.');
-        } else {
-            alert('El formulario no es válido. Por favor, revisa los campos.');
-        }
-    }
-
-    const guardarButton = document.querySelector('button[name="Guardar"]');
-    if (guardarButton) {
-        guardarButton.addEventListener("click", validateForm);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    cargarVentas();
 });
 
-
-const urlDevolucionVentas = 'http://localhost:3000/api/devolucionventas';
-const urlProductosVenta = 'http://localhost:3000/api/ventasproducto';
-
-const precargarDatosVentaEnFormulario = async () => {
-    var urlParams = new URLSearchParams(window.location.search);
-    var ventaId = urlParams.get('id');
-    console.log(ventaId);
-
+async function cargarVentas() {
     try {
-        const response = await fetch(`${urlDevolucionVentas}/${ventaId}`, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
+        const response = await fetch(urlVentas);
+        const ventas = await response.json();
+        const selectVentas = document.getElementById('idVenta');
+        ventas.forEach(venta => {
+            const option = document.createElement('option');
+            option.value = venta.IdVenta;
+            option.textContent = `Venta ID: ${venta.IdVenta} - Usuario: ${venta.NombreUsuario} ${venta.ApellidosUsuario} - Fecha: ${venta.FechaVenta}`;
+            selectVentas.appendChild(option);
         });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
-
-        const devolucion = await response.json();
-        document.getElementById('FechaVenta').value = devolucion.FechaVenta;
-        document.getElementById('NumeroVenta').value = devolucion.IdVenta;
-        document.getElementById('ValorDevolucion').value = devolucion.Total;
-
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al cargar las ventas:', error);
     }
-};
+}
 
-const precargarDatosProductosEnFormulario = async () => {
-    var urlParams = new URLSearchParams(window.location.search);
-    var ventaId = urlParams.get('id');
-    console.log(ventaId);
-    
+async function cargarProductosDeVenta(ventaId) {
     try {
-        const response = await fetch(`${urlProductosVenta}/${ventaId}`, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
-
+        const response = await fetch(`/api/ventas/${ventaId}/productos`);
+        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
+        
         const productos = await response.json();
-        const productosContainer = document.getElementById('productosAgregados');
-        productosContainer.innerHTML = '';
-
-        productos.forEach(producto => {
-            const divProducto = document.createElement('div');
-            divProducto.classList.add('productoContainer');
-            divProducto.style.display = 'flex';
-            divProducto.style.alignItems = 'center';
-            divProducto.style.marginBottom = '10px';
-            divProducto.style.width = '500px';
-
-            const selectNombre = document.createElement('select');
-            selectNombre.style.width = '300px';
-            selectNombre.style.marginRight = '30px';
-
-            const optionNombre = document.createElement('option');
-            optionNombre.value = producto.IdProducto;
-            optionNombre.textContent = producto.NombreProducto;
-            selectNombre.appendChild(optionNombre);
-            selectNombre.disabled = true;
-            selectNombre.name = 'productos[]';
-            divProducto.appendChild(selectNombre);
-
-            const spanValor = document.createElement('span');
-            spanValor.textContent = 'Valor: ';
-            spanValor.style.marginRight = '10px';
-            divProducto.appendChild(spanValor);
-
-            const spanPrecio = document.createElement('span');
-            spanPrecio.textContent = producto.PrecioProducto;
-            spanPrecio.style.marginRight = '30px';
-            divProducto.appendChild(spanPrecio);
-
-            const spanCantidad = document.createElement('span');
-            spanCantidad.textContent = 'Cantidad:';
-            spanCantidad.style.marginRight = '10px';
-            divProducto.appendChild(spanCantidad);
-
-            const inputCantidad = document.createElement('input');
-            inputCantidad.type = 'number';
-            inputCantidad.style.width = '50px';
-            inputCantidad.style.marginRight = '30px';
-            inputCantidad.min = 0;
-            inputCantidad.max = producto.CantidadProducto;
-            inputCantidad.value = producto.CantidadProducto;
-            inputCantidad.name = 'cantidades[]';
-            inputCantidad.disabled = true;
-            divProducto.appendChild(inputCantidad);
-
-            productosContainer.appendChild(divProducto);
-        });
-
+        // Aquí manejar los productos recibidos
+        console.log(productos);
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al cargar los productos de la venta:', error);
+        // Manejo de errores en el cliente
     }
-};
+}
 
-async function enviarDevolucionVenta() {
-    const now = new Date();
-    const FechaDevolucion = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-    var urlParams = new URLSearchParams(window.location.search);
-    var ventaId = urlParams.get('id');
-    console.log(ventaId);
-    const Motivo = document.getElementById("MotivoDevolucion").value;
-    const ValorDevolucion = document.getElementById("ValorDevolucion").value;
+function calcularValorDevolucion(checkbox, precioUnitario, cantidad) {
+    let totalDevolucion = parseFloat(document.getElementById('valorDevolucionVenta').value) || 0;
 
-    if (Motivo === "" || ValorDevolucion === "") {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Error',
-            text: 'Llene todos los campos',
-            confirmButtonText: 'Aceptar'
-        });
-        return;
+    if (checkbox.checked) {
+        totalDevolucion += precioUnitario * cantidad;
+    } else {
+        totalDevolucion -= precioUnitario * cantidad;
     }
 
-    const devVenta = {
-        Motivo,
-        ValorDevolucionVenta: ValorDevolucion,
-        EstadoDevolucion: 1,
-        IdVenta: ventaId,
-        FechaDevolucion
+    document.getElementById('valorDevolucionVenta').value = totalDevolucion.toFixed(2);
+}
+
+async function enviarDevolucion() {
+    const idVenta = document.getElementById('idVenta').value;
+    const motivo = document.getElementById('motivo').value;
+    const fechaDevolucion = document.getElementById('fechaDevolucion').value;
+    const valorDevolucionVenta = document.getElementById('valorDevolucionVenta').value;
+    const estadoDevolucion = 1; // Asumiendo estado por defecto
+
+    const productosSeleccionados = Array.from(document.querySelectorAll('#productosDeVentaContainer input[type="checkbox"]:checked')).map(checkbox => {
+        return {
+            IdProducto: checkbox.value,
+            Cantidad: parseInt(checkbox.nextElementSibling.textContent.split(' ')[2]), // Obtener la cantidad desde el texto
+            PrecioUnitario: parseFloat(checkbox.nextElementSibling.textContent.split('$')[1].trim())
+        };
+    });
+
+    const devolucion = {
+        IdVenta: idVenta,
+        Motivo: motivo,
+        FechaDevolucion: fechaDevolucion,
+        ValorDevolucionVenta: parseFloat(valorDevolucionVenta),
+        EstadoDevolucion: estadoDevolucion,
+        productos: productosSeleccionados
     };
 
     try {
-        const responseDevVenta = await fetch(urlDevolucionVentas, {
+        const response = await fetch(urlDevoluciones, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(devVenta)
+            body: JSON.stringify(devolucion)
         });
-
-        if (!responseDevVenta.ok) {
-            throw new Error(`Error en la venta: ${responseDevVenta.status} - ${responseDevVenta.statusText}`);
-        }
-
-        const devVentaData = await responseDevVenta.json();
-        const IdDevolucionesVenta = devVentaData.id;
-
-        const productosContainers = document.querySelectorAll('.productoContainer');
-
-        const productoPromises = Array.from(productosContainers).map(async (container) => {
-            const productoSelect = container.querySelector('select[name="productos[]"]');
-            const cantidadInput = container.querySelector('input[name="cantidades[]"]');
-
-            if (productoSelect && cantidadInput) {
-                const IdProducto = productoSelect.value;
-                const CantidadProducto = cantidadInput.value;
-
-                const productoVenta = {
-                    IdDevolucionesVenta,
-                    IdProducto,
-                    CantidadProducto,
-                    PrecioUnitario: container.querySelector('span').textContent
-                };
-
-                const responseProducto = await fetch('http://localhost:3000/api/devolucionventasproducto', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productoVenta)
-                });
-
-                if (!responseProducto.ok) {
-                    throw new Error(`Error en la adición del producto: ${responseProducto.status} - ${responseProducto.statusText}`);
-                }
-
-                return responseProducto.json();
-            } else {
-                console.error('Error: No se encontró el elemento de producto o cantidad');
-                return null;
-            }
-        });
-
-        await Promise.all(productoPromises);
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Devolución agregada con éxito',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'listarDevolucionesVentas.html';
-            }
-        });
+        if (!response.ok) throw new Error('Error al crear la devolución');
+        alert('Devolución creada exitosamente');
+        location.reload();
     } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un error al agregar la devolución',
-            confirmButtonText: 'Aceptar'
-        });
+        console.error('Error:', error);
+        alert('Error al crear la devolución');
     }
 }
