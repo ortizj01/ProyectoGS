@@ -12,6 +12,8 @@ import ventasProductosRouter from './routes/ventas.productos.routes.js';
 import ventasMembresiaRoutes from './routes/ventas.membresia.routes.js';
 import productosRouter from './routes/productos.routes.js';
 import membresiaRouter from './routes/membresia.routes.js';
+import devolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
+import devolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
 
 
 const app = express();
@@ -33,6 +35,10 @@ app.use('/api', ventasProductosRouter);
 app.use('/api', ventasMembresiaRoutes);
 app.use('/api', productosRouter);
 app.use('/api', membresiaRouter);
+
+//DEVOLUCIONES VENTAS
+app.use('/api', devolucionVentasRoutes);
+app.use('/api', devolucionVentasProductosRoutes);
 app.use(indexRoutes);
 
 app.listen(3000, () => {
