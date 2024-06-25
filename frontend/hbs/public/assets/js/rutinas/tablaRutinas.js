@@ -38,7 +38,7 @@ const listarRutinas = async () => {
                             <div class="centered-container">
                                 <i class="fa-regular fa-pen-to-square fa-xl me-2"
                                     onclick="window.location.href='/nueva-rutina?rutinaId=${rutina.IdRutina}'"></i>
-                                <i class="fa-regular fa-eye fa-xl me-2"></i>
+                                
                         </td>
                     </tr>
                 `;
@@ -46,6 +46,8 @@ const listarRutinas = async () => {
                 console.error('Formato de datos incorrecto', rutina);
             }
         });
+
+        // <i class="fa-regular fa-eye fa-xl me-2"></i>
 
         ObjectId.innerHTML = contenido;
 

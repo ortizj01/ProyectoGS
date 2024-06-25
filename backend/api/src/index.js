@@ -46,6 +46,9 @@ app.use(cors());
 
 app.use(express.json()); // Middleware para parsear application/json
 
+// Configuración de vistas
+app.set('view engine', 'hbs');
+
 // Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api', rolesUsuariosRoutes);

@@ -163,7 +163,7 @@
                                 <div class="form-group formularioRegistro__grupo" id="grupo__repeticiones">
                                     <div class="formularioRegistro__grupo-input">
                                         <label class="repeticiones formularioRegistro__label">Repeticiones*</label>
-                                        <input type="text" class="form-control" name="repeticiones" required>
+                                        <input type="number" class="form-control" name="repeticiones" required>
                                         <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
                                     </div>
                                     <p class="formularioRegistro__input-error">Ingrese las repeticiones correctamente</p>
@@ -204,15 +204,9 @@
         {{> copyright}}
     </footer>
     <!-- Footer Section End -->
-    <script src="../../assets/js/ejercicios/tablaEjercicios.js"></script>
-    <script src="../../assets/js/ejercicios/validacionEjercicios.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                listarEjercicios();
-            });
-    </script>
-    
+    <script src="../../assets/js/ejercicios/tablaEjercicios.js" defer></script>
+    <script src="../../assets/js/ejercicios/validacionEjercicios.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>    
 
     {{> footer}}
 </body>

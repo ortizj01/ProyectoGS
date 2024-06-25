@@ -6,10 +6,11 @@ import { rolAdmin, tieneRol } from '../middlewares/validar-roles.js';
 
 const router = Router()
 
-router.get('/ejercicios', getEjercicios)
+router.get('/ejercicios', 
+    validarJWT,
+    tieneRol(1,2),
+    getEjercicios)
 router.get('/ejercicios/:IdEjercicio', 
-    // validarJWT,
-    // tieneRol(1,2),
     getEjercicio
 )
 router.post('/ejercicios', createEjercicios)

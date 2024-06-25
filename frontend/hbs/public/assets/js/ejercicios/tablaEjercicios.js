@@ -1,11 +1,8 @@
 const url = 'http://localhost:3000/api/ejercicios';
-let editingMode = false; // Variable para controlar si se está editando o creando
+let editingMode = false;
 
 // Función para listar ejercicios en la tabla
 const listarEjercicios = async () => {
-    let ObjectId = document.getElementById('contenidoEjercicios'); // Cambio aquí
-    let contenido = '';
-
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -20,28 +17,66 @@ const listarEjercicios = async () => {
         }
 
         const data = await response.json();
+        let contenido = '';
+
         data.forEach(ejercicio => {
-            if (ejercicio.NombreEjercicio && ejercicio.DescripcionEjercicio && ejercicio.RepeticionesEjercicio !== undefined) {
-                contenido += `
-                   <tr>
-                        <td>${ejercicio.NombreEjercicio}</td>
-                        <td>${ejercicio.DescripcionEjercicio}</td>
-                        <td>${ejercicio.RepeticionesEjercicio}</td>
-                        <td style="text-align: center;">
-                            <div class="centered-container">
-                                <div class="edit-icon" onclick="editarEjercicio(${ejercicio.IdEjercicio})">
-                                    <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
-                                </div>
+            contenido += `
+                <tr>
+                    <td>${ejercicio.NombreEjercicio}</td>
+                    <td>${ejercicio.DescripcionEjercicio}</td>
+                    <td>${ejercicio.RepeticionesEjercicio}</td>
+                    <td style="text-align: center;">
+                        <div class="centered-container">
+                            <div class="edit-icon" onclick="editarEjercicio(${ejercicio.IdEjercicio})">
+                                <i class="fa-regular fa-pen-to-square fa-xl me-2"></i>
                             </div>
-                        </td>
-                    </tr>
-                `;
-            } else {
-                console.error('Formato de datos incorrecto', ejercicio);
-            }
+                        </div>
+                    </td>
+                </tr>
+            `;
         });
 
-        ObjectId.innerHTML = contenido;
+        document.getElementById('contenidoEjercicios').innerHTML = contenido;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+// Función para abrir el modal para editar un ejercicio existente
+const editarEjercicio = async (ejercicioId) => {
+    try {
+        const response = await fetch(`${url}/${ejercicioId}`);
+
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+
+        const ejercicio = await response.json();
+        console.log('Datos del ejercicio:', ejercicio); // Verificar la estructura de datos recibida
+
+        // Llenar los campos del formulario con los datos del ejercicio
+        document.querySelector('[name="nombreEjercicio"]').value = ejercicio.ejercicio.NombreEjercicio || '';
+        document.querySelector('[name="descripcionEjercicio"]').value = ejercicio.ejercicio.DescripcionEjercicio || '';
+        document.querySelector('[name="repeticiones"]').value = ejercicio.ejercicio.RepeticionesEjercicio || '';
+        document.querySelector('[name="estado"]').value = ejercicio.ejercicio.EstadoEjercicio || '';
+
+        console.log('Nombre Ejercicio:', ejercicio.ejercicio.NombreEjercicio);
+        console.log('Descripción Ejercicio:', ejercicio.ejercicio.DescripcionEjercicio);
+        console.log('Repeticiones Ejercicio:', ejercicio.ejercicio.RepeticionesEjercicio);
+        console.log('Estado Ejercicio:', ejercicio.ejercicio.EstadoEjercicio);
+
+        // Mostrar el modal en modo edición
+        const modalTitle = document.getElementById('modalTitle');
+        modalTitle.textContent = 'Editar Ejercicio';
+        document.getElementById('ejercicioId').value = ejercicio.ejercicio.IdEjercicio;
+        editingMode = true;
+
+        // Asegura que el campo Estado esté visible al editar
+        document.querySelector('[name="estado"]').parentNode.parentNode.style.display = 'block';
+
+        // Mostrar el modal
+        $('#registroModal').modal('show');
 
     } catch (error) {
         console.error('Error:', error);
@@ -62,52 +97,19 @@ const abrirModalCrearEjercicio = () => {
     $('#registroModal').modal('show');
 };
 
-// Función para abrir el modal para editar un ejercicio existente
-const editarEjercicio = async (ejercicioId) => {
-    try {
-        const response = await fetch(`${url}/${ejercicioId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
-
-        const ejercicio = await response.json();
-
-        // Llenar los campos del formulario con los datos del ejercicio
-        document.querySelector('[name="nombreEjercicio"]').value = ejercicio.NombreEjercicio || '';
-        document.querySelector('[name="descripcionEjercicio"]').value = ejercicio.DescripcionEjercicio || '';
-        document.querySelector('[name="repeticiones"]').value = ejercicio.RepeticionesEjercicio || '';
-        document.querySelector('[name="estado"]').value = ejercicio.EstadoEjercicio || '';
-
-        // Mostrar el modal en modo edición
-        const modalTitle = document.getElementById('modalTitle');
-        modalTitle.textContent = 'Editar Ejercicio';
-        document.getElementById('ejercicioId').value = ejercicio.IdEjercicio;
-        editingMode = true;
-
-        // Asegura que el campo Estado esté visible al editar
-        document.querySelector('[name="estado"]').parentNode.parentNode.style.display = 'block';
-
-        $('#registroModal').modal('show');
-
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-// Función para manejar el envío del formulario para crear/editar ejercicios
 const enviarFormulario = async (event) => {
     event.preventDefault();
 
     const nombreEjercicio = document.querySelector('[name="nombreEjercicio"]').value;
     const descripcionEjercicio = document.querySelector('[name="descripcionEjercicio"]').value;
-    const repeticiones = document.querySelector('[name="repeticiones"]').value;
+    const repeticiones = parseInt(document.querySelector('[name="repeticiones"]').value.trim(), 10); // Convertir a número entero
     const estado = document.querySelector('[name="estado"]').value;
+
+    // Validar que las repeticiones sean un número válido
+    if (isNaN(repeticiones)) {
+        console.error('Ingrese un número válido para las repeticiones.');
+        return; // Salir de la función si las repeticiones no son válidas
+    }
 
     const ejercicioData = {
         NombreEjercicio: nombreEjercicio,
@@ -155,14 +157,13 @@ const enviarFormulario = async (event) => {
     }
 };
 
-// Evento cuando el DOM se carga completamente
 document.addEventListener('DOMContentLoaded', () => {
     listarEjercicios();
 
     // Evento para abrir el modal de creación de ejercicio
-    document.getElementById('crearEjercicioBtn').addEventListener('click', abrirModalCrearEjercicio);
+    const crearEjercicioBtn = document.querySelector('[data-bs-target="#registroModal"]');
+    crearEjercicioBtn.addEventListener('click', abrirModalCrearEjercicio);
 
     // Evento para enviar el formulario de registro/edición
     document.getElementById('formularioRegistro').addEventListener('submit', enviarFormulario);
 });
-
