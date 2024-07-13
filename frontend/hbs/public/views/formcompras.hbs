@@ -74,32 +74,41 @@
                                     <!-- inicio -->
                                     
                                        
-                                    <label for="selectProducto">Selecciona un producto:</label>
-                                    <div class="productoContainer" id="productoInicial">
-                                        <select class="selectProducto" id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
-                                            <option selected="" disabled="" value="">Agregar producto a la compra</option>
-                                            <!-- Agrega más opciones según tus necesidades -->
-                                        </select>
-
-                                        <label for="Valor" style="margin-left:50px">Valor:</label>
-                                        <label id="valorProducto" class="valorProducto">$ 0</label>
-
-                                        <label for="cantidad" style="margin-left:50px">Cantidad:</label>
-                                        <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" required>
-
-                                        <label for="valortotal" style="margin-left:50px">Valor Total:</label>
-                                        <label id="valortotal" class="valortotal">$ 0</label>
-
-                                        <div class="productoContainer">
-                                            <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()" style="margin-left:50px">
-                                                <i class="fa-solid fa-plus fa-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div id="productosAgregados">
-                                        <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
-                                    </div>
+<table id="productosTable" class="table">
+    <thead>
+        <tr>
+            <th style="width: 93.0156px;">Selecciona un producto:</th>
+            <th style="width: 150px;">Valor                </th>
+            <th>Cantidad</th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="productosAgregados">
+        <tr class="productoRow" id="productoInicial">
+            <td>
+                <select class="selectProducto" id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
+                    <option selected="" disabled="" value="">Agregar producto a la compra</option>
+                    <!-- Agrega más opciones según tus necesidades -->
+                </select>
+            </td>
+            <td>
+                <label id="valorProducto" class="valorProducto">$ 0</label>
+            </td>
+            <td>
+                <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" required oninput="calcularValorTotal(this.closest('tr'))">
+            </td>
+            <td>
+                <label id="valortotal" class="valortotal">$ 0</label>
+            </td>
+            <td>
+                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()">
+                    <i class="fa-solid fa-plus fa-lg"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 
 

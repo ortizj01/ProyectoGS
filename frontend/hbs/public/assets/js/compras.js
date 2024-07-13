@@ -44,7 +44,7 @@ function actualizarValorProducto1(select) {
 
 function actualizarValorProducto(select, labelValor) {
     var idProducto = select.value;
-    if (idProducto === "Agregar producto a la compra") {
+    if (idProducto === "") {
         labelValor.innerHTML = `$ 0`;
     } else {
         fetch(`http://localhost:3000/api/productos/${idProducto}`)
@@ -59,39 +59,29 @@ function actualizarValorProducto(select, labelValor) {
 }
 
 function agregarProducto() {
-    var nuevoProductoContainer = document.createElement("div");
-    nuevoProductoContainer.className = "productoContainer";
+    var productosTable = document.getElementById("productosTable");
 
-    var nuevoSelect = document.createElement("select");
-    nuevoSelect.name = "productos[]";
+    var newRow = productosTable.insertRow();
+    newRow.className = "productoRow";
 
-    var opciones = document.getElementById("selectProducto").innerHTML;
-    nuevoSelect.innerHTML = opciones;
-    nuevoSelect.style.width = "300px";
-    nuevoSelect.onchange = function() {
-        actualizarValorProducto(nuevoSelect, labelValorP);
-    }
+    var selectCell = newRow.insertCell();
+    var selectElement = document.createElement("select");
+    selectElement.name = "productos[]";
+    selectElement.className = "selectProducto";
+    selectElement.style.width = "300px";
+    selectElement.innerHTML = document.getElementById("selectProducto").innerHTML;
+    selectElement.onchange = function() {
+        actualizarValorProducto(selectElement, labelValorP);
+    };
+    selectCell.appendChild(selectElement);
 
-    var labelCantidad = document.createElement("label");
-    labelCantidad.innerHTML = "Cantidad: ";
-    labelCantidad.style.marginLeft = "50px";
-
-    var labelValor = document.createElement("label");
-    labelValor.innerHTML = "Valor: ";
-    labelValor.style.marginLeft = "50px";
-
+    var valorCell = newRow.insertCell();
     var labelValorP = document.createElement("label");
     labelValorP.className = "valorProducto";
     labelValorP.innerHTML = "$ 0";
+    valorCell.appendChild(labelValorP);
 
-    var labelValorTotal = document.createElement("label");
-    labelValorTotal.innerHTML = "Valor Total: ";
-    labelValorTotal.style.marginLeft = "50px";
-
-    var labelValorT = document.createElement("label");
-    labelValorT.className = "valortotal";
-    labelValorT.innerHTML = "$ 0";
-
+    var cantidadCell = newRow.insertCell();
     var nuevaCantidad = document.createElement("input");
     nuevaCantidad.type = "number";
     nuevaCantidad.style.width = "90px";
@@ -100,31 +90,27 @@ function agregarProducto() {
     nuevaCantidad.min = "1";
     nuevaCantidad.required = true;
     nuevaCantidad.addEventListener('input', function() {
-        calcularValorTotal(nuevoProductoContainer);
+        calcularValorTotal(newRow);
     });
+    cantidadCell.appendChild(nuevaCantidad);
 
+    var valorTotalCell = newRow.insertCell();
+    var labelValorT = document.createElement("label");
+    labelValorT.className = "valortotal";
+    labelValorT.innerHTML = "$ 0";
+    valorTotalCell.appendChild(labelValorT);
+
+    var accionesCell = newRow.insertCell();
     var btnEliminar = document.createElement("button");
     btnEliminar.type = "button";
     btnEliminar.className = "btn btn-soft-danger mt-2";
     btnEliminar.innerHTML = '<i class="fa-solid fa-minus fa-lg"></i>';
-    btnEliminar.style.marginLeft = "50px";
     btnEliminar.onclick = function () {
-        document.getElementById("productosAgregados").removeChild(nuevoProductoContainer);
+        productosTable.deleteRow(newRow.rowIndex);
     };
+    accionesCell.appendChild(btnEliminar);
 
-    nuevoProductoContainer.appendChild(nuevoSelect);
-    nuevoProductoContainer.appendChild(labelValor);
-    nuevoProductoContainer.appendChild(labelValorP);
-    nuevoProductoContainer.appendChild(labelCantidad);
-    nuevoProductoContainer.appendChild(nuevaCantidad);
-    nuevoProductoContainer.appendChild(labelValorTotal);
-    nuevoProductoContainer.appendChild(labelValorT);
-    nuevoProductoContainer.appendChild(btnEliminar);
-
-    document.getElementById("productosAgregados").appendChild(nuevoProductoContainer);
-
-    // Llamar a la función de actualización de valor inmediatamente
-    actualizarValorProducto(nuevoSelect, labelValorP);
+    actualizarValorProducto(selectElement, labelValorP);
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -262,7 +248,6 @@ async function enviarCompra() {
         return;
     }
 
-
     const compra = {
         FechaCompra,
         ValorCompra,
@@ -288,11 +273,11 @@ async function enviarCompra() {
         const compraData = await responseCompra.json();
         const IdCompra = compraData.id;
 
-        const productosContainers = document.querySelectorAll('.productoContainer');
+        const productoRows = document.querySelectorAll('#productosTable .productoRow');
 
-        const productoPromises = Array.from(productosContainers).map(async (container) => {
-            const productoSelect = container.querySelector('select[name="productos[]"]');
-            const cantidadInput = container.querySelector('input[type="number"]');
+        const productoPromises = Array.from(productoRows).map(async (row) => {
+            const productoSelect = row.querySelector('select[name="productos[]"]');
+            const cantidadInput = row.querySelector('input[name="cantidades[]"]');
 
             if (productoSelect && cantidadInput) {
                 const IdProducto = productoSelect.value;
@@ -319,7 +304,7 @@ async function enviarCompra() {
                 return responseProducto.json();
             } else {
                 console.error('Error: No se encontró el elemento de producto o cantidad');
-                return null; // Puedes retornar null u otro valor para manejar esto según tu lógica
+                return null;
             }
         });
 
@@ -328,11 +313,10 @@ async function enviarCompra() {
         Swal.fire({
             icon: 'success',
             title: 'Éxito',
-            text: 'Compra agregado con éxito',
+            text: 'Compra agregada con éxito',
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Redirigir a otra vista, por ejemplo, la lista de Compras
                 window.location.href = '../Compras'; // Reemplaza esta URL con la ruta real
             }
         });
@@ -340,11 +324,12 @@ async function enviarCompra() {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Hubo un error al agregar el proveedor',
+            text: 'Hubo un error al agregar la compra',
             confirmButtonText: 'Aceptar'
         });
     }
 }
+
 
 
 
