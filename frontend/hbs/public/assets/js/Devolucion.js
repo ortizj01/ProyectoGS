@@ -100,7 +100,6 @@ const precargarDatosproductosEnFormulario = async () => {
             inputCantidad.max = producto.CantidadProducto;
             inputCantidad.value = producto.CantidadProducto;
             inputCantidad.name = 'cantidades[]';
-            inputCantidad.disabled = true;
             divProducto.appendChild(inputCantidad);
 
             productosContainer.appendChild(divProducto);

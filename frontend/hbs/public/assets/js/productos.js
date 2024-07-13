@@ -187,41 +187,36 @@ const editarProductos = async () => {
 };
 
 const agregarProducto = async () => {
-
     const NombreProducto = document.getElementById('Nombreproducto').value;
     const PrecioProducto = document.getElementById('Precioproducto').value;
     const IvaProducto = document.getElementById('Ivaproducto').value;
-    const Imagen = document.getElementById('Imagen').value;
+    const Imagen = document.getElementById('Imagen').files[0];  // Obtener el archivo de imagen
     const IdCategoriaProductos = document.getElementById('SelectorCategoria').value;
 
-    if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || Imagen === "" || IdCategoriaProductos === "") {
+    if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || !Imagen || IdCategoriaProductos === "") {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
-            text: 'Llene todos los campos',
+            text: 'Llene todos los campos, incluyendo la imagen',
             confirmButtonText: 'Aceptar'
         });
         return;
     }
 
-
+    const formData = new FormData();
+    formData.append('NombreProducto', NombreProducto);
+    formData.append('PrecioProducto', PrecioProducto);
+    formData.append('IvaProducto', IvaProducto);
+    formData.append('Stock', '0');  // Asumiendo que Stock siempre es 0 al agregar
+    formData.append('Imagen', Imagen);
+    formData.append('EstadoProducto', '1');  // Asumiendo que EstadoProducto siempre es 1 al agregar
+    formData.append('IdCategoriaProductos', IdCategoriaProductos);
 
     try {
         const response = await fetch(url, {
             method: 'POST',
             mode: 'cors',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            },
-            body: JSON.stringify({
-                NombreProducto,
-                PrecioProducto,
-                IvaProducto,    
-                Stock:0,
-                Imagen,
-                EstadoProducto:1,
-                IdCategoriaProductos,
-            })
+            body: formData
         });
 
         if (!response.ok) {
@@ -236,11 +231,11 @@ const agregarProducto = async () => {
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Redirigir a otra vista, por ejemplo, la lista de proveedores
-                window.location.href = '../productos'; // Reemplaza esta URL con la ruta real
+                window.location.href = '../productos';  // Redirigir a la lista de productos
             }
         });
-        // Aquí puedes llamar a listarProveedores() para actualizar la lista de proveedores
+
+        // Actualizar la lista de productos después de agregar uno nuevo
         listarProductos();
     } catch (error) {
         Swal.fire({
@@ -251,6 +246,8 @@ const agregarProducto = async () => {
         });
     }
 };
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const selectElement = document.getElementById('SelectorCategoria');
