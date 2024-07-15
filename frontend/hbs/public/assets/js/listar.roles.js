@@ -37,11 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const rol = {
                 NombreRol: nombreRol,
-                EstadoRol: parseInt(estadoRol)
+                EstadoRol: parseInt(estadoRol),
+                Permisos: permisosSeleccionados
             };
 
             await editarRol(rolId, rol);
-            await actualizarPermisosRol(rolId, permisosSeleccionados);
             $('#editarRolModal').modal('hide');
             cargarRoles();
         });
@@ -92,10 +92,10 @@ async function crearRol(rol) {
             body: JSON.stringify(rol)
         });
         if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
-        Swal.fire('¡Éxito!', 'Rol creado exitosamente.', 'success');
+        mostrarAlerta('Rol creado exitosamente.', 'success');
     } catch (error) {
         console.error('Error:', error);
-        Swal.fire('Error', 'Hubo un problema al crear el rol.', 'error');
+        mostrarAlerta('Hubo un problema al crear el rol.', 'error');
     }
 }
 
@@ -126,11 +126,14 @@ async function editarRol(id, rol) {
             },
             body: JSON.stringify(rol)
         });
-        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
-        Swal.fire('¡Éxito!', 'Rol actualizado exitosamente.', 'success');
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message);
+        }
+        mostrarAlerta('Rol actualizado exitosamente.', 'success');
     } catch (error) {
         console.error('Error:', error);
-        Swal.fire('Error', 'Hubo un problema al actualizar el rol.', 'error');
+        mostrarAlerta('Hubo un problema al actualizar el rol.', 'error');
     }
 }
 
@@ -155,12 +158,17 @@ async function eliminarRol(id) {
         const response = await fetch(`${url}/${id}`, {
             method: 'DELETE'
         });
-        if (!response.ok) throw new Error('Error en la solicitud: ' + response.statusText);
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message);
+        }
+
         Swal.fire('Eliminado!', 'El rol ha sido eliminado.', 'success');
         cargarRoles();
     } catch (error) {
         console.error('Error:', error);
-        Swal.fire('Error!', 'Hubo un problema al eliminar el rol.', 'error');
+        Swal.fire('Error!', error.message, 'error');
     }
 }
 
@@ -175,7 +183,7 @@ async function cargarPermisosCrear() {
         permisos.forEach(permiso => {
             permisosContainerCrear.innerHTML += `
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="${permiso.IdPermiso}" id="permiso${permiso.IdPermiso}">
+                    <input class="form-check-input" type="checkbox" value="${permiso.IdPermiso}" id="permiso${permiso.IdPermiso}" ${permiso.IdPermiso === 1 ? 'checked' : ''}>
                     <label class="form-check-label" for="permiso${permiso.IdPermiso}">
                         ${permiso.NombrePermiso}
                     </label>
@@ -243,4 +251,24 @@ async function actualizarPermisosRol(idRol, permisosSeleccionados) {
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+function mostrarAlerta(mensaje, tipo) {
+    const alertContainer = document.getElementById('alert-container');
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${tipo} alert-dismissible fade show`;
+    alert.textContent = mensaje;
+
+    const closeButton = document.createElement('button');
+    closeButton.className = 'btn-close';
+    closeButton.setAttribute('type', 'button');
+    closeButton.setAttribute('data-bs-dismiss', 'alert');
+    closeButton.setAttribute('aria-label', 'Close');
+    alert.appendChild(closeButton);
+
+    alertContainer.appendChild(alert);
+
+    setTimeout(() => {
+        alert.remove();
+    }, 3000);
 }

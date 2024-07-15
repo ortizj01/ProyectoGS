@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getPermisosDeRol, agregarPermisoARol, eliminarPermisoDeRol } from '../controllers/permisosRoles.controller.js';
+import { getPermisosDeRol, agregarPermisoARol, eliminarPermisoDeRol, } from '../controllers/permisosRoles.controller.js';
 
 const router = Router();
 

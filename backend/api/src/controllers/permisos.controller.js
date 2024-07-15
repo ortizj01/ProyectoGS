@@ -1,5 +1,21 @@
 import { pool } from '../db.js';
 
+
+export const getPermisosUsuario = async (req, res) => {
+    const { userId } = req.params;
+    const [user] = await pool.query('SELECT IdRol FROM Usuarios WHERE IdUsuario = ?', [userId]);
+
+    if (user.length > 0) {
+        const [permisos] = await pool.query(
+            'SELECT p.NombrePermiso FROM PermisoRoles pr JOIN Permisos p ON pr.IdPermiso = p.IdPermiso WHERE pr.IdRol = ?',
+            [user[0].IdRol]
+        );
+        res.json({ permisos });
+    } else {
+        res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+};
+
 export const getPermiso = async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM Permisos');
     res.json(rows);

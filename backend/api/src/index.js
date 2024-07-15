@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import ejerciciosRoutes from './routes/ejercicios.routes.js';
 import indexRoutes from './routes/index.routes.js';
 import rolesRoutes from './routes/roles.routes.js';
 import permisosRoutes from './routes/permisos.routes.js';
@@ -15,11 +14,20 @@ import membresiaRouter from './routes/membresia.routes.js';
 import devolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
 import devolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
 
+//JUAN ORTIZ
+//JUAN ORTIZ
+import ejerciciosRoutes from './routes/ejercicios.routes.js';
+import rutinasRoutes from './routes/rutinas.routes.js';
+import eventosRoutes from './routes/eventos.routes.js';
+import detalleRutinasRouter from './routes/detalleRutinas.routes.js';
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+
 
 //ROLES
 app.use('/api', rolesRoutes);

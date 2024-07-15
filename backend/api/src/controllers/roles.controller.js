@@ -54,11 +54,34 @@ export const crearRol = async (req, res) => {
 };
 
 export const eliminarRol = async (req, res) => {
-    const [result] = await pool.query('DELETE FROM Roles WHERE IdRol = ?', [req.params.IdRol]);
+    const connection = await pool.getConnection();
 
-    if (result.affectedRows <= 0) return res.status(404).json({ message: 'Rol not found' });
+    try {
+        await connection.beginTransaction();
 
-    res.sendStatus(204);
+        const [permisosAsignados] = await connection.query('SELECT * FROM PermisoRoles WHERE IdRol = ?', [req.params.IdRol]);
+
+        if (permisosAsignados.length > 0) {
+            await connection.rollback();
+            return res.status(400).json({ message: 'No se puede eliminar el rol porque tiene permisos asignados' });
+        }
+
+        const [result] = await connection.query('DELETE FROM Roles WHERE IdRol = ?', [req.params.IdRol]);
+
+        if (result.affectedRows <= 0) {
+            await connection.rollback();
+            return res.status(404).json({ message: 'Rol no encontrado' });
+        }
+
+        await connection.commit();
+        res.sendStatus(204);
+    } catch (error) {
+        await connection.rollback();
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    } finally {
+        connection.release();
+    }
 };
 
 export const editarRol = async (req, res) => {
@@ -69,11 +92,11 @@ export const editarRol = async (req, res) => {
     try {
         await connection.beginTransaction();
 
-        const [result] = await connection.query('UPDATE Roles SET NombreRol = IFNULL(?, NombreRol), EstadoRol = IFNULL(?, EstadoRol) WHERE IdRol = ?', [NombreRol, EstadoRol, IdRol]);
+        const [result] = await connection.query('UPDATE Roles SET NombreRol = ?, EstadoRol = ? WHERE IdRol = ?', [NombreRol, EstadoRol, IdRol]);
 
         if (result.affectedRows === 0) {
             await connection.rollback();
-            return res.status(404).json({ message: 'Rol not found' });
+            return res.status(404).json({ message: 'Rol no encontrado' });
         }
 
         // Actualizar permisos
