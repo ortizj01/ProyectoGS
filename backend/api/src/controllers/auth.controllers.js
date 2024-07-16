@@ -20,6 +20,9 @@ function generatePasswordResetToken() {
     return crypto.randomBytes(20).toString('hex');
 }
 
+
+
+
 // Controlador para solicitar la recuperación de contraseña
 export const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
