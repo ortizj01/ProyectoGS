@@ -15,7 +15,7 @@ import devolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
 import devolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
 
 //JUAN ORTIZ
-//JUAN ORTIZ
+import authRoutes from './routes/auth.routes.js'
 import ejerciciosRoutes from './routes/ejercicios.routes.js';
 import rutinasRoutes from './routes/rutinas.routes.js';
 import eventosRoutes from './routes/eventos.routes.js';
@@ -27,6 +27,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+//RUTAS JUAN
+// Rutas
+app.use('/api/auth', authRoutes);
+app.use('/api', ejerciciosRoutes);
+app.use('/api', rutinasRoutes);
+app.use('/api', eventosRoutes);
+app.use('/api', detalleRutinasRouter);
 
 
 //ROLES

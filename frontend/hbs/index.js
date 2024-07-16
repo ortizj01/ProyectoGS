@@ -26,9 +26,13 @@ app.get('/', (req, res)=>{
 })
 
 // INICIO GESTION ACCESO *JUANES*
+
+// Rutas de autenticación
+
 app.get('/ingresar', (req, res)=>{
     res.render('auth/sign-in')
 })
+
 
 app.get('/registrar-usuario', (req, res)=>{
     res.render('auth/sign-up')
@@ -46,9 +50,11 @@ app.get('/perfil', (req, res)=>{
     res.render('auth/user-account-setting')
 })
 
-app.get('/restablecer', (req, res)=>{
-    res.render('auth/new-password')
-})
+app.get('/restablecer/:token', (req, res) => {
+    const { token } = req.params;
+    res.render('auth/new-password', { token });
+});
+
 
 // FIN GESTION ACCESO
 
