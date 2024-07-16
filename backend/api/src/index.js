@@ -44,7 +44,7 @@ app.use('/api', rolesRoutes);
 app.use('/api', permisosRoutes);
 app.use('/api', permisosRolesRoutes);
 app.use('/api', usuarioRolRoutes);
-app.use('/api', usuariosRoutes);
+
 app.use('/api', ejerciciosRoutes);
 
 //VENTAS
