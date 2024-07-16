@@ -5,7 +5,7 @@ import rolesRoutes from './routes/roles.routes.js';
 import permisosRoutes from './routes/permisos.routes.js';
 import permisosRolesRoutes from './routes/permisosRoles.routes.js';
 import usuarioRolRoutes from './routes/usuarioRol.routes.js';
-import usuariosRoutes from './routes/usuario.routes.js';
+import UsuariosRoutes from './routes/Usuarios.routes.js';
 import ventasRouter from './routes/ventas.router.js';
 import ventasProductosRouter from './routes/ventas.productos.routes.js';
 import ventasMembresiaRoutes from './routes/ventas.membresia.routes.js';
@@ -31,6 +31,8 @@ app.use(express.json());
 //RUTAS JUAN
 // Rutas
 app.use('/api/auth', authRoutes);
+app.use('/api', UsuariosRoutes)
+
 app.use('/api', ejerciciosRoutes);
 app.use('/api', rutinasRoutes);
 app.use('/api', eventosRoutes);
