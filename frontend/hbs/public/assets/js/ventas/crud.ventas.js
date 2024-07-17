@@ -17,7 +17,7 @@ async function cargarUsuarios() {
         usuarios.forEach(usuario => {
             const option = document.createElement('option');
             option.value = usuario.IdUsuario;
-            option.textContent = `${usuario.Nombres} ${usuario.Apellidos}`;
+            option.textContent = `${usuario.Nombres} ${usuario.Apellidos} - ${usuario.Documento}`;
             selectUsuarios.appendChild(option);
         });
     } catch (error) {
@@ -56,6 +56,15 @@ async function cargarMembresias() {
         console.error('Error al cargar las membresías:', error);
     }
 }
+
+document.getElementById('buscarUsuario').addEventListener('input', function() {
+    const filter = this.value.toLowerCase();
+    const options = document.getElementById('idUsuarios').options;
+    for (let i = 0; i < options.length; i++) {
+        const text = options[i].text.toLowerCase();
+        options[i].style.display = text.includes(filter) ? '' : 'none';
+    }
+});
 
 function calcularValorTotal() {
     let total = 0;

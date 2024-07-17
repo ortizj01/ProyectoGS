@@ -91,7 +91,7 @@ export const crearVenta = async (req, res) => {
     }
 };
 
-export const eliminarVenta = async (req, res) => {
+export const anularVenta = async (req, res) => {
     const { id } = req.params;
     let connection;
 
@@ -99,26 +99,28 @@ export const eliminarVenta = async (req, res) => {
         connection = await pool.getConnection();
         await connection.beginTransaction();
 
-        // Eliminar los productos de la venta
-        await connection.query('DELETE FROM VentasProducto WHERE IdVenta = ?', [id]);
-        // Eliminar las membresías de la venta
-        await connection.query('DELETE FROM VentasMembresia WHERE IdVenta = ?', [id]);
-        // Eliminar la venta
-        const [result] = await connection.query('DELETE FROM Ventas WHERE IdVenta = ?', [id]);
+        // Anular la venta
+        const [result] = await connection.query('UPDATE Ventas SET EstadoVenta = "Anulado" WHERE IdVenta = ?', [id]);
 
         if (result.affectedRows === 0) {
             await connection.rollback();
             return res.status(404).json({ message: 'Venta no encontrada' });
         }
 
+        // Restaurar stock de productos
+        const [productos] = await connection.query('SELECT IdProducto, Cantidad FROM VentasProducto WHERE IdVenta = ?', [id]);
+        for (const producto of productos) {
+            await connection.query('UPDATE Productos SET Stock = Stock + ? WHERE IdProducto = ?', [producto.Cantidad, producto.IdProducto]);
+        }
+
         await connection.commit();
-        res.status(200).json({ message: 'Venta eliminada con éxito' });
+        res.status(200).json({ message: 'Venta anulada con éxito' });
     } catch (error) {
         console.error(error);
         if (connection) {
             await connection.rollback();
         }
-        res.status(500).json({ error: 'Error al eliminar la venta' });
+        res.status(500).json({ error: 'Error al anular la venta' });
     } finally {
         if (connection) {
             connection.release();
