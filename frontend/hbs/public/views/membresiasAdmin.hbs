@@ -4,100 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plantilla</title>
-    {{> header}}
+
+    <!-- Cargar archivos CSS necesarios, si los tienes -->
+
+    <!-- Cargar el script getMembresias.js -->
+    <script src="getMembresias.js"></script>
 </head>
-<body class="  ">
-        <!-- Inicio del cargar -->
-    <div id="loading">
-      <div class="loader simple-loader">
-          <div class="loader-body">
-          </div>
-      </div>    </div>
-    <!-- Fin cargar -->
+<body>
 
-    <!-- Inicio Barra lateral -->
+<!-- Incluir tu header, sidebar, topbar u otros componentes según tu diseño -->
+{{> header}}
+{{> sidebar}}
+{{> topbar}}
 
-        {{> sidebar}}    
- 
-    <!-- Fin Barra lateral -->
-
-
-    <!-- Inicio Barra superior -->
-        {{> topbar}}
-    <!-- Fin Barra superior -->
-<!-- Sección de Membresias -->
-<!-- Sección de Membresías -->
+<!-- Contenido principal -->
 <div class="container-fluid content-inner">
-    <br>
-    <div class="position-relative">
-        <button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button>
-    </div>
-    <br>
-    <div class="container-fluid content-inner">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Membresías</h4>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive mt-4">
-                            <table id="membresias-table" class="table table-striped mb-0" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>ID Membresía</th>
-                                        <th>Nombre Membresía</th>
-                                        <th>Tipo</th>
-                                        <th>Precio</th>
-                                        <th>Fecha Inicio</th>
-                                        <th>Fecha Fin</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Registros de ejemplo -->
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Membresía Premium</td>
-                                        <td>Anual</td>
-                                        <td>$500</td>
-                                        <td>2023-01-01</td>
-                                        <td>2023-12-31</td>
-                                        <td>Activa</td>
-                                    </tr>
-                                    <!-- Agrega más registros aquí según sea necesario -->
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Membresía Básica</td>
-                                        <td>Mensual</td>
-                                        <td>$50</td>
-                                        <td>2023-02-01</td>
-                                        <td>2023-02-28</td>
-                                        <td>Activa</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+    <div class="container-fluid">
+        <!-- Card para mostrar las membresias -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h3 class="m-0 font-weight-bold text-primary">Gestión de Membresías</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="membresiasTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nombre Membresía</th>
+                                <th>Frecuencia</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th> <!-- Nueva columna para botones -->
+                            </tr>
+                        </thead>
+                        <tbody id="membresiasTableBody">
+                            <!-- Aquí se agregarán las filas de datos -->
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- Fin del contenido principal -->
+
+<!-- Modal para confirmar eliminar membresía -->
+<div class="modal fade" id="eliminarMembresiaModal" tabindex="-1" aria-labelledby="eliminarMembresiaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="m-0 font-weight-bold text-primary">Eliminar membresía</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eliminarMembresiaForm">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                            <use xlink:href="#exclamation-triangle-fill" />
+                        </svg>
+                        <div>
+                            ¿Seguro que deseas eliminar la membresía?
+                        </div>
+                    </div>
+                    <button type="submit" id="confirmarEliminar" class="btn btn-primary">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Sección de Rutinas -->
+<!-- Fin del contenido principal -->
+<script src="../assets/js/postMembresias.js"></script>
 
+<!-- Incluir footer y otros componentes finales -->
+<footer class="footer">
+    {{> copyright}}
+</footer>
+<!-- Footer Section End -->
 
-    <!-- Fin contenido --> 
+{{> footer}}
+<!-- Scripts adicionales, si es necesario -->
 
-    <!-- Footer Section Start -->
-    <footer class="footer">
-        {{> copyright}}
-    </footer>
-    <!-- Footer Section End -->
-
-    {{> footer}}
 </body>
 </html>

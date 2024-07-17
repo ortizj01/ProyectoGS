@@ -67,6 +67,7 @@
                               </div>
                            </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary me-2">Restablecer</button>
                         <a href="ingresar" class="btn btn-dark me-2">Cancelar</a>
                         
@@ -86,8 +87,58 @@
          </div>
       </section>
       </div>
-       <!-- Validacion recuperar contrasena-->
-    <script src="../assets/js/recover-pw.js"></script>
+
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('passwordResetForm');
+    const emailInput = document.getElementById('email-recover');
+    const errorEmail = document.getElementById('errorEmail');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Validar que el campo de email no esté vacío
+        if (emailInput.value.trim() === '') {
+            errorEmail.textContent = 'El correo electrónico es requerido.';
+            return;
+        }
+
+        // Limpiar mensajes de error anteriores
+        errorEmail.textContent = '';
+
+        // Realizar la solicitud de recuperación de contraseña con fetch
+        fetch('http://localhost:3000/api/auth/requestPasswordReset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: emailInput.value.trim() })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al enviar la solicitud');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Verificar la respuesta del servidor
+            if (data.msg === 'Usuario no encontrado') {
+                errorEmail.textContent = 'No se encontró ningún usuario con este correo electrónico.';
+            } else {
+                alert('Correo electrónico de recuperación enviado. Por favor, revise su bandeja de entrada.');
+                window.location.href = '/confirmacion'; // Redirigir a la página de confirmación
+            }
+        })
+        .catch(error => {
+            console.error('Error al enviar solicitud de recuperación de contraseña:', error);
+            alert('Hubo un error al enviar la solicitud. Por favor, inténtelo más tarde.');
+        });
+    });
+});
+
+
+  </script>
+
     {{> footer}}
   </body>
 </html>
