@@ -8,7 +8,7 @@
     {{> header}}
 </head>
 
-<body onload="precargarDatosCompraEnFormulario();precargarDatosproductosEnFormulario()">
+<body onload="precargarDatosCompraEnFormulario();precargarDatosproductosEnFormulario();actualizarValorProducto()">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -77,11 +77,20 @@
 
                                     
                                 <br>
-                                <div  id="productosAgregados" style="margin-left: 350px;" >
-                                    <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
-
-
-                                </div>
+<table id="productosTable" class="table">
+    <thead>
+        <tr>
+            <th>Producto:</th>
+            <th>Valor</th>
+            <th>Cantidad</th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="productosAgregados">
+        <!-- Aquí se cargarán los productos dinámicamente -->
+    </tbody>
+</table>
 
 
                             <button type="button" class="btn btn-primary next action-button float-end" onclick="enviarDevCompra()" >Realizar devolucion</button>

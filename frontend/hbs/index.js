@@ -106,6 +106,10 @@ app.get('/visualizarcompra', (req, res)=>{
     res.render('visualizarcompra')
 })
 
+app.get('/visualizardevcompra', (req, res)=>{
+    res.render('visualizardevcompra')
+})
+
 app.get('/dashboard', (req, res)=>{
     res.render('dashboard')
 })

@@ -1,14 +1,13 @@
 const url1 = 'http://localhost:3000/api/devolucioncompras'
 const url2 = 'http://localhost:3000/api/comprasproducto'
+const url3 = 'http://localhost:3000/api/compras'
 
 const precargarDatosCompraEnFormulario = async () => {
-
-    // Buscar el parámetro 'id' en la URL
     var urlParams = new URLSearchParams(window.location.search);
     var compraId = urlParams.get('id');
-    console.log(compraId);
+
     try {
-        const response = await fetch(`${url1}/${compraId}`, {
+        const response = await fetch(`${url3}/${compraId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -20,13 +19,12 @@ const precargarDatosCompraEnFormulario = async () => {
             throw new Error('Error en la solicitud: ' + response.statusText);
         }
 
+        const compra = await response.json();
 
-        const devolucion = await response.json();
-
-        // Precargar los datos de la compra en el formulario en label
-        document.getElementById('Fecha_compra').value = devolucion.Fecha_RegistroCompra;
-        document.getElementById('NumeroReciboCompra').value = devolucion.NumeroReciboCompra;
-        document.getElementById('ValorDev').value = devolucion.ValorCompra;
+        // Precargar los datos de la compra en el formulario
+        document.getElementById('Fecha_compra').value = compra.Fecha_RegistroCompra;
+        document.getElementById('NumeroReciboCompra').value = compra.NumeroReciboCompra;
+        document.getElementById('ValorDev').value = compra.ValorCompra;
 
     } catch (error) {
         console.error('Error:', error);
@@ -34,11 +32,12 @@ const precargarDatosCompraEnFormulario = async () => {
 };
 
 
+
+// Función para cargar datos de productos en el formulario
 const precargarDatosproductosEnFormulario = async () => {
     var urlParams = new URLSearchParams(window.location.search);
     var compraId = urlParams.get('id');
-    console.log(compraId);
-    
+
     try {
         const response = await fetch(`http://localhost:3000/api/comprasproducto/${compraId}`, {
             method: 'GET',
@@ -58,57 +57,79 @@ const precargarDatosproductosEnFormulario = async () => {
         productosContainer.innerHTML = '';
 
         productos.forEach(producto => {
-            const divProducto = document.createElement('div');
-            divProducto.classList.add('productoContainer');
-            divProducto.style.display = 'flex';
-            divProducto.style.alignItems = 'center';
-            divProducto.style.marginBottom = '10px';
-            divProducto.style.width = '500px';
+            const tr = document.createElement('tr');
+            tr.classList.add('productoRow');
 
+            // Columna de producto (select)
+            const tdProducto = document.createElement('td');
             const selectNombre = document.createElement('select');
             selectNombre.style.width = '300px';
-            selectNombre.style.marginRight = '30px';
+            selectNombre.disabled = true;
+            selectNombre.name = 'productos[]';
 
             const optionNombre = document.createElement('option');
             optionNombre.value = producto.IdProducto;
             optionNombre.textContent = producto.NombreProducto;
             selectNombre.appendChild(optionNombre);
-            selectNombre.disabled = true;
-            selectNombre.name = 'productos[]';
-            divProducto.appendChild(selectNombre);
 
-            const spanValor = document.createElement('span');
-            spanValor.textContent = 'valor: ';
-            spanValor.style.marginRight = '10px';
-            divProducto.appendChild(spanValor);
+            tdProducto.appendChild(selectNombre);
+            tr.appendChild(tdProducto);
 
-            const spanPrecio = document.createElement('span');
-            spanPrecio.textContent = producto.PrecioProducto;
-            spanPrecio.style.marginRight = '30px';
-            divProducto.appendChild(spanPrecio);
+            // Columna de valor
+            const tdValor = document.createElement('td');
+            tdValor.textContent = `$ ${producto.PrecioProducto}`;
+            tr.appendChild(tdValor);
 
-            const spanCantidad = document.createElement('span');
-            spanCantidad.textContent = 'Cantidad:';
-            spanCantidad.style.marginRight = '10px';
-            divProducto.appendChild(spanCantidad);
-
+            // Columna de cantidad
+            const tdCantidad = document.createElement('td');
             const inputCantidad = document.createElement('input');
             inputCantidad.type = 'number';
             inputCantidad.style.width = '50px';
-            inputCantidad.style.marginRight = '30px';
             inputCantidad.min = 0;
             inputCantidad.max = producto.CantidadProducto;
             inputCantidad.value = producto.CantidadProducto;
             inputCantidad.name = 'cantidades[]';
-            divProducto.appendChild(inputCantidad);
 
-            productosContainer.appendChild(divProducto);
+            tdCantidad.appendChild(inputCantidad);
+            tr.appendChild(tdCantidad);
+
+            // Columna de valor total
+            const tdValorTotal = document.createElement('td');
+            const valorTotalText = document.createElement('span');
+            valorTotalText.textContent = `$ ${producto.PrecioProducto * producto.CantidadProducto}`;
+            tdValorTotal.appendChild(valorTotalText);
+            tr.appendChild(tdValorTotal);
+
+            // Evento para actualizar el valor total al cambiar la cantidad
+            inputCantidad.addEventListener('input', () => {
+                const cantidad = parseFloat(inputCantidad.value) || 0;
+                const valorTotal = parseInt(producto.PrecioProducto * cantidad); // Convertir a entero
+                valorTotalText.textContent = `$ ${valorTotal}`; // Mostrar sin decimales
+            });
+
+            // Columna de acciones
+            const tdAcciones = document.createElement('td');
+            const btnEliminar = document.createElement('button');
+            btnEliminar.type = 'button';
+            btnEliminar.className = 'btn btn-soft-danger';
+            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.onclick = function() {
+                tr.remove();
+                // Aquí puedes agregar lógica adicional para actualizar el valor total, si es necesario
+            };
+
+            tdAcciones.appendChild(btnEliminar);
+            tr.appendChild(tdAcciones);
+
+            productosContainer.appendChild(tr);
         });
 
     } catch (error) {
         console.error('Error:', error);
     }
 };
+
+
 
 async function enviarDevCompra() {
     const now = new Date();
@@ -153,23 +174,21 @@ async function enviarDevCompra() {
         const devcompracompraData = await responsedevcompra.json();
         const IdDevolucionesCompra = devcompracompraData.id;
 
-        const productosContainers = document.querySelectorAll('.productoContainer');
+        const productosRows = document.querySelectorAll('.productoRow'); // Cambiado para seleccionar las filas
 
-        const productoPromises = Array.from(productosContainers).map(async (container) => {
-            const productoSelect = container.querySelector('select[name="productos[]"]');
-            const cantidadInput = container.querySelector('input[name="cantidades[]"]');
-
-            console.log(productoSelect);
-            console.log(cantidadInput);
-
+        const productoPromises = Array.from(productosRows).map(async (row) => {
+            const productoSelect = row.querySelector('select[name="productos[]"]');
+            const cantidadInput = row.querySelector('input[name="cantidades[]"]');
+        
             if (productoSelect && cantidadInput) {
                 const IdProducto = productoSelect.value;
                 const CantidadProducto = cantidadInput.value;
-
+        
                 const productoCompra = {
                     IdDevolucionesCompra,
                     IdProducto,
-                    CantidadProducto
+                    CantidadProducto,
+                    IdCompra: compraId,
                 };
                 console.log(productoCompra);
 
@@ -252,7 +271,7 @@ const listarDevCompras = async () => {
                         <td>${compra.estado_descripcion}</td>
                         <td style="text-align: center;">
                             <div class="centered-container">
-                            <a href="../visualizarcompra?id=${compra.IdCompra}">
+                            <a href="../visualizardevcompra?id=${compra.IdDevolucionesCompra}">
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
                             </a>
                         </td>
@@ -295,6 +314,8 @@ const listarDevCompras = async () => {
         console.error('Error:', error);
     }
 }; 
+
+
 
 
 
