@@ -77,7 +77,8 @@ const precargarDatosproductosEnFormulario = async () => {
 
             // Columna de valor
             const tdValor = document.createElement('td');
-            tdValor.textContent = `$ ${producto.PrecioProducto}`;
+            tdValor.classList.add('valorProducto'); // Añadir clase para identificar el valor del producto
+            tdValor.textContent = `$${producto.PrecioProducto}`;
             tr.appendChild(tdValor);
 
             // Columna de cantidad
@@ -96,15 +97,14 @@ const precargarDatosproductosEnFormulario = async () => {
             // Columna de valor total
             const tdValorTotal = document.createElement('td');
             const valorTotalText = document.createElement('span');
-            valorTotalText.textContent = `$ ${producto.PrecioProducto * producto.CantidadProducto}`;
+            valorTotalText.classList.add('valortotal'); // Añadir clase para identificar el valor total
+            valorTotalText.textContent = `$${(producto.PrecioProducto * producto.CantidadProducto).toFixed(2)}`;
             tdValorTotal.appendChild(valorTotalText);
             tr.appendChild(tdValorTotal);
 
             // Evento para actualizar el valor total al cambiar la cantidad
             inputCantidad.addEventListener('input', () => {
-                const cantidad = parseFloat(inputCantidad.value) || 0;
-                const valorTotal = parseInt(producto.PrecioProducto * cantidad); // Convertir a entero
-                valorTotalText.textContent = `$ ${valorTotal}`; // Mostrar sin decimales
+                calcularValorTotal(tr);
             });
 
             // Columna de acciones
@@ -115,7 +115,7 @@ const precargarDatosproductosEnFormulario = async () => {
             btnEliminar.textContent = 'Eliminar';
             btnEliminar.onclick = function() {
                 tr.remove();
-                // Aquí puedes agregar lógica adicional para actualizar el valor total, si es necesario
+                calcularValorTotal(); // Recalcular el valor total después de eliminar un producto
             };
 
             tdAcciones.appendChild(btnEliminar);
@@ -124,10 +124,13 @@ const precargarDatosproductosEnFormulario = async () => {
             productosContainer.appendChild(tr);
         });
 
+        calcularValorTotal(); // Calcular el valor total al cargar los productos
+
     } catch (error) {
         console.error('Error:', error);
     }
 };
+
 
 
 
@@ -314,6 +317,32 @@ const listarDevCompras = async () => {
         console.error('Error:', error);
     }
 }; 
+
+
+function calcularValorTotal() {
+    let sumaTotal = 0;
+
+    document.querySelectorAll('.productoRow').forEach(container => {
+        // Obtener el valor del producto
+        let valorProductoText = container.querySelector('.valorProducto').textContent.trim();
+        let valorProducto = parseFloat(valorProductoText.replace('$', '').replace(',', '').trim());
+        
+        // Obtener la cantidad
+        let cantidad = parseInt(container.querySelector('input[name="cantidades[]"]').value);
+        
+        // Calcular el valor total
+        let valorTotal = valorProducto * cantidad;
+        
+        // Actualizar el valor total en el DOM
+        container.querySelector('.valortotal').textContent = `$${valorTotal.toFixed(2)}`;
+        
+        // Sumar el valor total a la suma total
+        sumaTotal += valorTotal;
+    });
+
+    // Actualizar el valor de la compra en el input
+    document.getElementById('ValorDev').value = sumaTotal.toFixed(2);
+}
 
 
 
