@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rol = {
                 NombreRol: nombreRol,
                 EstadoRol: parseInt(estadoRol),
-                Permisos: permisosSeleccionados
+                Permisos: permisosSeleccionados.length > 0 ? permisosSeleccionados : []
             };
 
             await editarRol(rolId, rol);

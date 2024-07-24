@@ -1,6 +1,7 @@
-const express = require('express')
-const path = require('path') //Trabajar con rutas
-const hbs = require('hbs') //Incorporar motor de plantillas
+const express = require('express');
+const path = require('path');
+const hbs = require('hbs');
+
 
 const formArray = [];
 const app = express()
@@ -60,6 +61,7 @@ app.get('/restablecer/:token', (req, res) => {
 
 // INICIO COMPRAS *ALEJANDRO*
 
+
 app.get('/Proveedores', (req, res)=>{
     res.render('Proveedores')
 })
@@ -108,6 +110,14 @@ app.get('/ProveedoresEditar', (req, res)=>{
     res.render('ProveedoresEditar')
 })
 
+app.get('/visualizarcompra', (req, res)=>{
+    res.render('visualizarcompra')
+})
+
+app.get('/dashboard', (req, res)=>{
+    res.render('dashboard')
+})
+
 
 // FIN COMPRAS
 
@@ -119,8 +129,15 @@ app.get('/ProveedoresEditar', (req, res)=>{
 app.get('/usuariosAdmin', (req, res)=>{
     res.render('usuariosAdmin')
 })
-
-
+app.get('/formUsuarios.hbs', (req, res)=>{
+    res.render('formUsuarios.hbs')
+})
+app.get('/formUsuariosModal', (req, res)=>{
+    res.render('formUsuariosModal')
+})
+app.get('/detalleUSuario', (req, res)=>{
+    res.render('detalleUsuario')
+})
 app.get('/usuariosEntrenador', (req, res)=>{
     res.render('usuariosEntrenador')
 })
@@ -142,9 +159,40 @@ app.get('/membresiasEntrenador', (req, res)=>{
     res.render('membresiasEntrenador')
 })
 
+app.get('/formServicios', (req, res)=>{
+    res.render('formServicios')
+})
+app.get('/serviciosAdmin', (req, res)=>{
+    res.render('serviciosAdmin')
+})
+app.get('/usuariosAdmin', (req, res)=>{
+    res.render('usuariosAdmin')
+})
+app.get('/membresiasAdmin', (req, res)=>{
+    res.render('membresiasAdmin')
+})
+app.get('/detalleServicio', (req, res)=>{
+    res.render('detalleServicio')
+})
+
 app.get('/membresiasCliente', (req, res)=>{
     res.render('membresiasCliente')
 })
+
+app.get('/formServicios', (req, res)=>{
+    res.render('formServicios')
+})
+app.get('/serviciosAdmin', (req, res)=>{
+    res.render('serviciosAdmin')
+})
+app.get('/membresiasAdmin', (req, res)=>{
+    res.render('membresiasAdmin')
+})
+app.get('/detalleServicio', (req, res)=>{
+    res.render('detalleServicio')
+})
+
+//fin weimar
 
 // INICIO RUTINA *JUANES*
 
@@ -161,6 +209,25 @@ app.get('/nueva-rutina', (req, res)=>{
 app.get('/agenda-servicios', (req, res) => {
     res.render('calendario')
 });
+
+//Ejercicios
+
+app.get('/ejercicios', (req, res)=>{
+    res.render('ejercicios_views/tablaEjercicios');
+});
+
+app.get('/nuevo-ejercicio', (req, res)=>{
+    res.render('ejercicios_views/formEjercicio');
+});
+app.get('/editarEjercicio', (req, res)=>{
+    res.render('ejercicios_views/editarEjercicio');
+});
+
+//eventos
+app.get('/eventos', (req, res)=>{
+    res.render('eventos/calendario');
+});
+
 
 //
 
@@ -180,6 +247,14 @@ app.get('/CrearRol', (req, res)=>{
     res.render('CrearRol')
 })
 
+app.get('/GestionVentas', (req, res)=>{
+    res.render('GestionVentas')
+})
+
+app.get('/formuVenta', (req, res)=>{
+    res.render('formuVenta')
+})
+
 //PRUEBAS TABLAS
 
 
@@ -190,33 +265,41 @@ app.get('/CrearRol', (req, res)=>{
 // Inicio Ventas *YONIER*
 
 app.get('/clientes', (req, res)=>{
-    res.render('clientes')
+    res.render('clientes/clientes')
 })
 app.get('/beneficiarios', (req, res)=>{
-    res.render('beneficiarios')
+    res.render('beneficiarios/beneficiarios')
 })
 app.get('/formularioCliente', (req, res)=>{
-    res.render('formularioCliente')
+    res.render('clientes/formularioCliente')
+})
+app.get('/detalleCliente', (req, res)=>{
+    res.render('clientes/detalleCliente')
 })
 app.get('/editarCliente', (req, res)=>{
-    res.render('editarCliente')
+    res.render('clientes/editarCliente')
+})
+app.get('/detalleBeneficiario', (req, res)=>{
+    res.render('beneficiarios/detalleBeneficiario')
 })
 app.get('/formularioBeneficiario', (req, res)=>{
-    res.render('formularioBeneficiario')
+    res.render('beneficiarios/formularioBeneficiario')
 })
-app.get('/detallePedido', (req, res)=>{
-    res.render('detallePedido')
+app.get('/EditarBeneficiario', (req, res)=>{
+    res.render('beneficiarios/EditarBeneficiario')
 })
-app.get('/formularioPedido', (req, res)=>{
-    res.render('formularioPedido')
+app.get('/editarValoracionMedica', (req, res)=>{
+    res.render('beneficiarios/editarValoracionMedica')
 })
 app.get('/pedidos', (req, res)=>{
-    res.render('pedidos')
+    res.render('pedidos/pedidos')
 })
-app.get('/ventas', (req, res)=>{
-    res.render('ventas')
+app.get('/editarPedido', (req, res)=>{
+    res.render('pedidos/editarPedido')
 })
-
+app.get('/detallePedido', (req, res)=>{
+    res.render('pedidos/detallePedido')
+})
 
 // JOHANY
 
@@ -224,19 +307,17 @@ app.get('/GestionVentas', (req, res)=>{
     res.render('GestionVentas')
 })
 
+app.get('/GestionDevoluciones', (req, res)=>{
+    res.render('GestionDevoluciones')
+})
+
+app.get('/formulDevolucion', (req, res)=>{
+    res.render('formulDevolucion')
+})
+
 app.get('/formuVenta', (req, res)=>{
     res.render('formuVenta')
 })
-
-app.get('/devolucionVentas', (req, res)=>{
-    res.render('devolucionVentas')
-})
-
-app.get('/formulDevolucionVenta', (req, res)=>{
-    res.render('formulDevolucionVenta')
-})
-
-
 
 
 // FIN JOHANY
@@ -254,6 +335,11 @@ app.get('/plantilla', (req, res)=>{
 app.get('*', (req, res)=>{
     res.render('404')
 })
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Internal Server Error' });
+});
 
 app.listen(port, () => {
     console.log(`Escuchado por el puerto ${port}`)

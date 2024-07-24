@@ -1,3 +1,4 @@
+// controllers/usuarioRol.controller.js
 import { pool } from '../db.js';
 
 // Obtener usuario por su Id junto con los roles asignados
@@ -27,7 +28,6 @@ export const getUsuarioRolById = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener el usuario y sus roles' });
     }
 };
-
 
 // Obtener roles de un usuario específico
 export const getRolesDeUsuario = async (req, res) => {
@@ -65,6 +65,31 @@ export const agregarRolAUsuario = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al asignar el rol al usuario' });
+    }
+};
+
+// Editar roles de un usuario
+export const editarRolDeUsuario = async (req, res) => {
+    try {
+        const { IdUsuario } = req.params;
+        const { IdRoles } = req.body; // IdRoles es un array de IdRol
+
+        if (!IdUsuario || !Array.isArray(IdRoles)) {
+            return res.status(400).json({ error: 'IdUsuario e IdRoles son requeridos' });
+        }
+
+        // Eliminar roles actuales
+        await pool.query('DELETE FROM RolUsuario WHERE IdUsuario = ?', [IdUsuario]);
+
+        // Asignar nuevos roles
+        for (const IdRol of IdRoles) {
+            await pool.query('INSERT INTO RolUsuario (IdRol, IdUsuario) VALUES (?, ?)', [IdRol, IdUsuario]);
+        }
+
+        res.status(200).json({ message: 'Roles actualizados exitosamente' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al editar los roles del usuario' });
     }
 };
 

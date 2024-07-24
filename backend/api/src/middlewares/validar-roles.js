@@ -11,6 +11,7 @@ export const rolAdmin = async (req, res = response, next) => {
     const { IdUsuario } = req.user;
 
     try {
+        // Consulta para obtener el rol del usuario
         const [rows] = await pool.query('SELECT IdRol FROM RolUsuario WHERE IdUsuario = ?', [IdUsuario]);
 
         if (rows.length <= 0) {
@@ -21,6 +22,7 @@ export const rolAdmin = async (req, res = response, next) => {
 
         const { IdRol } = rows[0];
 
+        // Verificar si el rol es de administrador
         if (IdRol !== 2) {
             return res.status(403).json({
                 msg: 'No tiene permisos para realizar esta acción'
@@ -51,6 +53,7 @@ export const tieneRol = (...roles) => {
             });
         }
 
+        // Verificar si el usuario tiene uno de los roles permitidos
         const tieneRol = req.user.IdRol.some(rol => roles.includes(rol));
 
         if (!tieneRol) {

@@ -15,29 +15,24 @@
       </div>    </div>
     <!-- Fin cargar -->
 
-    <!-- Inicio Barra lateral -->
-
-        {{> sidebar}}    
- 
-    <!-- Fin Barra lateral -->
-
-
-    <!-- Inicio Barra superior -->
-        {{> topbar}}
-    <!-- Fin Barra superior -->
-
               
     <!-- Inicio contenido -->      
-    <div class="container-fluid content-inner">
-       404
+    <div class="wrapper">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
+<div class="gradient">
+    <div class="container">
+        <img src="../../assets/images/error/404.png" class="img-fluid mb-4 w-50" alt=""> 
+        <h2 class="mb-0 mt-4 text-white">¡Uy! Esta página no se encuentra.</h2>
+        <p class="mt-2 text-white">La página solicitada no existe.</p>
+        <a class="btn bg-white text-primary d-inline-flex align-items-center" href="/ingresar">Ingresar</a>
     </div>
+      
+</div>
+      </div>
     <!-- Fin contenido --> 
 
-    <!-- Footer Section Start -->
-    <footer class="footer">
-        {{> copyright}}
-    </footer>
-    <!-- Footer Section End -->
+
 
     {{> footer}}
 </body>
