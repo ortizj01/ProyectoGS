@@ -34,7 +34,6 @@ const listarProductos= async () => {
                         <td>${producto.PrecioProducto}</td>
                         <td>${producto.IvaProducto}</td>
                         <td>${producto.Stock}</td>
-                        <td>${producto.Imagen}</td> 
                         <td>${producto.estado_descripcion}</td>
                         <td>${producto.Nombre_categoria}</td>
                         <td style="text-align: center;">
@@ -112,7 +111,6 @@ const precargarDatosProductosEnFormulario = async () => {
         document.getElementById('Precioproducto').value = producto.PrecioProducto;
         document.getElementById('ivaproducto').value = producto.IvaProducto;
         document.getElementById('Estadoedit').value = producto.EstadoProducto;
-        document.getElementById('Imagen').value = producto.Imagen;
         document.getElementById('categoria').value = producto.IdCategoriaProductos;
 
     } catch (error) {
@@ -121,18 +119,83 @@ const precargarDatosProductosEnFormulario = async () => {
 };
 
 
+// const editarProductos = async () => {
+//     var urlParams = new URLSearchParams(window.location.search);
+//     var id = urlParams.get('id');
+//     const NombreProducto = document.getElementById('Nombreproducto').value;
+//     const PrecioProducto = document.getElementById('Precioproducto').value;
+//     const IvaProducto = document.getElementById('ivaproducto').value;
+//     const Imagen = document.getElementById('Imagen').value;
+//     const EstadoProducto = document.getElementById('Estadoedit').value;
+//     const IdCategoriaProductos = document.getElementById('categoria').value;
+    
+
+//     if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || Imagen === "" || EstadoProducto === "" || IdCategoriaProductos === "") {
+//         Swal.fire({
+//             icon: 'warning',
+//             title: 'Error',
+//             text: 'Llene todos los campos',
+//             confirmButtonText: 'Aceptar'
+//         });
+//         return;
+//     }
+
+//     try {
+//         const response = await fetch(`${url}/${id}`, {
+//             method: 'PATCH', // Cambiado a 'PATCH' para cumplir con el método de la API
+//             mode: 'cors',
+//             headers: {
+//                 "Content-type": "application/json; charset=UTF-8"
+//             },
+//             body: JSON.stringify({
+//                 NombreProducto,
+//                 PrecioProducto,
+//                 IvaProducto,
+//                 Imagen,
+//                 EstadoProducto,
+//                 IdCategoriaProductos,
+//             })
+//         });
+
+//         if (!response.ok) {
+//             throw new Error('Error en la solicitud: ' + response.statusText);
+//         }
+
+//         const data = await response.json();
+//         Swal.fire({
+//             icon: 'success',
+//             title: 'Éxito',
+//             text: 'Producto editado con éxito',
+//             confirmButtonText: 'Aceptar'
+//         }).then((result) => {
+//             if (result.isConfirmed) {
+//                 // Redirigir a otra vista, por ejemplo, la lista de proveedores
+//                 window.location.href = '../Productos'; // Reemplaza esta URL con la ruta real
+//             }
+//         });
+//         listarProductos();
+//     } catch (error) {
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Error',
+//             text: 'Hubo un error al editar el proveedor',
+//             confirmButtonText: 'Aceptar'
+//         });
+//     }
+// };
+
+
 const editarProductos = async () => {
-    var urlParams = new URLSearchParams(window.location.search);
-    var id = urlParams.get('id');
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
     const NombreProducto = document.getElementById('Nombreproducto').value;
     const PrecioProducto = document.getElementById('Precioproducto').value;
     const IvaProducto = document.getElementById('ivaproducto').value;
-    const Imagen = document.getElementById('Imagen').value;
+    const Imagen = document.getElementById('Imagen').files[0]; // Obtén el archivo de la entrada de archivos
     const EstadoProducto = document.getElementById('Estadoedit').value;
     const IdCategoriaProductos = document.getElementById('categoria').value;
-    
 
-    if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || Imagen === "" || EstadoProducto === "" || IdCategoriaProductos === "") {
+    if (!NombreProducto || !PrecioProducto || !IvaProducto || !EstadoProducto || !IdCategoriaProductos || !Imagen) {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
@@ -142,21 +205,19 @@ const editarProductos = async () => {
         return;
     }
 
+    const formData = new FormData();
+    formData.append('NombreProducto', NombreProducto);
+    formData.append('PrecioProducto', PrecioProducto);
+    formData.append('IvaProducto', IvaProducto);
+    formData.append('Imagen', Imagen); // Añade el archivo aquí
+    formData.append('EstadoProducto', EstadoProducto);
+    formData.append('IdCategoriaProductos', IdCategoriaProductos);
+
     try {
         const response = await fetch(`${url}/${id}`, {
-            method: 'PATCH', // Cambiado a 'PATCH' para cumplir con el método de la API
+            method: 'PATCH',
             mode: 'cors',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            },
-            body: JSON.stringify({
-                NombreProducto,
-                PrecioProducto,
-                IvaProducto,
-                Imagen,
-                EstadoProducto,
-                IdCategoriaProductos,
-            })
+            body: formData
         });
 
         if (!response.ok) {
@@ -171,7 +232,6 @@ const editarProductos = async () => {
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Redirigir a otra vista, por ejemplo, la lista de proveedores
                 window.location.href = '../Productos'; // Reemplaza esta URL con la ruta real
             }
         });
@@ -180,11 +240,13 @@ const editarProductos = async () => {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Hubo un error al editar el proveedor',
+            text: 'Hubo un error al editar el producto',
             confirmButtonText: 'Aceptar'
         });
     }
 };
+
+
 
 const agregarProducto = async () => {
     const NombreProducto = document.getElementById('Nombreproducto').value;
@@ -318,11 +380,6 @@ const validarformularioProductos = (e)=> {
     switch(e.target.name){
         case "Precioproducto":
             validarcampo(expresiones.Precioproducto, e.target,"Precioproducto");
-            break
-    }
-    switch(e.target.name){
-        case "Imagen":
-            validarcampo(expresiones.Imagen, e.target,"Imagen");
             break
     }
     switch(e.target.name){
