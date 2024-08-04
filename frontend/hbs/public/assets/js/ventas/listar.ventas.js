@@ -26,6 +26,9 @@ async function cargarVentas() {
             `;
             listaVentas.appendChild(row);
         }
+
+        // Inicializar DataTable
+        $('#dataTable').DataTable();
     } catch (error) {
         console.error('Error al cargar las ventas:', error);
     }
@@ -80,15 +83,15 @@ function confirmarEliminarVenta(id) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, eliminar'
+        confirmButtonText: 'Sí, anular'
     }).then((result) => {
         if (result.isConfirmed) {
-            eliminarVenta(id);
+            anularVenta(id);
         }
     });
 }
 
-async function eliminarVenta(id) {
+async function anularVenta(id) {
     try {
         const response = await fetch(`${urlVentas}/${id}`, {
             method: 'DELETE',
@@ -98,7 +101,7 @@ async function eliminarVenta(id) {
 
         if (response.ok) {
             Swal.fire(
-                'Eliminada!',
+                'Anulada!',
                 data.message,
                 'success'
             );
@@ -110,14 +113,15 @@ async function eliminarVenta(id) {
             );
         }
 
-        // Recargar las ventas después de la eliminación
+        // Recargar las ventas después de la anulación
         cargarVentas();
     } catch (error) {
-        console.error('Error al eliminar la venta:', error);
+        console.error('Error al anular la venta:', error);
         Swal.fire(
             'Error!',
-            'Error al eliminar la venta',
+            'Error al anular la venta',
             'error'
         );
     }
 }
+

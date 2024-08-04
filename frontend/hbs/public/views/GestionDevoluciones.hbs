@@ -30,267 +30,103 @@
     <!-- Fin Barra superior -->
 
 
-    <!-- Inicio contenido -->
-    <div class="container-fluid content-inner">
-        <div class="container-fluid">
-            <h3 class="m-0 font-weight-bold text-primary">Gestión Devoluciones</h3>
-            <div class="card shadow mb-4">
-                <div class="header-title">
-                    <div class="card-header py-3 d-flex justify-content-between">
-                        <div class="d-flex">
-                            <div class="search-container">
-                                <label for="searchInput" class="visually-hidden">Buscar:</label>
-                                <input type="search" id="searchInput" class="form-control form-control-sm"
-                                    placeholder="Buscar" aria-controls="dataTable">
+ <!-- Inicio contenido -->
+<div class="container-fluid content-inner">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="card-header py-2">
+                        <h2 class="m-2 font-weight-bold text-primary">Devoluciones de Ventas</h2>
+                    </div>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+                                    <div id="dataTable_filter" class="dataTables_filter">
+                                        <label>Buscar:
+                                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-buttons mt-1">
+                                <a href="formulDevolucion" type="button" name="CrearDevolucionVenta" class="btn btn-primary next action-button float-end" value="Next">Agregar Devolución</a>
                             </div>
                         </div>
-                        <div class="footer-buttons mt-1">
-                            <!-- Agregado margen top (mt-3) para separar los botones de la tabla -->
-                            <a href="formulDevolucion" type="button" name="Cancelar"
-                                class="btn btn-dark btn-sm previous action-button-previous float-end me-2"
-                                value="Previous">
-                                Crear Devolucion
-                            </a>
-                            <button type="submit" name="Guardar"
-                                class="btn btn-primary btn-sm next action-button float-end" value="Next">
-                                Informes
-                            </button>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 100px;">ID Devolución</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 100px;">ID Venta</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 150px;">Motivo</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 150px;">Valor Devolución</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 150px;">Fecha Devolución</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 100px;">Estado</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 150px;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contenidoDevVentas">
+                                        <!-- Contenido generado dinámicamente -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                                role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
-                                            rowspan="1" colspan="1" aria-sort="ascending"
-                                            aria-label="Name: activate to sort column descending"
-                                            style="width: 156.25px;">
-                                            IdVenta</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Position: activate to sort column ascending"
-                                            style="width: 257.578px;">Nombre</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Age: activate to sort column ascending"
-                                            style="width: 48.1719px;">
-                                            Fecha</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Start date: activate to sort column ascending"
-                                            style="width: 104.297px;">Producto</th>
-
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Start date: activate to sort column ascending"
-                                            style="width: 104.297px;">Motivo</th>
-
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 93.0156px;">Estado</th>
-                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                            colspan="1" aria-label="Salary: activate to sort column ascending"
-                                            style="width: 93.0156px;">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd">
-                                        <td class="sorting_1">222</td>
-                                        <td>Roberto Miramar</td>
-                                        <td>21/01/2021</td>
-                                        <td>vitaminas</td>
-                                        <td>mal estado</td>
-                                        <td>ACTIVO</td>
-                                        <td style="text-align: center;">
-                                            <div class="centered-container">
-                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
-                                                    data-bs-target="#editarRolModal"></i>
-                                                <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                                <i class="fa-solid fa-trash fa-xl me-2 trash-icon"
-                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
-                                                <div class="wrap-toggle" style="margin-top:10px;">
-                                                    <input type="checkbox" id="toggle1" class="offscreen" />
-                                                    <label for="toggle1" class="switch"></label>
-                                                </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td class="sorting_1">333</td>
-                                        <td>Lucas Osorio</td>
-                                        <td>15/04/2022</td>
-                                        <td>Proteina</td>
-                                        <td>Equivocado</td>
-                                        <td>ACTIVO</td>
-                                        <td style="text-align: center;">
-                                            <div class="centered-container">
-                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
-                                                    data-bs-target="#editarRolModal"></i>
-                                                <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                                <i class="fa-solid fa-trash fa-xl me-2 trash-icon"
-                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
-                                                <div class="wrap-toggle" style="margin-top:10px;">
-                                                    <input type="checkbox" id="toggle2" class="offscreen" />
-                                                    <label for="toggle2" class="switch"></label>
-                                                </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd">
-                                        <td class="sorting_1">444</td>
-                                        <td>Duvan lopez</td>
-                                        <td>11/12/2022</td>
-                                        <td>Cuerdas</td>
-                                        <td>malo</td>
-                                        <td>ACTIVO</td>
-                                        <td style="text-align: center;">
-                                            <div class="centered-container">
-                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
-                                                    data-bs-target="#editarRolModal"></i>
-                                                <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                                <i class="fa-solid fa-trash fa-xl me-2 trash-icon"
-                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
-                                                <div class="wrap-toggle" style="margin-top:10px;">
-                                                    <input type="checkbox" id="toggle3" class="offscreen" />
-                                                    <label for="toggle3" class="switch"></label>
-                                                </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td class="sorting_1">555</td>
-                                        <td>Yonier Rendon</td>
-                                        <td>22/02/2020</td>
-                                        <td>vitaminas</td>
-                                        <td>Vencido</td>
-                                        <td>ACTIVO</td>
-                                        <td style="text-align: center;">
-                                            <div class="centered-container">
-                                                <i class="fa-regular fa-pen-to-square fa-xl me-2" data-bs-toggle="modal"
-                                                    data-bs-target="#editarRolModal"></i>
-                                                <i class="fa-regular fa-eye fa-xl me-2"></i>
-                                                <i class="fa-solid fa-trash fa-xl me-2 trash-icon"
-                                                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></i>
-                                                <div class="wrap-toggle" style="margin-top:10px;">
-                                                    <input type="checkbox" id="toggle4" class="offscreen" />
-                                                    <label for="toggle4" class="switch"></label>
-                                                </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                <ul class="pagination justify-content-end">
-                                    <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                                        <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                            class="page-link">Previous</a>
-                                    </li>
-                                    <li class="paginate_button page-item active">
-                                        <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
-                                            class="page-link">1</a>
-                                    </li>
-                                    <li class="paginate_button page-item ">
-                                        <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-                                            class="page-link">2</a>
-                                    </li>
-                                    <li class="paginate_button page-item ">
-                                        <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
-                                            class="page-link">3</a>
-                                    </li>
-                                    <li class="paginate_button page-item next" id="dataTable_next">
-                                        <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
-                                            class="page-link">Next</a>
-                                    </li>
-                                </ul>
+                        <div class="row">
+                            <div class="col-sm-30 col-md-40 p-2 float-end">
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                        </li>
+                                        <li class="paginate_button page-item active">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                        </li>
+                                        <li class="paginate_button page-item ">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                                        </li>
+                                        <li class="paginate_button page-item ">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                                        </li>
+                                        <li class="paginate_button page-item next" id="dataTable_next">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    </div>
-    </div>
-    </div>
+</div>
 
-    <!-- Modal editar -->
-    <div class="modal fade" id="editarRolModal" tabindex="-1" aria-labelledby="editarRolModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="m-0 font-weight-bold text-primary">Editar Devolucion</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal para ver detalles de la devolución -->
+<div class="modal fade" id="detalleDevolucionModal" tabindex="-1" aria-labelledby="detalleDevolucionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detalleDevolucionModalLabel">Detalle de la Devolución</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detalleDevolucionContenido" class="container">
+                    <!-- Contenido generado dinámicamente -->
                 </div>
-                <div class="modal-body">
-                    <form class="row">
-                        <!-- Campos del formulario -->
-                        <div class="col-md-6">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="estado">Estado</label>
-                            <select id="estado" name="estado" class="form-control">
-                                <option value="activo">Activo</option>
-                                <option value="desactivado">Desactivado</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="producto">Productos</label>
-                                <select id="producto" name="productos" class="form-control">
-                                    <option value="Vitaminas">Vitaminas</option>
-                                    <option value="Proteinas">Proteínas</option>
-                                    <option value="Gatorade">Gatorade</option>
-                                </select>
-                                <span class="error-message" id="producto-error"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Motivo:</label>
-                                <textarea type="text" class="form-control" name="Motivo"
-                                    placeholder="Escribe tu motivo aquí..." oninput="validateMotivo(this)"></textarea>
-                                <span class="error-message" id="Motivo-error"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <button type="submit" name="Guardar" class="btn btn-primary float-end"
-                                value="Next">Guardar</button>
-                            <a href="GestionDevoluciones" type="button" name="Cancelar"
-                                class="btn btn-dark float-end me-1" value="Previous">Cancelar</a>
-                        </div>
-                    </form>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
+</div>
+<!-- FIN DEL CONTENIDO -->
 
-    <!-- FIN MODAL EDITAR -->
-
-    <!-- Modal eliminar -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ¿Estás seguro de que deseas eliminar este elemento?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FIN DEL CONTENIDO -->
     <!-- Bootstrap core JavaScript-->
+    <script src="../assets/js/devolucionVentas/devolucion.ventas.js"> </script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

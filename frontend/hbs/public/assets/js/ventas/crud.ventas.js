@@ -12,14 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
 async function cargarUsuarios() {
     try {
         const response = await fetch(urlUsuarios);
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const usuarios = await response.json();
         const selectUsuarios = document.getElementById('idUsuarios');
-        usuarios.forEach(usuario => {
-            const option = document.createElement('option');
-            option.value = usuario.IdUsuario;
-            option.textContent = `${usuario.Nombres} ${usuario.Apellidos} - ${usuario.Documento}`;
-            selectUsuarios.appendChild(option);
-        });
+        if (selectUsuarios) {
+            usuarios.forEach(usuario => {
+                const option = document.createElement('option');
+                option.value = usuario.IdUsuario;
+                option.textContent = `${usuario.Nombres} ${usuario.Apellidos} - ${usuario.Documento}`;
+                selectUsuarios.appendChild(option);
+            });
+        } else {
+            console.error('Elemento selectUsuarios no encontrado');
+        }
     } catch (error) {
         console.error('Error al cargar los usuarios:', error);
     }
@@ -28,14 +33,19 @@ async function cargarUsuarios() {
 async function cargarProductos() {
     try {
         const response = await fetch(urlProductos);
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const productos = await response.json();
         const selectProducto = document.getElementById('selectProducto');
-        productos.forEach(producto => {
-            const option = document.createElement('option');
-            option.value = producto.IdProducto;
-            option.textContent = `${producto.NombreProducto} - $${producto.PrecioProducto}`;
-            selectProducto.appendChild(option);
-        });
+        if (selectProducto) {
+            productos.forEach(producto => {
+                const option = document.createElement('option');
+                option.value = producto.IdProducto;
+                option.textContent = `${producto.NombreProducto} - $${producto.PrecioProducto}`;
+                selectProducto.appendChild(option);
+            });
+        } else {
+            console.error('Elemento selectProducto no encontrado');
+        }
     } catch (error) {
         console.error('Error al cargar los productos:', error);
     }
@@ -44,27 +54,67 @@ async function cargarProductos() {
 async function cargarMembresias() {
     try {
         const response = await fetch(urlMembresias);
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const membresias = await response.json();
         const selectMembresia = document.getElementById('selectMembresia');
-        membresias.forEach(membresia => {
-            const option = document.createElement('option');
-            option.value = membresia.IdMembresia;
-            option.textContent = `${membresia.NombreMembresia} - $${membresia.CostoVenta}`;
-            selectMembresia.appendChild(option);
-        });
+        if (selectMembresia) {
+            membresias.forEach(membresia => {
+                const option = document.createElement('option');
+                option.value = membresia.IdMembresia;
+                option.textContent = `${membresia.NombreMembresia} - $${membresia.CostoVenta}`;
+                selectMembresia.appendChild(option);
+            });
+        } else {
+            console.error('Elemento selectMembresia no encontrado');
+        }
     } catch (error) {
         console.error('Error al cargar las membresías:', error);
     }
 }
 
-document.getElementById('buscarUsuario').addEventListener('input', function() {
-    const filter = this.value.toLowerCase();
-    const options = document.getElementById('idUsuarios').options;
-    for (let i = 0; i < options.length; i++) {
-        const text = options[i].text.toLowerCase();
-        options[i].style.display = text.includes(filter) ? '' : 'none';
+async function cargarProductosDinamico(selectElement) {
+    try {
+        const response = await fetch(urlProductos);
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const productos = await response.json();
+        selectElement.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        defaultOption.textContent = 'Agregar producto a la venta';
+        selectElement.appendChild(defaultOption);
+        productos.forEach(producto => {
+            const option = document.createElement('option');
+            option.value = producto.IdProducto;
+            option.textContent = `${producto.NombreProducto} - $${producto.PrecioProducto}`;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar los productos dinámicamente:', error);
     }
-});
+}
+
+async function cargarMembresiasDinamico(selectElement) {
+    try {
+        const response = await fetch(urlMembresias);
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const membresias = await response.json();
+        selectElement.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        defaultOption.textContent = 'Agregar membresía a la venta';
+        selectElement.appendChild(defaultOption);
+        membresias.forEach(membresia => {
+            const option = document.createElement('option');
+            option.value = membresia.IdMembresia;
+            option.textContent = `${membresia.NombreMembresia} - $${membresia.CostoVenta}`;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar las membresías dinámicamente:', error);
+    }
+}
 
 function calcularValorTotal() {
     let total = 0;
@@ -88,7 +138,10 @@ function actualizarValorProducto(select) {
     const idProducto = select.value;
     if (idProducto) {
         fetch(`${urlProductos}/${idProducto}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+                return response.json();
+            })
             .then(data => {
                 const container = select.closest('.productoContainer');
                 container.querySelector('.valorProducto').textContent = `$${data.PrecioProducto}`;
@@ -102,7 +155,10 @@ function actualizarValorMembresia(select) {
     const idMembresia = select.value;
     if (idMembresia) {
         fetch(`${urlMembresias}/${idMembresia}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+                return response.json();
+            })
             .then(data => {
                 const container = select.closest('.membresiaContainer');
                 container.querySelector('.valorMembresia').textContent = `$${data.CostoVenta}`;
@@ -113,92 +169,58 @@ function actualizarValorMembresia(select) {
 }
 
 function agregarProducto() {
-    const container = document.createElement('div');
-    container.classList.add('productoContainer', 'd-flex', 'align-items-center', 'mb-2');
+    const container = document.createElement('tr');
+    container.classList.add('productoContainer');
     container.innerHTML = `
-        <select name="productos[]" class="form-select" style="width:300px" onchange="actualizarValorProducto(this)">
-            <option selected="" disabled="">Agregar producto a la venta</option>
-        </select>
-        <label for="cantidad" style="margin-left:20px">Cantidad:</label>
-        <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" class="form-control d-inline-block no-arrows" required onchange="calcularValorTotal()">
-        <label for="Valor" style="margin-left:20px">Valor:</label>
-        <label class="valorProducto" for="Valor">$0</label>
-        <label for="ValorTotal" style="margin-left:20px">Valor Total:</label>
-        <label class="valortotal" for="ValorTotal">$0</label>
-        <button type="button" class="btn btn-soft-danger mt-2" onclick="eliminarProducto(this)" style="margin-left:20px"><i class="fa-solid fa-minus fa-lg"></i></button>
+        <td>
+            <select name="productos[]" class="form-select" onchange="actualizarValorProducto(this)">
+                <option selected="" disabled="">Agregar producto a la venta</option>
+            </select>
+        </td>
+        <td>
+            <input type="number" name="cantidades[]" value="1" min="1" class="form-control" required onchange="calcularValorTotal()">
+        </td>
+        <td>
+            <label class="valorProducto">$0</label>
+        </td>
+        <td>
+            <button type="button" class="btn btn-soft-danger" onclick="eliminarProducto(this)"><i class="fa-solid fa-minus fa-lg"></i></button>
+        </td>
     `;
     document.getElementById('productosAgregados').appendChild(container);
     cargarProductosDinamico(container.querySelector('select[name="productos[]"]'));
 }
 
 function agregarMembresia() {
-    const container = document.createElement('div');
-    container.classList.add('membresiaContainer', 'd-flex', 'align-items-center', 'mb-2');
+    const container = document.createElement('tr');
+    container.classList.add('membresiaContainer');
     container.innerHTML = `
-        <select name="membresias[]" class="form-select" style="width:300px" onchange="actualizarValorMembresia(this)">
-            <option selected="" disabled="">Agregar membresía a la venta</option>
-        </select>
-        <label for="cantidadMembresia" style="margin-left:20px">Cantidad:</label>
-        <input style="width:90px" type="number" name="cantidadesMembresia[]" value="1" min="1" class="form-control d-inline-block no-arrows" required onchange="calcularValorTotal()">
-        <label for="Valor" style="margin-left:20px">Valor:</label>
-        <label class="valorMembresia" for="Valor">$0</label>
-        <label for="ValorTotal" style="margin-left:20px">Valor Total:</label>
-        <label class="valortotal" for="ValorTotal">$0</label>
-        <button type="button" class="btn btn-soft-danger mt-2" onclick="eliminarMembresia(this)" style="margin-left:20px"><i class="fa-solid fa-minus fa-lg"></i></button>
+        <td>
+            <select name="membresias[]" class="form-select" onchange="actualizarValorMembresia(this)">
+                <option selected="" disabled="">Agregar membresía a la venta</option>
+            </select>
+        </td>
+        <td>
+            <input type="number" name="cantidadesMembresia[]" value="1" min="1" class="form-control" required onchange="calcularValorTotal()">
+        </td>
+        <td>
+            <label class="valorMembresia">$0</label>
+        </td>
+        <td>
+            <button type="button" class="btn btn-soft-danger" onclick="eliminarMembresia(this)"><i class="fa-solid fa-minus fa-lg"></i></button>
+        </td>
     `;
     document.getElementById('membresiasAgregadas').appendChild(container);
     cargarMembresiasDinamico(container.querySelector('select[name="membresias[]"]'));
 }
 
-async function cargarProductosDinamico(selectElement) {
-    try {
-        const response = await fetch(urlProductos);
-        const productos = await response.json();
-        selectElement.innerHTML = '';
-        const defaultOption = document.createElement('option');
-        defaultOption.selected = true;
-        defaultOption.disabled = true;
-        defaultOption.textContent = 'Agregar producto a la venta';
-        selectElement.appendChild(defaultOption);
-        productos.forEach(producto => {
-            const option = document.createElement('option');
-            option.value = producto.IdProducto;
-            option.textContent = `${producto.NombreProducto} - $${producto.PrecioProducto}`;
-            selectElement.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error al cargar los productos dinámicamente:', error);
-    }
-}
-
-async function cargarMembresiasDinamico(selectElement) {
-    try {
-        const response = await fetch(urlMembresias);
-        const membresias = await response.json();
-        selectElement.innerHTML = '';
-        const defaultOption = document.createElement('option');
-        defaultOption.selected = true;
-        defaultOption.disabled = true;
-        defaultOption.textContent = 'Agregar membresía a la venta';
-        selectElement.appendChild(defaultOption);
-        membresias.forEach(membresia => {
-            const option = document.createElement('option');
-            option.value = membresia.IdMembresia;
-            option.textContent = `${membresia.NombreMembresia} - $${membresia.CostoVenta}`;
-            selectElement.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error al cargar las membresías dinámicamente:', error);
-    }
-}
-
 function eliminarProducto(button) {
-    button.parentElement.remove();
+    button.closest('tr').remove();
     calcularValorTotal();
 }
 
 function eliminarMembresia(button) {
-    button.parentElement.remove();
+    button.closest('tr').remove();
     calcularValorTotal();
 }
 
@@ -207,15 +229,17 @@ async function enviarVenta() {
     const total = document.getElementById('total').value;
     const idUsuario = document.getElementById('idUsuarios').value;
 
-    const productos = Array.from(document.querySelectorAll('select[name="productos[]"]')).map((select, index) => ({
-        IdProducto: select.value,
-        Cantidad: document.querySelectorAll('input[name="cantidades[]"]')[index].value
-    }));
+    const productos = Array.from(document.querySelectorAll('select[name="productos[]"]')).map((select, index) => {
+        const idProducto = select.value;
+        const cantidad = document.querySelectorAll('input[name="cantidades[]"]')[index].value;
+        return idProducto !== "Agregar producto a la venta" ? { IdProducto: idProducto, Cantidad: cantidad } : null;
+    }).filter(producto => producto !== null);
 
-    const membresias = Array.from(document.querySelectorAll('select[name="membresias[]"]')).map((select, index) => ({
-        IdMembresia: select.value,
-        Cantidad: document.querySelectorAll('input[name="cantidadesMembresia[]"]')[index].value
-    }));
+    const membresias = Array.from(document.querySelectorAll('select[name="membresias[]"]')).map((select, index) => {
+        const idMembresia = select.value;
+        const cantidad = document.querySelectorAll('input[name="cantidadesMembresia[]"]')[index].value;
+        return idMembresia !== "Agregar membresía a la venta" ? { IdMembresia: idMembresia, Cantidad: cantidad } : null;
+    }).filter(membresia => membresia !== null);
 
     if (!fechaVenta || !total || !idUsuario || (productos.length === 0 && membresias.length === 0)) {
         alert('Por favor, complete todos los campos obligatorios y agregue al menos un producto o una membresía.');

@@ -1,8 +1,8 @@
 import { pool } from '../db.js';
 
 export const getDevolucionVentas = async (req, res) => {
-    const [rows] = await pool.query(
-        `SELECT
+    const [rows] = await pool.query(`
+        SELECT
             DV.*,
             v.FechaVenta,
             v.Total,
@@ -15,14 +15,14 @@ export const getDevolucionVentas = async (req, res) => {
         FROM 
             DevolucionVenta DV
         LEFT JOIN 
-            Ventas v ON DV.IdVenta = v.IdVenta`
-    );
+            Ventas v ON DV.IdVenta = v.IdVenta
+    `);
     res.json(rows);
 }
 
 export const getDevolucionVenta = async (req, res) => {
-    const [rows] = await pool.query(
-        `SELECT
+    const [rows] = await pool.query(`
+        SELECT
             v.FechaVenta,
             v.Total,
             u.Nombres AS NombreUsuario,
@@ -35,7 +35,7 @@ export const getDevolucionVenta = async (req, res) => {
         LEFT JOIN 
             DevolucionVenta DV ON DV.IdVenta = v.IdVenta
         WHERE 
-            v.IdVenta = ?`,
+            v.IdVenta = ?`, 
         [req.params.id]
     );
     
@@ -46,13 +46,27 @@ export const getDevolucionVenta = async (req, res) => {
 }
 
 export const postDevolucionVentas = async (req, res) => {
-    const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion } = req.body;
-    const [rows] = await pool.query(
+    const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion, productos } = req.body;
+    const [result] = await pool.query(
         'INSERT INTO DevolucionVenta (Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion) VALUES (?, ?, ?, ?, ?)', 
         [Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion]
     );
+
+    const devolucionId = result.insertId;
+
+    for (const producto of productos) {
+        await pool.query(
+            'INSERT INTO DevolucionVentaProducto (IdDevolucionVenta, IdProducto, CantidadProducto, PrecioUnitario) VALUES (?, ?, ?, ?)', 
+            [devolucionId, producto.IdProducto, producto.Cantidad, producto.PrecioUnitario]
+        );
+        await pool.query(
+            'UPDATE Productos SET Stock = Stock + ? WHERE IdProducto = ?', 
+            [producto.Cantidad, producto.IdProducto]
+        );
+    }
+
     res.send({
-        id: rows.insertId,
+        id: devolucionId,
         Motivo, 
         ValorDevolucionVenta,
         EstadoDevolucion,
@@ -62,7 +76,7 @@ export const postDevolucionVentas = async (req, res) => {
 }
 
 export const deleteDevolucionVentas = async (req, res) => {
-    const [result] = await pool.query('DELETE FROM DevolucionesVentas WHERE IdDevolucionVenta = ?', [req.params.id]);
+    const [result] = await pool.query('DELETE FROM DevolucionVenta WHERE IdDevolucionVenta = ?', [req.params.id]);
     if (result.affectedRows <= 0) return res.status(404).json({
         message: 'Devolución de Venta no encontrada'
     });
@@ -73,7 +87,7 @@ export const putDevolucionVentas = async (req, res) => {
     const { id } = req.params;
     const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta } = req.body;
     const [result] = await pool.query(
-        'UPDATE DevolucionesVentas SET Motivo = IFNULL(?, Motivo), ValorDevolucionVenta = IFNULL(?, ValorDevolucionVenta), EstadoDevolucion = IFNULL(?, EstadoDevolucion), IdVenta = IFNULL(?, IdVenta) WHERE IdDevolucionVenta = ?', 
+        'UPDATE DevolucionVenta SET Motivo = IFNULL(?, Motivo), ValorDevolucionVenta = IFNULL(?, ValorDevolucionVenta), EstadoDevolucion = IFNULL(?, EstadoDevolucion), IdVenta = IFNULL(?, IdVenta) WHERE IdDevolucionVenta = ?', 
         [Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, id]
     );
 
@@ -81,6 +95,6 @@ export const putDevolucionVentas = async (req, res) => {
         message: 'Devolución de Venta no encontrada'
     });
 
-    const [rows] = await pool.query('SELECT * FROM DevolucionesVentas WHERE IdDevolucionVenta = ?', [id]);
+    const [rows] = await pool.query('SELECT * FROM DevolucionVenta WHERE IdDevolucionVenta = ?', [id]);
     res.json(rows[0]);
 }

@@ -33,6 +33,9 @@ import ventasRouter from './routes/ventas.router.js';
 import ventasProductosRouter from './routes/ventas.productos.routes.js';
 import ventasMembresiaRoutes from './routes/ventas.membresia.routes.js';
 
+import DevolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
+import DevolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
+
 import usuarioRolRoutes from './routes/usuarioRol.routes.js';
 
 //yonier
@@ -81,6 +84,9 @@ app.use('/Api',membresiasRoutes)
 app.use('/api', ventasRouter);
 app.use('/api', ventasProductosRouter);
 app.use('/api', ventasMembresiaRoutes);
+
+app.use('/api', DevolucionVentasRoutes);
+app.use('/api', DevolucionVentasProductosRoutes );
 
 app.use('/api', usuarioRolRoutes)
 

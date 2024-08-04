@@ -30,7 +30,6 @@
     <!-- Fin Barra superior -->
 
 
- <!-- Inicio contenido -->
 <!-- Inicio contenido -->
 <div class="container-fluid content-inner">
     <div class="row">
@@ -38,7 +37,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Agregar Venta</h4>
+                        <h4 class="card-title font-weight-bold text-primary">Agregar Venta</h4>
                     </div>
                 </div>
                 <div class="card-body">
@@ -47,7 +46,7 @@
                             <!-- Selección de Cliente -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="idUsuarios">Usuario *</label>
+                                    <label class="form-label font-weight-bold text-secondary" for="idUsuarios">Usuario *</label>
                                     <select class="form-select" id="idUsuarios" name="idUsuarios" required>
                                         <option selected="" disabled="">Selecciona el Usuario</option>
                                     </select>
@@ -56,45 +55,76 @@
                             <!-- Fecha de Venta -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">Fecha Venta*</label>
+                                    <label class="form-label font-weight-bold text-secondary">Fecha Venta*</label>
                                     <input type="date" class="form-control" name="fechaVenta" id="fechaVenta" required />
                                     <div id="errorFechaVenta" class="error-message"></div>
                                 </div>
                             </div>
-                            <!-- Selección de Producto -->
-                            <div class="col-md-6 mt-3">
-                                <label for="selectProducto" class="form-label">Selecciona un producto:</label>
-                                <div class="productoContainer d-flex align-items-center mb-2">
-                                    <select id="selectProducto" class="form-select" name="productos[]" onchange="actualizarValorProducto(this)" style="width: 220px;">
-                                        <option selected="" disabled="">Agregar producto a la venta</option>
-                                    </select>
-                                    <label for="cantidad" class="mx-1">Cantidad:</label>
-                                    <input style="width: 70px;" type="number" name="cantidades[]" value="1" min="1" class="form-control d-inline-block no-arrows" required onchange="calcularValorTotal()">
-                                    <label for="Valor" class="mx-1">Valor:</label>
-                                    <label class="valorProducto" for="Valor">$0</label>
-                                    <button type="button" class="btn btn-soft-info mx-1" onclick="agregarProducto()"><i class="fa-solid fa-plus fa-lg"></i></button>
-                                </div>
-                                <div id="productosAgregados"></div>
-                            </div>
-                            <!-- Selección de Membresía -->
-                            <div class="col-md-6 mt-3">
-                                <label for="selectMembresia" class="form-label">Selecciona una membresía:</label>
-                                <div class="membresiaContainer d-flex align-items-center mb-2">
-                                    <select id="selectMembresia" class="form-select" name="membresias[]" onchange="actualizarValorMembresia(this)" style="width: 220px;">
-                                        <option selected="" disabled="">Agregar membresía a la venta</option>
-                                    </select>
-                                    <label for="cantidadMembresia" class="mx-1">Cantidad:</label>
-                                    <input style="width: 70px;" type="number" name="cantidadesMembresia[]" value="1" min="1" class="form-control d-inline-block no-arrows" required onchange="calcularValorTotal()">
-                                    <label for="Valor" class="mx-1">Valor:</label>
-                                    <label class="valorMembresia" for="Valor">$0</label>
-                                    <button type="button" class="btn btn-soft-info mx-1" onclick="agregarMembresia()"><i class="fa-solid fa-plus fa-lg"></i></button>
-                                </div>
-                                <div id="membresiasAgregadas"></div>
+                            <!-- Productos y Membresías -->
+                            <div class="col-md-12 mt-3">
+                                <h5 class="font-weight-bold text-secondary">Productos</h5>
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Valor</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productosAgregados">
+                                        <tr class="productoContainer">
+                                            <td>
+                                                <select id="selectProducto" class="form-select" name="productos[]" onchange="actualizarValorProducto(this)" required>
+                                                    <option selected="" disabled="">Agregar producto a la venta</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="cantidades[]" value="1" min="1" class="form-control" required onchange="calcularValorTotal()">
+                                            </td>
+                                            <td>
+                                                <label class="valorProducto">$0</label>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-soft-info" onclick="agregarProducto()"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h5 class="font-weight-bold text-secondary mt-3">Membresías</h5>
+                                <table class="table table-bordered mt-3">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Membresía</th>
+                                            <th>Cantidad</th>
+                                            <th>Valor</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="membresiasAgregadas">
+                                        <tr class="membresiaContainer">
+                                            <td>
+                                                <select id="selectMembresia" class="form-select" name="membresias[]" onchange="actualizarValorMembresia(this)" required>
+                                                    <option selected="" disabled="">Agregar membresía a la venta</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="cantidadesMembresia[]" value="1" min="1" class="form-control" required onchange="calcularValorTotal()">
+                                            </td>
+                                            <td>
+                                                <label class="valorMembresia">$0</label>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-soft-info" onclick="agregarMembresia()"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- Total -->
                             <div class="col-md-12 mt-3">
                                 <div class="form-group text-center">
-                                    <label class="form-label">Total*</label>
+                                    <label class="form-label font-weight-bold text-secondary">Total*</label>
                                     <input type="number" class="form-control" name="total" id="total" required readonly style="width: 200px; margin: auto;" />
                                     <div id="errorTotal" class="error-message"></div>
                                 </div>
@@ -110,7 +140,8 @@
         </div>
     </div>
 </div>
-    <!-- Fin contenido -->
+<!-- Fin contenido -->
+
     <script src="../assets/js/ventas/crud.ventas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
