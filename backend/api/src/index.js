@@ -22,7 +22,7 @@ import UsuariosRoutes from "./routes/Usuarios.routes.js";
 import serviciosRoutes from "./routes/Servicios.routes.js";
 import membresiasRoutes from "./routes/Membresias.routes.js";
 
-import authRoutes from './routes/auth.routes.js'
+//import authRoutes from './routes/auth.routes.js'
 
 //nanis
 import rolesRoutes from './routes/roles.routes.js';
@@ -32,6 +32,7 @@ import permisosRolesRoutes from './routes/permisosRoles.routes.js';
 import ventasRouter from './routes/ventas.router.js';
 import ventasProductosRouter from './routes/ventas.productos.routes.js';
 import ventasMembresiaRoutes from './routes/ventas.membresia.routes.js';
+import estadosRouter from './routes/estados.ventas.routes.js'
 
 import DevolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
 import DevolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
@@ -53,7 +54,7 @@ app.use(express.json()); // Middleware para parsear application/json
 app.set('view engine', 'hbs');
 
 // Rutas
-app.use('/api/auth', authRoutes);
+//app.use('/api/auth', authRoutes);
 app.use('/api', rolesUsuariosRoutes);
 
 app.use('/api', ejerciciosRoutes);
@@ -84,6 +85,7 @@ app.use('/Api',membresiasRoutes)
 app.use('/api', ventasRouter);
 app.use('/api', ventasProductosRouter);
 app.use('/api', ventasMembresiaRoutes);
+app.use('/api', estadosRouter);
 
 app.use('/api', DevolucionVentasRoutes);
 app.use('/api', DevolucionVentasProductosRoutes );

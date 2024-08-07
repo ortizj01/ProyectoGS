@@ -39,8 +39,7 @@
     <!-- Fin Barra superior -->
 
 
-    <!-- Inicio contenido -->
-    <div class="container-fluid content-inner">
+<div class="container-fluid content-inner">
         <div class="container-fluid">
             <div class="card shadow mb-4">
                 <div class="card-body">
@@ -50,14 +49,6 @@
                         </div>
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="card-header py-3 d-flex justify-content-between">
-                                <div class="d-flex">
-                                    <div class="col-sm-16 col-md-8">
-                                        <div id="dataTable_filter" class="dataTables_filter">
-                                            <label>Buscar:<input type="search" class="form-control form-control-sm"
-                                                    placeholder="" aria-controls="dataTable"></label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="footer-buttons mt-1">
                                     <a href="/formuVenta" type="button" name="CrearVenta"
                                         class="btn btn-primary next action-button float-end" value="Next">
@@ -67,59 +58,22 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
-                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
-                                        style="width: 100%;">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
+                                        role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
-                                                    rowspan="1" colspan="1" aria-sort="ascending"
-                                                    style="width: 156.25px;">Nombre</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 104.297px;">Documento</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 93.0156px;">Fecha Venta</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 93.0156px;">Total</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 93.0156px;">Estado</th>
-                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                                    colspan="1" style="width: 93.0156px;">Acciones</th>
+                                                <th>Nombre</th>
+                                                <th>Documento</th>
+                                                <th>Fecha Venta</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody id="listaVentas">
                                             <!-- Contenido generado dinámicamente -->
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-30 col-md-40 p-2 float-end">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button page-item previous disabled"
-                                                id="dataTable_previous">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0"
-                                                    class="page-link">Previous</a>
-                                            </li>
-                                            <li class="paginate_button page-item active">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0"
-                                                    class="page-link">1</a>
-                                            </li>
-                                            <li class="paginate_button page-item ">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0"
-                                                    class="page-link">2</a>
-                                            </li>
-                                            <li class="paginate_button page-item ">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0"
-                                                    class="page-link">3</a>
-                                            </li>
-                                            <li class="paginate_button page-item next" id="dataTable_next">
-                                                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0"
-                                                    class="page-link">Next</a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +103,34 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para cambiar el estado de la venta -->
+<div class="modal fade" id="cambiarEstadoModal" tabindex="-1" aria-labelledby="cambiarEstadoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cambiarEstadoModalLabel">Cambiar Estado de la Venta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="cambiarEstadoForm">
+                    <div class="form-group">
+                        <label for="nuevoEstado" class="form-label">Seleccione el nuevo estado:</label>
+                        <select id="nuevoEstado" class="form-select" required>
+                            <!-- Los estados se llenarán dinámicamente -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="cambiarEstado()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- FIN DEL CONTENIDO -->
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/js/ventas/listar.ventas.js"></script>

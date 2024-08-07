@@ -1,7 +1,9 @@
 const urlVentas = 'http://localhost:3000/api/ventas';
+const urlEstadosVentas = 'http://localhost:3000/api/estadosVentas'; // URL para obtener los estados
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarVentas();
+    cargarEstados(); // Cargar los estados disponibles
 });
 
 async function cargarVentas() {
@@ -18,10 +20,10 @@ async function cargarVentas() {
                 <td>${venta.Documento}</td>
                 <td>${new Date(venta.FechaVenta).toLocaleDateString()}</td>
                 <td>${venta.Total}</td>
-                <td>${venta.EstadoVenta === 1 ? 'Activo' : 'Inactivo'}</td>
+                <td>${venta.EstadoVenta || 'Estado desconocido'}</td> <!-- Manejando undefined -->
                 <td>
                     <i class="fa-regular fa-eye fa-xl me-2" onclick="verDetalleVenta(${venta.IdVenta})"></i>
-                    <i class="fa-solid fa-trash fa-xl me-2 trash-icon" onclick="confirmarEliminarVenta(${venta.IdVenta})"></i>
+                    <i class="fa-solid fa-arrows-rotate fa-xl me-2 change-state-icon" onclick="abrirModalCambioEstado(${venta.IdVenta})"></i>
                 </td>
             `;
             listaVentas.appendChild(row);
@@ -34,74 +36,47 @@ async function cargarVentas() {
     }
 }
 
-async function verDetalleVenta(idVenta) {
+async function cargarEstados() {
     try {
-        const response = await fetch(`${urlVentas}/${idVenta}`);
-        const data = await response.json();
-        const { venta, productos, membresias } = data;
+        const response = await fetch(urlEstadosVentas);
+        const estados = await response.json();
+        const estadoSelect = document.getElementById('nuevoEstado');
+        estadoSelect.innerHTML = ''; // Limpiar opciones previas
 
-        const detalleVentaContenido = document.getElementById('detalleVentaContenido');
-        detalleVentaContenido.innerHTML = `
-            <div class="row mb-3">
-                <div class="col">
-                    <p><strong>Nombre:</strong> ${venta.NombreCompleto}</p>
-                    <p><strong>Documento:</strong> ${venta.Documento}</p>
-                    <p><strong>Correo:</strong> ${venta.Correo}</p>
-                    <p><strong>Teléfono:</strong> ${venta.Telefono}</p>
-                    <p><strong>Dirección:</strong> ${venta.Direccion}</p>
-                </div>
-                <div class="col">
-                    <p><strong>Fecha de Venta:</strong> ${new Date(venta.FechaVenta).toLocaleDateString()}</p>
-                    <p><strong>IVA:</strong> ${venta.Iva}</p>
-                    <p><strong>Total:</strong> ${venta.Total}</p>
-                    <p><strong>Estado:</strong> ${venta.EstadoVenta === 1 ? 'Activo' : 'Inactivo'}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p><strong>Productos:</strong></p>
-                    <ul>${productos.map(p => `<li>${p.NombreProducto} - Cantidad: ${p.Cantidad}</li>`).join('')}</ul>
-                </div>
-                <div class="col">
-                    <p><strong>Membresías:</strong></p>
-                    <ul>${membresias.map(m => `<li>${m.NombreMembresia} - Cantidad: ${m.Cantidad}</li>`).join('')}</ul>
-                </div>
-            </div>
-        `;
-
-        $('#detalleVentaModal').modal('show');
+        for (const estado of estados) {
+            const option = document.createElement('option');
+            option.value = estado.IdEstadoVenta;
+            option.textContent = estado.NombreEstado;
+            estadoSelect.appendChild(option);
+        }
     } catch (error) {
-        console.error('Error al obtener los detalles de la venta:', error);
+        console.error('Error al cargar los estados:', error);
     }
 }
 
-function confirmarEliminarVenta(id) {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "No podrás revertir esto",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, anular'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            anularVenta(id);
-        }
-    });
+function abrirModalCambioEstado(idVenta) {
+    document.getElementById('cambiarEstadoForm').setAttribute('data-id', idVenta);
+    $('#cambiarEstadoModal').modal('show');
 }
 
-async function anularVenta(id) {
+async function cambiarEstado() {
+    const idVenta = document.getElementById('cambiarEstadoForm').getAttribute('data-id');
+    const nuevoEstado = document.getElementById('nuevoEstado').value;
+
     try {
-        const response = await fetch(`${urlVentas}/${id}`, {
-            method: 'DELETE',
+        const response = await fetch(`${urlVentas}/${idVenta}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nuevoEstado })
         });
 
         const data = await response.json();
 
         if (response.ok) {
             Swal.fire(
-                'Anulada!',
+                'Éxito!',
                 data.message,
                 'success'
             );
@@ -113,15 +88,52 @@ async function anularVenta(id) {
             );
         }
 
-        // Recargar las ventas después de la anulación
-        cargarVentas();
+        $('#cambiarEstadoModal').modal('hide');
+        cargarVentas(); // Recargar las ventas después del cambio de estado
     } catch (error) {
-        console.error('Error al anular la venta:', error);
+        console.error('Error al cambiar el estado de la venta:', error);
         Swal.fire(
             'Error!',
-            'Error al anular la venta',
+            'Error al cambiar el estado de la venta',
             'error'
         );
+    }
+}
+
+async function verDetalleVenta(idVenta) {
+    try {
+        const response = await fetch(`${urlVentas}/${idVenta}`);
+        const data = await response.json();
+        const { NombreCompleto, Documento, FechaVenta, Total, EstadoVenta, productos, membresias } = data;
+
+        const detalleVentaContenido = document.getElementById('detalleVentaContenido');
+        detalleVentaContenido.innerHTML = `
+            <div class="row mb-3">
+                <div class="col">
+                    <p><strong>Nombre:</strong> ${NombreCompleto}</p>
+                    <p><strong>Documento:</strong> ${Documento}</p>
+                </div>
+                <div class="col">
+                    <p><strong>Fecha de Venta:</strong> ${new Date(FechaVenta).toLocaleDateString()}</p>
+                    <p><strong>Total:</strong> ${Total}</p>
+                    <p><strong>Estado:</strong> ${EstadoVenta || 'Estado desconocido'}</p> <!-- Manejando undefined -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h5><strong>Productos:</strong></h5>
+                    <ul>${productos.map(p => `<li>${p.NombreProducto} - Cantidad: ${p.Cantidad}</li>`).join('')}</ul>
+                </div>
+                <div class="col">
+                    <h5><strong>Membresías:</strong></h5>
+                    <ul>${membresias.map(m => `<li>${m.NombreMembresia} - Cantidad: ${m.Cantidad}</li>`).join('')}</ul>
+                </div>
+            </div>
+        `;
+
+        $('#detalleVentaModal').modal('show');
+    } catch (error) {
+        console.error('Error al obtener los detalles de la venta:', error);
     }
 }
 

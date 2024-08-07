@@ -224,6 +224,21 @@ function eliminarMembresia(button) {
     calcularValorTotal();
 }
 
+async function verificarStock(productos) {
+    for (const producto of productos) {
+        const response = await fetch(`${urlProductos}/${producto.IdProducto}`);
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+        const stockDisponible = data.Stock;
+
+        if (stockDisponible < producto.Cantidad) {
+            alert(`El producto ${data.NombreProducto} no tiene suficiente stock. Disponible: ${stockDisponible}, Solicitado: ${producto.Cantidad}`);
+            return false;
+        }
+    }
+    return true;
+}
+
 async function enviarVenta() {
     const fechaVenta = document.getElementById('fechaVenta').value;
     const total = document.getElementById('total').value;
@@ -246,11 +261,14 @@ async function enviarVenta() {
         return;
     }
 
+    // Verificar stock antes de enviar la venta
+    const stockValido = await verificarStock(productos);
+    if (!stockValido) return;
+
     const venta = {
         IdUsuario: idUsuario,
         FechaVenta: fechaVenta,
         Total: parseFloat(total),
-        EstadoVenta: 1,
         productos: productos,
         membresias: membresias
     };
@@ -271,3 +289,4 @@ async function enviarVenta() {
         alert('Error al crear la venta');
     }
 }
+
