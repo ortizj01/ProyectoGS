@@ -1,12 +1,15 @@
-const urlVentas = 'http://localhost:3000/api/devolucionventas';
+const url1 = 'http://localhost:3000/api/devolucionventas';
+const url2 = 'http://localhost:3000/api/ventasproducto';
+const url3 = 'http://localhost:3000/api/ventas';
 
 const listarDevVentas = async () => {
     let ObjectId = document.getElementById('contenidoDevVentas');
     let contenido = '';
 
     try {
-        const response = await fetch(urlVentas, {
+        const response = await fetch(url1, {
             method: 'GET',
+            mode: 'cors',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -17,23 +20,19 @@ const listarDevVentas = async () => {
         }
 
         const data = await response.json();
-
-        data.forEach(devolucion => {
+        
+        data.forEach(venta => {
             contenido += `
                 <tr>
-                    <td>${devolucion.IdDevolucionVenta}</td>
-                    <td>${devolucion.IdVenta}</td>
-                    <td>${devolucion.Motivo}</td>
-                    <td>$${devolucion.ValorDevolucionVenta}</td>
-                    <td>${devolucion.FechaDevolucionFormatted}</td>
-                    <td>${devolucion.estado_descripcion}</td>
+                    <td>${venta.NumeroReciboVenta}</td>
+                    <td>${venta.Motivo}</td>
+                    <td>$${venta.ValorDevolucion}</td>
+                    <td>${venta.FechaDevolucion}</td>
+                    <td>${venta.estado_descripcion}</td>
                     <td style="text-align: center;">
                         <div class="centered-container">
-                            <a href="visualizar_devolucion_venta.html?id=${devolucion.IdDevolucionVenta}">
+                            <a href="../visualizardevventa?id=${venta.IdDevolucionVenta}">
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
-                            </a>
-                            <a href="javascript:void(0);" onclick="eliminarDevolucionVenta(${devolucion.IdDevolucionVenta})">
-                                <i class="fa-regular fa-trash-alt fa-xl me-2"></i>
                             </a>
                         </div>
                     </td>
@@ -42,7 +41,6 @@ const listarDevVentas = async () => {
         });
 
         ObjectId.innerHTML = contenido;
-
         $('#dataTable').DataTable().destroy();
         $('#dataTable').DataTable({
             language: {
@@ -59,7 +57,7 @@ const listarDevVentas = async () => {
                 "zeroRecords": "Sin resultados encontrados",
                 "paginate": {
                     "first": "Primero",
-                    "last": "Último",
+                    "last": "Ultimo",
                     "next": "Siguiente",
                     "previous": "Anterior"
                 }
@@ -70,39 +68,6 @@ const listarDevVentas = async () => {
 
     } catch (error) {
         console.error('Error:', error);
-    }
-};
-
-const eliminarDevolucionVenta = async (id) => {
-    try {
-        const response = await fetch(`http://localhost:3000/api/devolucionventas/${id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Devolución eliminada con éxito',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                listarDevVentas();
-            }
-        });
-    } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un error al eliminar la devolución',
-            confirmButtonText: 'Aceptar'
-        });
     }
 };
 

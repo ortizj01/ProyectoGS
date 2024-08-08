@@ -49,6 +49,29 @@ export const getVenta = async (req, res) => {
     }
 };
 
+// Obtener todos los productos de una venta
+export const getVentasProducto = async (req, res) => {
+    try {
+        const [rows] = await pool.query(`
+            SELECT
+                vp.IdVentaProducto,
+                vp.IdVenta,
+                vp.IdProducto,
+                p.NombreProducto,
+                vp.CantidadProducto,
+                p.PrecioProducto,
+                vp.CantidadProducto * p.PrecioProducto AS TotalProducto
+            FROM VentasProducto vp
+            JOIN Productos p ON vp.IdProducto = p.IdProducto
+            WHERE vp.IdVenta = ?
+        `, [req.params.id]);
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener los productos de la venta:', error);
+        res.status(500).json({ message: 'Error al obtener los productos de la venta' });
+    }
+};
+
 // Crear una nueva venta
 export const postVenta = async (req, res) => {
     const { IdUsuario, productos = [], membresias = [] } = req.body; // Default to empty arrays if not provided

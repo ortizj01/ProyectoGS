@@ -30,74 +30,65 @@
     <!-- Fin Barra superior -->
 
 
-<!-- Inicio contenido -->
-<div class="container-fluid content-inner">
-    <div class="row">
-        <div class="col-sm-12 col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="header-title">
-                        <h4 class="card-title">Agregar Devolución</h4>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <form id="FormularioDevolucion">
-                        <div class="row">
-                            <!-- Selector de Ventas -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="idVenta">Venta *</label>
-                                    <select class="form-select" id="idVenta" name="idVenta" required onchange="cargarProductosDeVenta(this.value)">
-                                        <option selected="" disabled="">Selecciona la Venta</option>
-                                    </select>
-                                    <span class="error-message" id="idVenta-error"></span>
-                                </div>
-                            </div>
-
-                            <!-- Productos Asociados -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="productos">Productos</label>
-                                    <div id="productosDeVentaContainer">
-                                        <!-- Productos de la venta cargados dinámicamente -->
-                                    </div>
-                                    <span class="error-message" id="producto-error"></span>
-                                </div>
-                            </div>
-
-                            <!-- Motivo de Devolución -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Motivo:</label>
-                                    <textarea type="text" class="form-control" name="Motivo"
-                                              id="motivo" placeholder="Escribe tu motivo aquí..." required></textarea>
-                                    <span class="error-message" id="Motivo-error"></span>
-                                </div>
-                            </div>
-
-                            <!-- Valor de la Devolución -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Valor Devolución*</label>
-                                    <input type="number" class="form-control" name="valorDevolucionVenta"
-                                           id="valorDevolucionVenta" required readonly />
-                                    <span class="error-message" id="valorDevolucionVenta-error"></span>
-                                </div>
-                            </div>
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar Devolución</h4>
                         </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="FormularioDevolucion">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="idVenta">Venta *</label>
+                                        <select class="form-select" id="idVenta" name="idVenta" required onchange="cargarProductosDeVenta(this.value)">
+                                            <option selected disabled>Selecciona la Venta</option>
+                                        </select>
+                                        <span class="error-message" id="idVenta-error"></span>
+                                    </div>
+                                </div>
 
-                        <!-- Botones de Acción -->
-                        <button type="button" onclick="enviarDevolucion()" class="btn btn-primary next action-button float-end">Guardar</button>
-                        <a href="GestionDevoluciones" type="button" class="btn btn-dark previous action-button-previous float-end me-1">Cancelar</a>
-                    </form>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="productos">Productos</label>
+                                        <div id="productosDeVentaContainer">
+                                            <!-- Productos de la venta cargados dinámicamente -->
+                                        </div>
+                                        <span class="error-message" id="producto-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Motivo:</label>
+                                        <textarea type="text" class="form-control" name="Motivo"
+                                                  id="motivo" placeholder="Escribe tu motivo aquí..." required></textarea>
+                                        <span class="error-message" id="Motivo-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Valor Devolución*</label>
+                                        <input type="number" class="form-control" name="valorDevolucionVenta"
+                                               id="valorDevolucionVenta" required readonly />
+                                        <span class="error-message" id="valorDevolucionVenta-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="enviarDevVenta()" class="btn btn-primary next action-button float-end">Guardar</button>
+                            <a href="GestionDevoluciones" type="button" class="btn btn-dark previous action-button-previous float-end me-1">Cancelar</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Fin contenido -->
-
-
     <script src="../assets/js/devolucionVentas/formDevolucionVenta.js"></script>
 
     <!-- Footer Section Start -->
