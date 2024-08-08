@@ -1,246 +1,166 @@
 import { pool } from '../db.js';
 
-// Obtener detalles de una venta específica
-export const getVentaDetalle = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        // Obtener la venta
-        const [venta] = await pool.query(`
-            SELECT 
-                v.FechaVenta,
-                v.Total,
-                CONCAT(u.Nombres, ' ', u.Apellidos) AS NombreCompleto,
-                u.Documento,
-                ev.NombreEstado AS EstadoVenta
-            FROM 
-                Ventas v
-            JOIN 
-                Usuarios u ON v.IdUsuario = u.IdUsuario
-            JOIN 
-                EstadosVentas ev ON v.EstadoVenta = ev.IdEstadoVenta
-            WHERE 
-                v.IdVenta = ?
-        `, [id]);
-
-        if (venta.length === 0) {
-            return res.status(404).json({ message: 'Venta no encontrada' });
-        }
-
-        // Obtener productos de la venta
-        const [productos] = await pool.query(`
-            SELECT 
-                p.NombreProducto,
-                vp.Cantidad
-            FROM 
-                VentasProducto vp
-            JOIN 
-                Productos p ON vp.IdProducto = p.IdProducto
-            WHERE 
-                vp.IdVenta = ?
-        `, [id]);
-
-        // Obtener membresías de la venta
-        const [membresias] = await pool.query(`
-            SELECT 
-                m.NombreMembresia,
-                vm.Cantidad
-            FROM 
-                VentasMembresia vm
-            JOIN 
-                Membresias m ON vm.IdMembresia = m.IdMembresia
-            WHERE 
-                vm.IdVenta = ?
-        `, [id]);
-
-        // Responder con los detalles de la venta
-        res.json({
-            ...venta[0],
-            productos,
-            membresias
-        });
-    } catch (error) {
-        console.error('Error al obtener los detalles de la venta:', error);
-        res.status(500).json({ error: 'Error al obtener los detalles de la venta' });
-    }
-};
-
 // Obtener todas las ventas
 export const getVentas = async (req, res) => {
     try {
-        const [ventas] = await pool.query(`
-            SELECT 
+        const [rows] = await pool.query(`
+            SELECT
                 v.IdVenta,
                 v.FechaVenta,
                 v.Total,
+                ev.NombreEstado AS EstadoVenta,
                 CONCAT(u.Nombres, ' ', u.Apellidos) AS NombreCompleto,
-                u.Documento,
-                ev.NombreEstado AS EstadoVenta
-            FROM 
-                Ventas v
-            JOIN 
-                Usuarios u ON v.IdUsuario = u.IdUsuario
-            JOIN 
-                EstadosVentas ev ON v.EstadoVenta = ev.IdEstadoVenta
+                u.Documento
+            FROM Ventas v
+            JOIN EstadosVentas ev ON v.EstadoVenta = ev.IdEstadoVenta
+            JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
         `);
-
-        for (const venta of ventas) {
-            // Obtener productos asociados
-            const [productos] = await pool.query(`
-                SELECT 
-                    p.NombreProducto,
-                    vp.Cantidad,
-                    p.PrecioProducto AS PrecioUnitario
-                FROM 
-                    VentasProducto vp
-                JOIN 
-                    Productos p ON vp.IdProducto = p.IdProducto
-                WHERE 
-                    vp.IdVenta = ?
-            `, [venta.IdVenta]);
-
-            // Obtener membresías asociadas
-            const [membresias] = await pool.query(`
-                SELECT 
-                    m.NombreMembresia,
-                    vm.Cantidad
-                FROM 
-                    VentasMembresia vm
-                JOIN 
-                    Membresias m ON vm.IdMembresia = m.IdMembresia
-                WHERE 
-                    vm.IdVenta = ?
-            `, [venta.IdVenta]);
-
-            venta.productos = productos;
-            venta.membresias = membresias;
-        }
-
-        res.json(ventas);
+        res.json(rows);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al obtener las ventas' });
+        console.error('Error al obtener las ventas:', error);
+        res.status(500).json({ message: 'Error al obtener las ventas' });
     }
 };
 
+// Obtener una venta por ID
+export const getVenta = async (req, res) => {
+    try {
+        const [rows] = await pool.query(`
+            SELECT
+                v.IdVenta,
+                v.FechaVenta,
+                v.Total,
+                ev.NombreEstado AS EstadoVenta,
+                CONCAT(u.Nombres, ' ', u.Apellidos) AS NombreCompleto,
+                u.Documento
+            FROM Ventas v
+            JOIN EstadosVentas ev ON v.EstadoVenta = ev.IdEstadoVenta
+            JOIN Usuarios u ON v.IdUsuario = u.IdUsuario
+            WHERE v.IdVenta = ?
+        `, [req.params.id]);
+
+        if (rows.length <= 0) return res.status(404).json({
+            message: 'Venta no encontrada'
+        });
+        res.json(rows[0]);
+    } catch (error) {
+        console.error('Error al obtener la venta:', error);
+        res.status(500).json({ message: 'Error al obtener la venta' });
+    }
+};
 
 // Crear una nueva venta
-export const crearVenta = async (req, res) => {
-    const { IdUsuario, FechaVenta, Total, productos, membresias } = req.body; // Eliminamos EstadoVenta porque será predeterminado
-    const connection = await pool.getConnection();
-    
+export const postVenta = async (req, res) => {
+    const { IdUsuario, productos = [], membresias = [] } = req.body; // Default to empty arrays if not provided
+    const estadoActivo = 1;  // Estado activo (por ejemplo, estado ID 1)
+    let total = 0;
+
     try {
-        await connection.beginTransaction();
+        // Verificar y calcular el total de la venta sumando productos y membresías
+        for (let producto of productos) {
+            const [prodData] = await pool.query('SELECT PrecioProducto, Stock FROM Productos WHERE IdProducto = ?', [producto.IdProducto]);
+            if (prodData.length === 0) {
+                return res.status(404).json({ message: `Producto con ID ${producto.IdProducto} no encontrado` });
+            }
+            if (prodData[0].Stock < producto.Cantidad) {
+                return res.status(400).json({ message: `Stock insuficiente para el producto ${producto.IdProducto}` });
+            }
+            total += prodData[0].PrecioProducto * producto.Cantidad;
+        }
         
-        // Establecer estado inicial a "Activo" (suponiendo que 1 es el ID para "Activo")
-        const estadoInicial = 1; // Cambia este valor si el ID del estado "Activo" es diferente
-        
-        const [result] = await connection.query(
-            'INSERT INTO Ventas (IdUsuario, FechaVenta, Total, EstadoVenta) VALUES (?, ?, ?, ?)', 
-            [IdUsuario, FechaVenta, Total, estadoInicial]
+        for (let membresia of membresias) {
+            const [membData] = await pool.query('SELECT CostoVenta FROM Membresias WHERE IdMembresia = ?', [membresia.IdMembresia]);
+            if (membData.length === 0) {
+                return res.status(404).json({ message: `Membresía con ID ${membresia.IdMembresia} no encontrada` });
+            }
+            total += membData[0].CostoVenta * membresia.Cantidad;
+        }
+
+        // Insertar la venta
+        const [ventaResult] = await pool.query(
+            'INSERT INTO Ventas (IdUsuario, Total, EstadoVenta) VALUES (?, ?, ?)',
+            [IdUsuario, total, estadoActivo]
         );
 
-        const idVenta = result.insertId;
+        const idVenta = ventaResult.insertId;
 
-        if (productos && productos.length > 0) {
-            for (const producto of productos) {
-                if (producto.IdProducto !== "Agregar producto a la venta") {
-                    // Obtener el stock actual del producto
-                    const [stockData] = await connection.query('SELECT Stock FROM Productos WHERE IdProducto = ?', [producto.IdProducto]);
-                    const currentStock = stockData[0].Stock;
-
-                    // Validar el stock
-                    if (currentStock < producto.Cantidad) {
-                        await connection.rollback();
-                        return res.status(400).json({ error: `El producto con ID ${producto.IdProducto} no tiene suficiente stock. Disponible: ${currentStock}, Solicitado: ${producto.Cantidad}` });
-                    }
-
-                    // Insertar el producto en VentasProducto
-                    await connection.query(
-                        'INSERT INTO VentasProducto (IdVenta, IdProducto, Cantidad) VALUES (?, ?, ?)', 
-                        [idVenta, producto.IdProducto, producto.Cantidad]
-                    );
-
-                    // Restar la cantidad de productos vendidos del stock
-                    await connection.query(
-                        'UPDATE Productos SET Stock = Stock - ? WHERE IdProducto = ?', 
-                        [producto.Cantidad, producto.IdProducto]
-                    );
-                }
-            }
+        // Insertar productos de la venta
+        for (let producto of productos) {
+            await pool.query(
+                'INSERT INTO VentasProducto (IdVenta, IdProducto, CantidadProducto) VALUES (?, ?, ?)',
+                [idVenta, producto.IdProducto, producto.Cantidad]
+            );
+            await pool.query(
+                'UPDATE Productos SET Stock = Stock - ? WHERE IdProducto = ?',
+                [producto.Cantidad, producto.IdProducto]
+            );
         }
 
-        if (membresias && membresias.length > 0) {
-            for (const membresia of membresias) {
-                if (membresia.IdMembresia !== "Agregar membresía a la venta") {
-                    await connection.query(
-                        'INSERT INTO VentasMembresia (IdVenta, IdMembresia, Cantidad) VALUES (?, ?, ?)', 
-                        [idVenta, membresia.IdMembresia, membresia.Cantidad]
-                    );
-                }
-            }
+        // Insertar membresías de la venta
+        for (let membresia of membresias) {
+            await pool.query(
+                'INSERT INTO VentasMembresia (IdVenta, IdMembresia, Cantidad) VALUES (?, ?, ?)',
+                [idVenta, membresia.IdMembresia, membresia.Cantidad]
+            );
         }
 
-        await connection.commit();
-        
-        res.status(201).json({ id: idVenta, IdUsuario, FechaVenta, Total, EstadoVenta: estadoInicial, productos, membresias });
+        res.send({
+            id: idVenta,
+            IdUsuario,
+            Total: total,
+            EstadoVenta: estadoActivo
+        });
     } catch (error) {
-        await connection.rollback();
-        console.error(error);
-        res.status(500).json({ error: 'Error al crear la venta' });
-    } finally {
-        connection.release();
+        console.error('Error al crear la venta:', error);
+        res.status(500).json({ message: 'Error al crear la venta' });
     }
 };
 
-// Cambiar el estado de una venta
-export const cambiarEstadoVenta = async (req, res) => {
+// Actualizar una venta
+export const putVenta = async (req, res) => {
     const { id } = req.params;
-    const { nuevoEstado } = req.body; // Recibir el nuevo estado desde el cliente
-
-    let connection;
+    const { IdUsuario, Total, EstadoVenta } = req.body;
 
     try {
-        connection = await pool.getConnection();
-        await connection.beginTransaction();
+        const [result] = await pool.query(`
+            UPDATE Ventas
+            SET IdUsuario = IFNULL(?, IdUsuario),
+                Total = IFNULL(?, Total),
+                EstadoVenta = IFNULL(?, EstadoVenta)
+            WHERE IdVenta = ?
+        `, [IdUsuario, Total, EstadoVenta, id]);
 
-        // Obtener el estado actual de la venta para verificar si ya estaba anulado
-        const [ventaActual] = await connection.query('SELECT EstadoVenta FROM Ventas WHERE IdVenta = ?', [id]);
-        
-        if (ventaActual.length === 0) {
-            await connection.rollback();
-            return res.status(404).json({ message: 'Venta no encontrada' });
-        }
+        if (result.affectedRows === 0) return res.status(404).json({
+            message: 'Venta no encontrada'
+        });
 
-        const estadoActual = ventaActual[0].EstadoVenta;
-
-        // Cambiar el estado de la venta
-        const [result] = await connection.query('UPDATE Ventas SET EstadoVenta = ? WHERE IdVenta = ?', [nuevoEstado, id]);
-
-        if (result.affectedRows === 0) {
-            await connection.rollback();
-            return res.status(404).json({ message: 'Venta no encontrada' });
-        }
-
-        // Si el nuevo estado es 'Anulado' y el estado anterior no era 'Anulado', restaurar el stock de productos
-        if (nuevoEstado === 2 && estadoActual !== 2) { // Suponiendo que 2 es el estado para 'Anulado'
-            const [productos] = await connection.query('SELECT IdProducto, Cantidad FROM VentasProducto WHERE IdVenta = ?', [id]);
-            for (const producto of productos) {
-                await connection.query('UPDATE Productos SET Stock = Stock + ? WHERE IdProducto = ?', [producto.Cantidad, producto.IdProducto]);
-            }
-        }
-
-        await connection.commit();
-        res.status(200).json({ message: 'Estado de la venta actualizado con éxito' });
+        const [rows] = await pool.query('SELECT * FROM Ventas WHERE IdVenta = ?', [id]);
+        res.json(rows[0]);
     } catch (error) {
-        console.error(error);
-        if (connection) {
-            await connection.rollback();
+        console.error('Error al actualizar la venta:', error);
+        res.status(500).json({ message: 'Error al actualizar la venta' });
+    }
+};
+
+
+// Anular una venta y devolver stock
+export const cancelarVenta = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Cambiar el estado de la venta a "Anulado" (estado ID 2)
+        await pool.query('UPDATE Ventas SET EstadoVenta = 2 WHERE IdVenta = ?', [id]);
+
+        // Devolver stock a los productos
+        const [productos] = await pool.query('SELECT IdProducto, CantidadProducto FROM VentasProducto WHERE IdVenta = ?', [id]);
+
+        for (let producto of productos) {
+            await pool.query('UPDATE Productos SET Stock = Stock + ? WHERE IdProducto = ?', [producto.CantidadProducto, producto.IdProducto]);
         }
-        res.status(500).json({ error: 'Error al actualizar el estado de la venta' });
-    } finally {
-        if (connection) {
-            connection.release();
-        }
+
+        res.send('Venta anulada y stock devuelto');
+    } catch (error) {
+        console.error('Error al anular la venta:', error);
+        res.status(500).json({ message: 'Error al anular la venta' });
     }
 };

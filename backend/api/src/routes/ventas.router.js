@@ -1,12 +1,17 @@
-import { Router } from 'express';
-import { getVentas, crearVenta, cambiarEstadoVenta, getVentaDetalle } from '../controllers/ventas.controller.js';
+import { Router } from "express";
+import { getVentas, getVenta, postVenta, putVenta, cancelarVenta} from '../controllers/ventas.controller.js';
 
 const router = Router();
 
 router.get('/ventas', getVentas);
-//router.get('/ventas/:id/productos', getProductosDeVenta); // Obtener productos de una venta específica);
-router.get('/ventas/:id', getVentaDetalle); // Ruta para obtener detalles de una venta específica
-router.post('/ventas', crearVenta);
-router.put('/ventas/:id', cambiarEstadoVenta);
+
+router.get('/ventas/:id', getVenta);
+
+router.post('/ventas', postVenta);
+
+router.patch('/ventas/:id', putVenta);
+
+// Ruta para cancelar venta y devolver stock
+router.patch('/ventas/:id/cancelar', cancelarVenta);
 
 export default router;

@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors'; // Importar cors
-import ejerciciosRoutes from './routes/ejercicios.routes.js';
-import rutinasRoutes from './routes/rutinas.routes.js';
-import eventosRoutes from './routes/eventos.routes.js';
-import detalleRutinasRouter from './routes/detalleRutinas.routes.js';
-import rolesUsuariosRoutes from './routes/rolCliente.routes.js'
+//import ejerciciosRoutes from './routes/ejercicios.routes.js';
+//import rutinasRoutes from './routes/rutinas.routes.js';
+// import eventosRoutes from './routes/eventos.routes.js';
+// import detalleRutinasRouter from './routes/detalleRutinas.routes.js';
+// import rolesUsuariosRoutes from './routes/rolCliente.routes.js'
 
 
 //Alejo
@@ -37,7 +37,7 @@ import estadosRouter from './routes/estados.ventas.routes.js'
 import DevolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
 import DevolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
 
-import usuarioRolRoutes from './routes/usuarioRol.routes.js';
+//import usuarioRolRoutes from './routes/usuarioRol.routes.js';
 
 //yonier
 import valoracionMedicaRoutes from './routes/valoracionMedica.routes.js';
@@ -55,12 +55,12 @@ app.set('view engine', 'hbs');
 
 // Rutas
 //app.use('/api/auth', authRoutes);
-app.use('/api', rolesUsuariosRoutes);
+//app.use('/api', rolesUsuariosRoutes);
 
-app.use('/api', ejerciciosRoutes);
-app.use('/api', rutinasRoutes);
-app.use('/api', eventosRoutes);
-app.use('/api', detalleRutinasRouter);
+//app.use('/api', ejerciciosRoutes);
+//app.use('/api', rutinasRoutes);
+//app.use('/api', eventosRoutes);
+//app.use('/api', detalleRutinasRouter);
 app.use('/api', UsuariosRoutes)
 
 app.use(indexRoutes);
@@ -90,7 +90,7 @@ app.use('/api', estadosRouter);
 app.use('/api', DevolucionVentasRoutes);
 app.use('/api', DevolucionVentasProductosRoutes );
 
-app.use('/api', usuarioRolRoutes)
+// app.use('/api', usuarioRolRoutes)
 
 app.use('/api', rolesRoutes);
 app.use('/api', permisosRoutes);

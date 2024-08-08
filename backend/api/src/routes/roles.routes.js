@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { validarJWT } from '../middlewares/validar-jwt.js';
-import { validarRoles } from '../middlewares/validar-permisos.js';
+//import { validarJWT } from '../middlewares/validar-jwt.js';
+//import { validarRoles } from '../middlewares/validar-permisos.js';
 import { getRoles, getRol, crearRol, editarRol, eliminarRol } from '../controllers/roles.controller.js';
 
 const router = Router();

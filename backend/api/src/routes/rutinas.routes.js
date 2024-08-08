@@ -1,5 +1,5 @@
 import { Router } from 'express'; // para crear y agrupar todas las rutas
-import { validarJWT } from '../middlewares/validar-jwt.js';
+//import { validarJWT } from '../middlewares/validar-jwt.js';
 import { getRutinas, createRutinas, 
     getRutina, updateRutina, deleteRutina, 
     getRutinaDetallada, getUsuarios, 
@@ -7,13 +7,13 @@ import { getRutinas, createRutinas,
 
 const router = Router();
 
-router.get('/rutinas', validarJWT, getRutinas);
-router.get('/rutinas/:IdRutina', validarJWT, getRutina); 
-router.post('/rutinas', validarJWT, createRutinas);
-router.put('/rutinas/:IdRutina', validarJWT, updateRutina); 
-router.delete('/rutinas/:IdRutina', validarJWT, deleteRutina);
-router.get('/rutinas/:IdRutina/detallada', validarJWT, getRutinaDetallada);
-router.delete('/rutinas/:IdRutina/ejercicios', validarJWT, deleteEjerciciosDeRutina); 
+router.get('/rutinas', getRutinas);
+router.get('/rutinas/:IdRutina', getRutina); 
+router.post('/rutinas', createRutinas);
+router.put('/rutinas/:IdRutina', updateRutina); 
+router.delete('/rutinas/:IdRutina', deleteRutina);
+router.get('/rutinas/:IdRutina/detallada', getRutinaDetallada);
+router.delete('/rutinas/:IdRutina/ejercicios', deleteEjerciciosDeRutina); 
 
 // Nueva ruta para obtener los usuarios
 router.get('/usuarios',getUsuarios)

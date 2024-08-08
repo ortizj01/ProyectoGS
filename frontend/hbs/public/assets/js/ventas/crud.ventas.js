@@ -5,8 +5,9 @@ const urlUsuarios = 'http://localhost:3000/api/usuarios';
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarUsuarios();
-    cargarProductos();
-    cargarMembresias();
+    cargarProductos(document.getElementById('selectProducto'));
+    cargarMembresias(document.getElementById('selectMembresia'));
+    inicializarSelect2();
 });
 
 async function cargarUsuarios() {
@@ -30,54 +31,12 @@ async function cargarUsuarios() {
     }
 }
 
-async function cargarProductos() {
+async function cargarProductos(selectElement) {
     try {
         const response = await fetch(urlProductos);
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const productos = await response.json();
-        const selectProducto = document.getElementById('selectProducto');
-        if (selectProducto) {
-            productos.forEach(producto => {
-                const option = document.createElement('option');
-                option.value = producto.IdProducto;
-                option.textContent = `${producto.NombreProducto} - $${producto.PrecioProducto}`;
-                selectProducto.appendChild(option);
-            });
-        } else {
-            console.error('Elemento selectProducto no encontrado');
-        }
-    } catch (error) {
-        console.error('Error al cargar los productos:', error);
-    }
-}
-
-async function cargarMembresias() {
-    try {
-        const response = await fetch(urlMembresias);
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        const membresias = await response.json();
-        const selectMembresia = document.getElementById('selectMembresia');
-        if (selectMembresia) {
-            membresias.forEach(membresia => {
-                const option = document.createElement('option');
-                option.value = membresia.IdMembresia;
-                option.textContent = `${membresia.NombreMembresia} - $${membresia.CostoVenta}`;
-                selectMembresia.appendChild(option);
-            });
-        } else {
-            console.error('Elemento selectMembresia no encontrado');
-        }
-    } catch (error) {
-        console.error('Error al cargar las membresías:', error);
-    }
-}
-
-async function cargarProductosDinamico(selectElement) {
-    try {
-        const response = await fetch(urlProductos);
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        const productos = await response.json();
-        selectElement.innerHTML = '';
+        selectElement.innerHTML = ''; // Clear previous options
         const defaultOption = document.createElement('option');
         defaultOption.selected = true;
         defaultOption.disabled = true;
@@ -90,16 +49,16 @@ async function cargarProductosDinamico(selectElement) {
             selectElement.appendChild(option);
         });
     } catch (error) {
-        console.error('Error al cargar los productos dinámicamente:', error);
+        console.error('Error al cargar los productos:', error);
     }
 }
 
-async function cargarMembresiasDinamico(selectElement) {
+async function cargarMembresias(selectElement) {
     try {
         const response = await fetch(urlMembresias);
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
         const membresias = await response.json();
-        selectElement.innerHTML = '';
+        selectElement.innerHTML = ''; // Clear previous options
         const defaultOption = document.createElement('option');
         defaultOption.selected = true;
         defaultOption.disabled = true;
@@ -112,7 +71,7 @@ async function cargarMembresiasDinamico(selectElement) {
             selectElement.appendChild(option);
         });
     } catch (error) {
-        console.error('Error al cargar las membresías dinámicamente:', error);
+        console.error('Error al cargar las membresías:', error);
     }
 }
 
@@ -145,6 +104,7 @@ function actualizarValorProducto(select) {
             .then(data => {
                 const container = select.closest('.productoContainer');
                 container.querySelector('.valorProducto').textContent = `$${data.PrecioProducto}`;
+                container.querySelector('input[name="cantidades[]"]').max = data.Stock;
                 calcularValorTotal();
             })
             .catch(error => console.error('Error al obtener el valor del producto:', error));
@@ -173,7 +133,7 @@ function agregarProducto() {
     container.classList.add('productoContainer');
     container.innerHTML = `
         <td>
-            <select name="productos[]" class="form-select" onchange="actualizarValorProducto(this)">
+            <select name="productos[]" class="form-select" onchange="actualizarValorProducto(this)" required>
                 <option selected="" disabled="">Agregar producto a la venta</option>
             </select>
         </td>
@@ -188,7 +148,7 @@ function agregarProducto() {
         </td>
     `;
     document.getElementById('productosAgregados').appendChild(container);
-    cargarProductosDinamico(container.querySelector('select[name="productos[]"]'));
+    cargarProductos(container.querySelector('select[name="productos[]"]'));
 }
 
 function agregarMembresia() {
@@ -196,7 +156,7 @@ function agregarMembresia() {
     container.classList.add('membresiaContainer');
     container.innerHTML = `
         <td>
-            <select name="membresias[]" class="form-select" onchange="actualizarValorMembresia(this)">
+            <select name="membresias[]" class="form-select" onchange="actualizarValorMembresia(this)" required>
                 <option selected="" disabled="">Agregar membresía a la venta</option>
             </select>
         </td>
@@ -211,7 +171,7 @@ function agregarMembresia() {
         </td>
     `;
     document.getElementById('membresiasAgregadas').appendChild(container);
-    cargarMembresiasDinamico(container.querySelector('select[name="membresias[]"]'));
+    cargarMembresias(container.querySelector('select[name="membresias[]"]'));
 }
 
 function eliminarProducto(button) {
@@ -232,7 +192,11 @@ async function verificarStock(productos) {
         const stockDisponible = data.Stock;
 
         if (stockDisponible < producto.Cantidad) {
-            alert(`El producto ${data.NombreProducto} no tiene suficiente stock. Disponible: ${stockDisponible}, Solicitado: ${producto.Cantidad}`);
+            Swal.fire({
+                icon: 'error',
+                title: 'Stock insuficiente',
+                text: `El producto ${data.NombreProducto} no tiene suficiente stock. Disponible: ${stockDisponible}, Solicitado: ${producto.Cantidad}`
+            });
             return false;
         }
     }
@@ -240,35 +204,37 @@ async function verificarStock(productos) {
 }
 
 async function enviarVenta() {
+    const idUsuario = document.getElementById('idUsuarios').value;
     const fechaVenta = document.getElementById('fechaVenta').value;
     const total = document.getElementById('total').value;
-    const idUsuario = document.getElementById('idUsuarios').value;
 
     const productos = Array.from(document.querySelectorAll('select[name="productos[]"]')).map((select, index) => {
         const idProducto = select.value;
         const cantidad = document.querySelectorAll('input[name="cantidades[]"]')[index].value;
-        return idProducto !== "Agregar producto a la venta" ? { IdProducto: idProducto, Cantidad: cantidad } : null;
+        return idProducto ? { IdProducto: idProducto, Cantidad: cantidad } : null;
     }).filter(producto => producto !== null);
 
     const membresias = Array.from(document.querySelectorAll('select[name="membresias[]"]')).map((select, index) => {
         const idMembresia = select.value;
         const cantidad = document.querySelectorAll('input[name="cantidadesMembresia[]"]')[index].value;
-        return idMembresia !== "Agregar membresía a la venta" ? { IdMembresia: idMembresia, Cantidad: cantidad } : null;
+        return idMembresia ? { IdMembresia: idMembresia, Cantidad: cantidad } : null;
     }).filter(membresia => membresia !== null);
 
-    if (!fechaVenta || !total || !idUsuario || (productos.length === 0 && membresias.length === 0)) {
-        alert('Por favor, complete todos los campos obligatorios y agregue al menos un producto o una membresía.');
+    if (!idUsuario || !fechaVenta || (!productos.length && !membresias.length)) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos incompletos',
+            text: 'Por favor, complete todos los campos obligatorios y agregue al menos un producto o una membresía.'
+        });
         return;
     }
 
-    // Verificar stock antes de enviar la venta
-    const stockValido = await verificarStock(productos);
-    if (!stockValido) return;
+    if (productos.length > 0 && !(await verificarStock(productos))) {
+        return;
+    }
 
     const venta = {
         IdUsuario: idUsuario,
-        FechaVenta: fechaVenta,
-        Total: parseFloat(total),
         productos: productos,
         membresias: membresias
     };
@@ -282,11 +248,19 @@ async function enviarVenta() {
             body: JSON.stringify(venta)
         });
         if (!response.ok) throw new Error('Error al crear la venta');
-        alert('Venta creada exitosamente');
-        location.reload();
+        Swal.fire({
+            icon: 'success',
+            title: 'Venta creada',
+            text: 'Venta creada exitosamente'
+        }).then(() => {
+            window.location.href = '/GestionVentas';
+        });
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al crear la venta');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al crear la venta'
+        });
     }
 }
-

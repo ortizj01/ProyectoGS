@@ -1,30 +1,28 @@
 import { pool } from "../db.js";
 import bcrypt from "bcryptjs";
 
+// Obtener todos los usuarios
 export const getUsuarios = async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM Usuarios');
         res.json(rows);
     } catch (error) {
-        return res.status(500).json({
-            message: 'something goes wrong'
-        });
+        console.error('Error al obtener los usuarios:', error);
+        res.status(500).json({ message: 'Error al obtener los usuarios' });
     }
-}
+};
 
+// Obtener un usuario por ID
 export const getUsuario = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM Usuarios WHERE IdUsuario=?', [req.params.id]);
-        if (rows.length <= 0) return res.status(400).json({
-            message: 'Usuario not found'
-        });
+        const [rows] = await pool.query('SELECT * FROM Usuarios WHERE IdUsuario = ?', [req.params.id]);
+        if (rows.length <= 0) return res.status(404).json({ message: 'Usuario no encontrado' });
         res.json(rows[0]);
     } catch (error) {
-        return res.status(500).json({
-            message: 'something goes wrong'
-        });
+        console.error('Error al obtener el usuario:', error);
+        res.status(500).json({ message: 'Error al obtener el usuario' });
     }
-}
+};
 
 export const getUserWithBeneficiary = async (req, res) => {
     try {

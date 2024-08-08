@@ -248,11 +248,19 @@ app.get('/CrearRol', (req, res)=>{
 })
 
 app.get('/GestionVentas', (req, res)=>{
-    res.render('GestionVentas')
+    res.render('ventas_vistas/GestionVentas')
 })
 
 app.get('/formuVenta', (req, res)=>{
-    res.render('formuVenta')
+    res.render('ventas_vistas/formuVenta')
+})
+
+app.get('/GestionDevoluciones', (req, res)=>{
+    res.render('devolucion.ventas/GestionDevoluciones')
+})
+
+app.get('/formulDevolucion', (req, res)=>{
+    res.render('devolucion.ventas/formulDevolucion')
 })
 
 //PRUEBAS TABLAS
@@ -301,26 +309,6 @@ app.get('/detallePedido', (req, res)=>{
     res.render('pedidos/detallePedido')
 })
 
-// JOHANY
-
-app.get('/GestionVentas', (req, res)=>{
-    res.render('GestionVentas')
-})
-
-app.get('/GestionDevoluciones', (req, res)=>{
-    res.render('GestionDevoluciones')
-})
-
-app.get('/formulDevolucion', (req, res)=>{
-    res.render('formulDevolucion')
-})
-
-app.get('/formuVenta', (req, res)=>{
-    res.render('formuVenta')
-})
-
-
-// FIN JOHANY
 
 
 //Fin Ventas

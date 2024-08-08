@@ -3,10 +3,10 @@ import { getVentasProducto, getVentaProducto, postVentasProducto, deleteVentasPr
 
 const router = Router();
 
-router.get('/ventasProducto', getVentasProducto);
+router.get('/ventas/:id/productos', getVentasProducto);
 router.get('/ventasProducto/:id', getVentaProducto);
-router.post('/ventasProducto', postVentasProducto);
-router.delete('/ventasProducto/:id', deleteVentasProducto);
-router.put('/ventasProducto/:id', putVentasProducto);
+router.post('/ventas/productos', postVentasProducto);
+router.patch('/ventas/productos/:id', putVentasProducto);
+router.delete('/ventas/productos/:id', deleteVentasProducto);
 
 export default router;

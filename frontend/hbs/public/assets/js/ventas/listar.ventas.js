@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function cargarVentas() {
     try {
         const response = await fetch(urlVentas);
+        if (!response.ok) throw new Error('Error al obtener las ventas');
+        
         const ventas = await response.json();
         const listaVentas = document.getElementById('listaVentas');
         listaVentas.innerHTML = '';
@@ -19,11 +21,11 @@ async function cargarVentas() {
                 <td>${venta.NombreCompleto}</td>
                 <td>${venta.Documento}</td>
                 <td>${new Date(venta.FechaVenta).toLocaleDateString()}</td>
-                <td>${venta.Total}</td>
-                <td>${venta.EstadoVenta || 'Estado desconocido'}</td> <!-- Manejando undefined -->
+                <td>${venta.Total.toFixed(2)}</td>
+                <td>${venta.EstadoVenta || 'Estado desconocido'}</td>
                 <td>
                     <i class="fa-regular fa-eye fa-xl me-2" onclick="verDetalleVenta(${venta.IdVenta})"></i>
-                    <i class="fa-solid fa-arrows-rotate fa-xl me-2 change-state-icon" onclick="abrirModalCambioEstado(${venta.IdVenta})"></i>
+                    <i class="fa-solid fa-arrows-rotate fa-xl me-2 change-state-icon" onclick="abrirModalCambioEstado(${venta.IdVenta}, '${venta.EstadoVenta}')"></i>
                 </td>
             `;
             listaVentas.appendChild(row);
@@ -39,6 +41,8 @@ async function cargarVentas() {
 async function cargarEstados() {
     try {
         const response = await fetch(urlEstadosVentas);
+        if (!response.ok) throw new Error('Error al obtener los estados');
+
         const estados = await response.json();
         const estadoSelect = document.getElementById('nuevoEstado');
         estadoSelect.innerHTML = ''; // Limpiar opciones previas
@@ -54,8 +58,13 @@ async function cargarEstados() {
     }
 }
 
-function abrirModalCambioEstado(idVenta) {
+function abrirModalCambioEstado(idVenta, estadoActual) {
     document.getElementById('cambiarEstadoForm').setAttribute('data-id', idVenta);
+    const estadoSelect = document.getElementById('nuevoEstado');
+
+    // Establecer el estado actual como el seleccionado por defecto
+    estadoSelect.value = estadoActual;
+
     $('#cambiarEstadoModal').modal('show');
 }
 
@@ -65,36 +74,61 @@ async function cambiarEstado() {
 
     try {
         const response = await fetch(`${urlVentas}/${idVenta}`, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ nuevoEstado })
+            body: JSON.stringify({ EstadoVenta: nuevoEstado }) // Enviar el estado correcto
         });
 
         const data = await response.json();
 
         if (response.ok) {
+            // Verificar si el nuevo estado es "Anulado" (ID 2)
+            if (nuevoEstado === '2') {
+                await anularVenta(idVenta);
+            }
+
             Swal.fire(
-                'Éxito!',
-                data.message,
+                '¡Éxito!',
+                data.message || 'Estado de la venta cambiado correctamente',
                 'success'
             );
+
+            $('#cambiarEstadoModal').modal('hide');
+            cargarVentas(); // Recargar las ventas después del cambio de estado
         } else {
             Swal.fire(
-                'Error!',
-                data.message,
+                '¡Error!',
+                data.message || 'Hubo un problema al cambiar el estado de la venta',
                 'error'
             );
         }
-
-        $('#cambiarEstadoModal').modal('hide');
-        cargarVentas(); // Recargar las ventas después del cambio de estado
     } catch (error) {
         console.error('Error al cambiar el estado de la venta:', error);
         Swal.fire(
-            'Error!',
+            '¡Error!',
             'Error al cambiar el estado de la venta',
+            'error'
+        );
+    }
+}
+
+async function anularVenta(idVenta) {
+    try {
+        const response = await fetch(`${urlVentas}/${idVenta}/cancelar`, {
+            method: 'PATCH'
+        });
+
+        if (!response.ok) {
+            const data = await response.json();
+            throw new Error(data.message || 'Error al anular la venta');
+        }
+    } catch (error) {
+        console.error('Error al anular la venta:', error);
+        Swal.fire(
+            '¡Error!',
+            'Error al anular la venta y devolver el stock',
             'error'
         );
     }
@@ -103,8 +137,17 @@ async function cambiarEstado() {
 async function verDetalleVenta(idVenta) {
     try {
         const response = await fetch(`${urlVentas}/${idVenta}`);
+        if (!response.ok) throw new Error('Error al obtener los detalles de la venta');
+
         const data = await response.json();
-        const { NombreCompleto, Documento, FechaVenta, Total, EstadoVenta, productos, membresias } = data;
+        const { NombreCompleto, Documento, FechaVenta, Total, EstadoVenta } = data;
+
+        // Obtener productos y membresías asociados
+        const productosResponse = await fetch(`${urlVentas}/${idVenta}/productos`);
+        const productos = await productosResponse.json();
+
+        const membresiasResponse = await fetch(`${urlVentas}/${idVenta}/membresias`);
+        const membresias = await membresiasResponse.json();
 
         const detalleVentaContenido = document.getElementById('detalleVentaContenido');
         detalleVentaContenido.innerHTML = `
@@ -115,14 +158,14 @@ async function verDetalleVenta(idVenta) {
                 </div>
                 <div class="col">
                     <p><strong>Fecha de Venta:</strong> ${new Date(FechaVenta).toLocaleDateString()}</p>
-                    <p><strong>Total:</strong> ${Total}</p>
-                    <p><strong>Estado:</strong> ${EstadoVenta || 'Estado desconocido'}</p> <!-- Manejando undefined -->
+                    <p><strong>Total:</strong> ${Total.toFixed(2)}</p>
+                    <p><strong>Estado:</strong> ${EstadoVenta || 'Estado desconocido'}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <h5><strong>Productos:</strong></h5>
-                    <ul>${productos.map(p => `<li>${p.NombreProducto} - Cantidad: ${p.Cantidad}</li>`).join('')}</ul>
+                    <ul>${productos.map(p => `<li>${p.NombreProducto} - Cantidad: ${p.CantidadProducto}</li>`).join('')}</ul>
                 </div>
                 <div class="col">
                     <h5><strong>Membresías:</strong></h5>
@@ -134,6 +177,10 @@ async function verDetalleVenta(idVenta) {
         $('#detalleVentaModal').modal('show');
     } catch (error) {
         console.error('Error al obtener los detalles de la venta:', error);
+        Swal.fire(
+            '¡Error!',
+            'Error al obtener los detalles de la venta',
+            'error'
+        );
     }
 }
-
