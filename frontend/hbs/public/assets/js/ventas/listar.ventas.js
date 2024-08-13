@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarEstados(); // Cargar los estados disponibles
 });
 
+
+
 async function cargarVentas() {
     try {
         const response = await fetch(urlVentas);
@@ -24,15 +26,32 @@ async function cargarVentas() {
                 <td>${venta.Total.toFixed(2)}</td>
                 <td>${venta.EstadoVenta || 'Estado desconocido'}</td>
                 <td>
-                    <i class="fa-regular fa-eye fa-xl me-2" onclick="verDetalleVenta(${venta.IdVenta})"></i>
-                    <i class="fa-solid fa-arrows-rotate fa-xl me-2 change-state-icon" onclick="abrirModalCambioEstado(${venta.IdVenta}, '${venta.EstadoVenta}')"></i>
+                    <i class="fa-regular fa-eye fa-xl me-2" style="color: #f06d00;" onclick="verDetalleVenta(${venta.IdVenta})"></i>
+                    <i class="fa-solid fa-exchange-alt fa-xl me-2" style="color: #f06d00;" onclick="abrirModalCambioEstado(${venta.IdVenta}, '${venta.EstadoVenta}')" title="Cambiar Estado"></i>
+                    <i class="fa-solid fa-undo fa-xl me-2" style="color: #f06d00;" onclick="redirigirDevolucion(${venta.IdVenta})" title="Devolver Venta"></i>
                 </td>
             `;
             listaVentas.appendChild(row);
         }
 
-        // Inicializar DataTable
-        $('#dataTable').DataTable();
+        // Inicializar DataTable con 5 filas por página y acciones en color naranjado
+        $('#dataTable').DataTable({
+            pageLength: 5,
+            language: {
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "search": "Buscar:"
+            }
+        });
     } catch (error) {
         console.error('Error al cargar las ventas:', error);
     }
@@ -132,6 +151,10 @@ async function anularVenta(idVenta) {
             'error'
         );
     }
+}
+
+function redirigirDevolucion(idVenta) {
+    window.location.href = `formulDevolucion?id=${idVenta}`;
 }
 
 async function verDetalleVenta(idVenta) {

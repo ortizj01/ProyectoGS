@@ -39,19 +39,19 @@
     <!-- Fin Barra superior -->
 
 
-<div class="container-fluid content-inner">
+    <div class="container-fluid content-inner">
+        <div class="card-header py-2">
+            <h2 class="m-2 font-weight-bold text-primary">Lista de Ventas</h2>
+        </div>
         <div class="container-fluid">
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div class="card-header py-2">
-                            <h2 class="m-2 font-weight-bold text-primary">Lista de Ventas</h2>
-                        </div>
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="card-header py-3 d-flex justify-content-between">
-                                <div class="footer-buttons mt-1">
+                                <div class="footer-buttons ms-auto">
                                     <a href="formuVenta" type="button" name="CrearVenta"
-                                        class="btn btn-primary next action-button float-end" value="Next">
+                                        class="btn btn-primary next action-button" value="Next">
                                         Crear Venta
                                     </a>
                                 </div>
@@ -105,31 +105,31 @@
     </div>
 
     <!-- Modal para cambiar el estado de la venta -->
-<div class="modal fade" id="cambiarEstadoModal" tabindex="-1" aria-labelledby="cambiarEstadoModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cambiarEstadoModalLabel">Cambiar Estado de la Venta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="cambiarEstadoForm">
-                    <div class="form-group">
-                        <label for="nuevoEstado" class="form-label">Seleccione el nuevo estado:</label>
-                        <select id="nuevoEstado" class="form-select" required>
-                            <!-- Los estados se llenarán dinámicamente -->
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="cambiarEstado()">Guardar cambios</button>
+    <div class="modal fade" id="cambiarEstadoModal" tabindex="-1" aria-labelledby="cambiarEstadoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cambiarEstadoModalLabel">Cambiar Estado de la Venta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="cambiarEstadoForm">
+                        <div class="form-group">
+                            <label for="nuevoEstado" class="form-label">Seleccione el nuevo estado:</label>
+                            <select id="nuevoEstado" class="form-select" required>
+                                <!-- Los estados se llenarán dinámicamente -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="cambiarEstado()">Guardar cambios</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- FIN DEL CONTENIDO -->
     <!-- Bootstrap core JavaScript-->

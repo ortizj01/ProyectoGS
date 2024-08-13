@@ -1,13 +1,13 @@
-const url1 = 'http://localhost:3000/api/devolucionventas';
-const url2 = 'http://localhost:3000/api/ventasproducto';
-const url3 = 'http://localhost:3000/api/ventas';
+const urlDevoluciones = 'http://localhost:3000/api/devolucionventas';
+const urlVentas = 'http://localhost:3000/api/ventas';
+const urlUsuarios = 'http://localhost:3000/api/usuarios';  // Asumiendo que tienes una API para obtener los usuarios
 
 const listarDevVentas = async () => {
     let ObjectId = document.getElementById('contenidoDevVentas');
     let contenido = '';
 
     try {
-        const response = await fetch(url1, {
+        const response = await fetch(urlDevoluciones, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -19,28 +19,62 @@ const listarDevVentas = async () => {
             throw new Error('Error en la solicitud: ' + response.statusText);
         }
 
-        const data = await response.json();
-        
-        data.forEach(venta => {
+        const devoluciones = await response.json();
+
+        for (const devolucion of devoluciones) {
+            let nombreCliente = 'Nombre desconocido';
+
+            // Realiza una solicitud a la API de ventas para obtener el IdUsuario
+            try {
+                const ventaResponse = await fetch(`${urlVentas}/${devolucion.IdVenta}`, {
+                    method: 'GET',
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                });
+
+                if (ventaResponse.ok) {
+                    const ventaData = await ventaResponse.json();
+                    const idUsuario = ventaData.IdUsuario;
+
+                    // Realiza una solicitud a la API de usuarios para obtener el nombre del cliente
+                    const usuarioResponse = await fetch(`${urlUsuarios}/${idUsuario}`, {
+                        method: 'GET',
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    });
+
+                    if (usuarioResponse.ok) {
+                        const usuarioData = await usuarioResponse.json();
+                        nombreCliente = `${usuarioData.Nombres} ${usuarioData.Apellidos}`;
+                    }
+                }
+            } catch (error) {
+                console.error(`Error al obtener la información del cliente: ${error}`);
+            }
+
             contenido += `
                 <tr>
-                    <td>${venta.NumeroReciboVenta}</td>
-                    <td>${venta.Motivo}</td>
-                    <td>$${venta.ValorDevolucion}</td>
-                    <td>${venta.FechaDevolucion}</td>
-                    <td>${venta.estado_descripcion}</td>
+                    <td>${nombreCliente}</td>
+                    <td>${devolucion.Motivo}</td>
+                    <td>$${devolucion.ValorDevolucionVenta.toFixed(2)}</td>
+                    <td>${devolucion.FechaDevolucionFormatted}</td>
+                    <td>${devolucion.estado_descripcion}</td>
                     <td style="text-align: center;">
                         <div class="centered-container">
-                            <a href="../visualizardevventa?id=${venta.IdDevolucionVenta}">
+                            <a href="../visualizardevventa?id=${devolucion.IdDevolucionVenta}">
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
                             </a>
                         </div>
                     </td>
                 </tr>
             `;
-        });
+        }
 
         ObjectId.innerHTML = contenido;
+
+        // Re-inicializar DataTable después de agregar el contenido
         $('#dataTable').DataTable().destroy();
         $('#dataTable').DataTable({
             language: {

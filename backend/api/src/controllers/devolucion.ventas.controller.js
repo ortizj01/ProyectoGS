@@ -21,45 +21,50 @@ export const getDevolucionVentas = async (req, res) => {
 };
 
 export const getDevolucionVenta = async (req, res) => {
-    const [rows] = await pool.query(`
-        SELECT
-            v.FechaVenta,
-            v.Total,
-            u.Nombres AS NombreUsuario,
-            u.Apellidos AS ApellidosUsuario,
-            u.Documento
-        FROM 
-            Ventas v
-        LEFT JOIN 
-            Usuarios u ON v.IdUsuario = u.IdUsuario
-        LEFT JOIN 
-            DevolucionVenta DV ON DV.IdVenta = v.IdVenta
-        WHERE 
-            v.IdVenta = ? AND v.EstadoVenta = 1
-    `, [req.params.id]);
-    
-    if (rows.length <= 0) return res.status(404).json({
-        message: 'Venta no encontrada'
-    });
-    res.json(rows[0]);
+    try {
+        const [rows] = await pool.query(`
+            SELECT
+                DV.*,
+                v.FechaVenta,
+                v.Total,
+                u.Nombres AS NombreCliente,
+                u.Apellidos AS ApellidosCliente,
+                DATE_FORMAT(DV.FechaDevolucion, '%Y-%m-%d') AS FechaDevolucionFormatted,
+                CASE 
+                    WHEN DV.EstadoDevolucion = 1 THEN 'Activo'
+                    WHEN DV.EstadoDevolucion = 0 THEN 'Inactivo'
+                    ELSE 'estado no definido'
+                END AS estado_descripcion
+            FROM 
+                DevolucionVenta DV
+            LEFT JOIN 
+                Ventas v ON DV.IdVenta = v.IdVenta
+            LEFT JOIN 
+                Usuarios u ON v.IdUsuario = u.IdUsuario
+        `);
+        res.json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener las devoluciones' });
+    }
 };
 
 export const postDevolucionVentas = async (req, res) => {
-    const { Motivo, ValorDevolucion, EstadoDevolucion, IdVenta, FechaDevolucion, productos } = req.body;
+    const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion, productos } = req.body;
     const connection = await pool.getConnection();
     try {
         await connection.beginTransaction();
 
         const [result] = await connection.query(`
-            INSERT INTO DevolucionVenta (Motivo, ValorDevolucion, EstadoDevolucion, IdVenta, FechaDevolucion) 
+            INSERT INTO DevolucionVenta (Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion) 
             VALUES (?, ?, ?, ?, ?)
-        `, [Motivo, ValorDevolucion, EstadoDevolucion, IdVenta, FechaDevolucion]);
+        `, [Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion]);
 
         const devolucionId = result.insertId;
 
         for (const producto of productos) {
             await connection.query(`
-                INSERT INTO DevolucionVentaProducto (IdDevolucionVenta, IdProducto, CantidadProducto, PrecioProducto) 
+                INSERT INTO DevolucionesVentasProducto (IdDevolucionesVenta, IdProducto, CantidadProducto, PrecioProducto) 
                 VALUES (?, ?, ?, ?)
             `, [devolucionId, producto.IdProducto, producto.CantidadProducto, producto.PrecioProducto]);
             await connection.query(`
@@ -71,7 +76,7 @@ export const postDevolucionVentas = async (req, res) => {
         res.send({
             id: devolucionId,
             Motivo, 
-            ValorDevolucion,
+            ValorDevolucionVenta,
             EstadoDevolucion,
             IdVenta,
             FechaDevolucion,
@@ -95,12 +100,12 @@ export const deleteDevolucionVentas = async (req, res) => {
 
 export const putDevolucionVentas = async (req, res) => {
     const { id } = req.params;
-    const { Motivo, ValorDevolucion, EstadoDevolucion, IdVenta } = req.body;
+    const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta } = req.body;
     const [result] = await pool.query(`
         UPDATE DevolucionVenta 
-        SET Motivo = IFNULL(?, Motivo), ValorDevolucion = IFNULL(?, ValorDevolucion), EstadoDevolucion = IFNULL(?, EstadoDevolucion), IdVenta = IFNULL(?, IdVenta) 
+        SET Motivo = IFNULL(?, Motivo), ValorDevolucionVenta = IFNULL(?, ValorDevolucionVenta), EstadoDevolucion = IFNULL(?, EstadoDevolucion), IdVenta = IFNULL(?, IdVenta) 
         WHERE IdDevolucionVenta = ?
-    `, [Motivo, ValorDevolucion, EstadoDevolucion, IdVenta, id]);
+    `, [Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, id]);
 
     if (result.affectedRows === 0) return res.status(404).json({
         message: 'Devolución de Venta no encontrada'

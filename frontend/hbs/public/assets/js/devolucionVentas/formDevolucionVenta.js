@@ -2,37 +2,7 @@ const url1 = 'http://localhost:3000/api/devolucionventas';
 const url2 = 'http://localhost:3000/api/ventasproducto';
 const url3 = 'http://localhost:3000/api/ventas';
 
-const cargarVentasEnSelect = async () => {
-    try {
-        const response = await fetch(url3, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
-
-        const ventas = await response.json();
-        const selectVenta = document.getElementById('idVenta');
-        selectVenta.innerHTML = '<option selected disabled>Selecciona la Venta</option>'; // Resetea el select
-
-        ventas.forEach(venta => {
-            const option = document.createElement('option');
-            option.value = venta.IdVenta;
-            option.textContent = `Venta ID: ${venta.IdVenta}, Fecha: ${venta.FechaVenta}, Total: $${venta.Total}`;
-            selectVenta.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
-
-// Llama a la función para cargar las ventas cuando se cargue la página
-document.addEventListener('DOMContentLoaded', cargarVentasEnSelect);
-
+// Función para cargar los productos de la venta seleccionada
 const cargarProductosDeVenta = async (ventaId) => {
     try {
         const response = await fetch(`${url2}/${ventaId}`, {
@@ -47,8 +17,8 @@ const cargarProductosDeVenta = async (ventaId) => {
         }
 
         const productos = await response.json();
-        const productosContainer = document.getElementById('productosDeVentaContainer');
-        productosContainer.innerHTML = '';
+        const productosContainer = document.getElementById('productosDeVentaTable');
+        productosContainer.innerHTML = ''; // Limpiar la tabla antes de agregar los nuevos productos
 
         productos.forEach(producto => {
             const tr = document.createElement('tr');
@@ -115,46 +85,50 @@ const cargarProductosDeVenta = async (ventaId) => {
         calcularValorTotal();
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al cargar los productos de la venta:', error);
     }
 };
 
-const precargarDatosVentaEnFormulario = async () => {
-    var urlParams = new URLSearchParams(window.location.search);
-    var ventaId = urlParams.get('id');
-
+// Función para precargar los datos de la venta en el formulario
+async function precargarDatosVentaEnFormulario(ventaId) {
     try {
-        const response = await fetch(`${url3}/${ventaId}`, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
+        const response = await fetch(`${url3}/${ventaId}`);
+        if (!response.ok) throw new Error('Error al obtener los datos de la venta');
 
         const venta = await response.json();
-        document.getElementById('FechaVenta').value = venta.FechaVenta;
-        document.getElementById('NumeroReciboVenta').value = venta.NumeroReciboVenta;
-        document.getElementById('ValorDev').value = venta.Total;
 
+        // Pree-llenar los campos con los datos de la venta
+        document.getElementById('valorDevolucionVenta').value = venta.Total;
+
+        // Cargar y mostrar los productos de la venta en la tabla
+        await cargarProductosDeVenta(ventaId);
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al precargar los datos de la venta:', error);
     }
-};
+}
+
+// Cargar los datos al cargar la página
+document.addEventListener('DOMContentLoaded', async function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ventaId = urlParams.get('id');
+
+    if (ventaId) {
+        // Cargar los datos de la venta y prellenar el formulario
+        await precargarDatosVentaEnFormulario(ventaId);
+    }
+
+    document.getElementById('fechaDevolucion').valueAsDate = new Date(); // Establece la fecha de devolución con la fecha actual
+});
 
 async function enviarDevVenta() {
     const now = new Date();
     const FechaDevolucion = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
     const urlParams = new URLSearchParams(window.location.search);
     const ventaId = urlParams.get('id');
-    const Motivo = document.getElementById("MDevolucion").value;
-    const ValorDevolucion = document.getElementById("ValorDev").value;
+    const Motivo = document.getElementById("motivo").value;
+    const ValorDevolucionVenta = document.getElementById("valorDevolucionVenta").value;
 
-    if (Motivo === "" || ValorDevolucion === "") {
+    if (Motivo === "" || ValorDevolucionVenta === "") {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
@@ -164,12 +138,19 @@ async function enviarDevVenta() {
         return;
     }
 
+    const productos = Array.from(document.querySelectorAll('.productoRow')).map(row => ({
+        IdProducto: row.querySelector('select[name="productos[]"]').value,
+        CantidadProducto: row.querySelector('input[name="cantidades[]"]').value,
+        PrecioProducto: parseFloat(row.querySelector('.valorProducto').textContent.replace('$', '').trim())
+    }));
+
     const devventa = {
         Motivo,
-        ValorDevolucion,
+        ValorDevolucionVenta,
         EstadoDevolucion: 1,
         IdVenta: ventaId,
-        FechaDevolucion
+        FechaDevolucion,
+        productos
     };
 
     try {
@@ -185,46 +166,7 @@ async function enviarDevVenta() {
             throw new Error(`Error en la venta: ${responsedevventa.status} - ${responsedevventa.statusText}`);
         }
 
-        const devventaData = await responsedevventa.json();
-        const IdDevolucionesVenta = devventaData.id;
-
-        const productosRows = document.querySelectorAll('.productoRow');
-
-        const productoPromises = Array.from(productosRows).map(async (row) => {
-            const productoSelect = row.querySelector('select[name="productos[]"]');
-            const cantidadInput = row.querySelector('input[name="cantidades[]"]');
-        
-            if (productoSelect && cantidadInput) {
-                const IdProducto = productoSelect.value;
-                const CantidadProducto = cantidadInput.value;
-        
-                const productoVenta = {
-                    IdDevolucionesVenta,
-                    IdProducto,
-                    CantidadProducto,
-                    IdVenta: ventaId,
-                };
-
-                const responseProducto = await fetch('http://localhost:3000/api/devolucionventasproducto', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productoVenta)
-                });
-
-                if (!responseProducto.ok) {
-                    throw new Error(`Error en la adición del producto: ${responseProducto.status} - ${responseProducto.statusText}`);
-                }
-
-                return responseProducto.json();
-            } else {
-                console.error('Error: No se encontró el elemento de producto o cantidad');
-                return null;
-            }
-        });
-
-        await Promise.all(productoPromises);
+        await responsedevventa.json();
 
         Swal.fire({
             icon: 'success',
@@ -233,7 +175,7 @@ async function enviarDevVenta() {
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '../Devolucionven';
+                window.location.href = '../Devolucionven'; // Redirigir a la página de gestión de devoluciones
             }
         });
     } catch (error) {
@@ -262,5 +204,5 @@ function calcularValorTotal() {
         sumaTotal += valorTotal;
     });
 
-    document.getElementById('ValorDev').value = sumaTotal.toFixed(2);
+    document.getElementById('valorDevolucionVenta').value = sumaTotal.toFixed(2);
 }

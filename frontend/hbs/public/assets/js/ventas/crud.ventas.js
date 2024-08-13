@@ -3,7 +3,16 @@ const urlProductos = 'http://localhost:3000/api/productos';
 const urlMembresias = 'http://localhost:3000/api/membresias';
 const urlUsuarios = 'http://localhost:3000/api/usuarios';
 
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
+     // Establecer la fecha de venta con la fecha actual
+     const fechaVentaInput = document.getElementById('fechaVenta');
+     fechaVentaInput.valueAsDate = new Date(); // Establece la fecha con la fecha actual
+
+     
     cargarUsuarios();
     cargarProductos(document.getElementById('selectProducto'));
     cargarMembresias(document.getElementById('selectMembresia'));
@@ -103,13 +112,30 @@ function actualizarValorProducto(select) {
             })
             .then(data => {
                 const container = select.closest('.productoContainer');
+                const cantidadInput = container.querySelector('input[name="cantidades[]"]');
+                
+                // Actualizar el valor del producto
                 container.querySelector('.valorProducto').textContent = `$${data.PrecioProducto}`;
-                container.querySelector('input[name="cantidades[]"]').max = data.Stock;
+                
+                // Establecer el máximo de cantidad según el stock disponible
+                cantidadInput.max = data.Stock;
+
+                // Verificar si la cantidad seleccionada excede el stock disponible
+                if (data.Stock < cantidadInput.value) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Stock insuficiente',
+                        text: `El producto ${data.NombreProducto} solo tiene ${data.Stock} unidades disponibles.`
+                    });
+                    cantidadInput.value = data.Stock; // Ajustar la cantidad al máximo disponible
+                }
+
                 calcularValorTotal();
             })
             .catch(error => console.error('Error al obtener el valor del producto:', error));
     }
 }
+
 
 function actualizarValorMembresia(select) {
     const idMembresia = select.value;
@@ -183,6 +209,40 @@ function eliminarMembresia(button) {
     button.closest('tr').remove();
     calcularValorTotal();
 }
+
+function actualizarValorProducto(select) {
+    const idProducto = select.value;
+    if (idProducto) {
+        fetch(`${urlProductos}/${idProducto}`)
+            .then(response => {
+                if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                const container = select.closest('.productoContainer');
+                const cantidadInput = container.querySelector('input[name="cantidades[]"]');
+                
+                // Actualizar el valor del producto
+                container.querySelector('.valorProducto').textContent = `$${data.PrecioProducto}`;
+                
+                // Establecer el máximo de cantidad según el stock disponible
+                cantidadInput.max = data.Stock;
+
+                // Verificar la cantidad actual al seleccionar el producto
+                verificarCantidadProducto(cantidadInput, data.Stock, data.NombreProducto);
+
+                // Agregar verificación al cambiar la cantidad
+                cantidadInput.addEventListener('change', () => {
+                    verificarCantidadProducto(cantidadInput, data.Stock, data.NombreProducto);
+                });
+
+                calcularValorTotal();
+            })
+            .catch(error => console.error('Error al obtener el valor del producto:', error));
+    }
+}
+
+
 
 async function verificarStock(productos) {
     for (const producto of productos) {
